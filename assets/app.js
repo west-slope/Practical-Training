@@ -20,6 +20,13 @@
     problemTitle: document.getElementById("problemTitle"),
     layout: document.getElementById("layout"),
     toggleSidebar: document.getElementById("toggleSidebar"),
+    homePage: document.getElementById("homePage"),
+    archiveApp: document.getElementById("archiveApp"),
+    enterArchive: document.getElementById("enterArchive"),
+    backHome: document.getElementById("backHome"),
+    homeProblemCount: document.getElementById("homeProblemCount"),
+    homeSolvedCount: document.getElementById("homeSolvedCount"),
+    homeUpdatedAt: document.getElementById("homeUpdatedAt"),
     problemId: document.getElementById("problemId"),
     timeLimit: document.getElementById("timeLimit"),
     memoryLimit: document.getElementById("memoryLimit"),
@@ -42,6 +49,10 @@
     return (data.contests || []).flatMap((contest) =>
       (contest.problems || []).map((problem) => ({ contest, problem, key: contest.id + "/" + problem.id }))
     );
+  }
+
+  function getPrimaryContest() {
+    return (data.contests || []).find((contest) => String(contest.id) === "359") || (data.contests || [])[0];
   }
 
   function textOf(value) {
@@ -200,8 +211,32 @@
     els.toggleSidebar.title = state.sidebarCollapsed ? "展开侧栏" : "收起侧栏";
   }
 
+  function renderHomeStats() {
+    const contest = getPrimaryContest();
+    const problems = contest && contest.problems ? contest.problems : [];
+    const solved = problems.filter((problem) => problem.solution && problem.solution.code).length;
+    els.homeProblemCount.textContent = '共 ' + problems.length + ' 道题';
+    els.homeSolvedCount.textContent = '已整理 ' + solved + ' 份答案';
+    els.homeUpdatedAt.textContent = data.generatedAt ? '更新于 ' + data.generatedAt : '未导入';
+  }
+
+  function showArchive() {
+    els.homePage.hidden = true;
+    els.archiveApp.hidden = false;
+    document.body.classList.add("is-archive");
+  }
+
+  function showHome() {
+    els.archiveApp.hidden = true;
+    els.homePage.hidden = false;
+    document.body.classList.remove("is-archive");
+  }
+
   function init() {
+    renderHomeStats();
     applySidebarState();
+    els.enterArchive.addEventListener("click", showArchive);
+    els.backHome.addEventListener("click", showHome);
     els.toggleSidebar.addEventListener("click", () => {
       state.sidebarCollapsed = !state.sidebarCollapsed;
       localStorage.setItem("xmuoj.sidebarCollapsed", state.sidebarCollapsed ? "1" : "0");

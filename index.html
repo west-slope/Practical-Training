@@ -7,12 +7,37 @@
     <link rel="stylesheet" href="./assets/styles.css" />
   </head>
   <body>
+    <section id="homePage" class="home-page">
+      <div class="home-card">
+        <div class="brand-mark">
+          <img class="brand-logo" src="./assets/west-slope-avatar.jpg" alt="west-slope avatar" />
+          <span>
+            <strong>西坡</strong>
+            <small>west-slope</small>
+          </span>
+        </div>
+        <span class="course-badge">CONTEST 359</span>
+        <h1>2026年校外实训<br />一之剑道试炼</h1>
+        <p class="home-subtitle">(01 李胜睿班)</p>
+        <p class="home-note">西坡整理的 XMUOJ 题集与答案归档，保留题面、样例和可复制的代码。</p>
+        <div class="home-meta">
+          <span id="homeProblemCount">共 - 道题</span>
+          <span id="homeSolvedCount">已整理 - 份答案</span>
+          <span id="homeUpdatedAt">更新于 -</span>
+        </div>
+        <button id="enterArchive" class="home-button" type="button">进入题解</button>
+      </div>
+    </section>
+
+    <div id="archiveApp" class="archive-app" hidden>
     <header class="topbar">
       <div>
         <p class="eyebrow">XMUOJ Solution Archive</p>
-        <h1>题集与答案</h1>
+        <h1>西坡题集与答案</h1>
       </div>
       <div class="topbar-meta">
+        <span class="owner-chip">west-slope</span>
+        <button id="backHome" class="ghost-button" type="button">首页</button>
         <span id="generatedAt">未导入</span>
         <a href="http://www.xmuoj.com/contest" target="_blank" rel="noreferrer">XMUOJ</a>
       </div>
@@ -31,6 +56,10 @@
           <button class="filter" type="button" data-filter="missing">缺答案</button>
         </div>
         <nav id="contestList" class="contest-list" aria-label="比赛列表"></nav>
+        <div class="sidebar-signature">
+          <span>west-slope</span>
+          <small>西坡的练习归档</small>
+        </div>
       </aside>
 
       <section class="content">
@@ -107,6 +136,7 @@
         </article>
       </section>
     </main>
+    </div>
 
     <script src="./data.js"></script>
     <script src="./assets/app.js"></script>
