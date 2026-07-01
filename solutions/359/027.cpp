@@ -49,7 +49,7 @@ int main()
             {
                 cout<<"earthworm"<<endl;
             }
-            else if(third=="heratophagous")
+            else if(third=="hematophagous")
             {
                 cout<<"leech"<<endl;
             }

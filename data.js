@@ -1,5 +1,5 @@
 window.XMUOJ_SOLUTIONS_DATA = {
-  "generatedAt": "2026-7-1 11:46:15",
+  "generatedAt": "2026-7-1 21:43:35",
   "source": "http://www.xmuoj.com",
   "contests": [
     {
@@ -627,7 +627,7 @@ window.XMUOJ_SOLUTIONS_DATA = {
           "solution": {
             "path": "solutions/359/027.cpp",
             "language": "cpp",
-            "code": "#include<iostream>\r\n#include<string>\r\nusing namespace std;\r\nint main()\r\n{\r\n    string first,second,third;\r\n    cin>>first>>second>>third;\r\n    if(first==\"vertebrate\")\r\n    {\r\n        if(second==\"bird\")\r\n        {\r\n            if(third==\"carnivore\")\r\n            {\r\n                cout<<\"eagle\"<<endl;\r\n            }\r\n            else if(third==\"herbivore\")\r\n            {\r\n                cout<<\"dove\"<<endl;\r\n            }\r\n        }\r\n        else if(second==\"mammal\")\r\n        {\r\n            if(third==\"omnivore\")\r\n            {\r\n                cout<<\"man\"<<endl;\r\n            }\r\n            else if(third==\"herbivore\")\r\n            {\r\n                cout<<\"cow\"<<endl;\r\n            }\r\n        }\r\n    }\r\n    else if(first==\"invertebrate\")\r\n    {\r\n        if(second==\"insect\")\r\n        {\r\n            if(third==\"hematophagous\")\r\n            {\r\n                cout<<\"flea\"<<endl;\r\n            }\r\n            else if(third==\"herbivore\")\r\n            {\r\n                cout<<\"caterpillar\"<<endl;\r\n            }\r\n        }\r\n        else if(second==\"annelid\")\r\n        {\r\n            if(third==\"omnivore\")\r\n            {\r\n                cout<<\"earthworm\"<<endl;\r\n            }\r\n            else if(third==\"heratophagous\")\r\n            {\r\n                cout<<\"leech\"<<endl;\r\n            }\r\n        }\r\n    }\r\n}"
+            "code": "#include<iostream>\r\n#include<string>\r\nusing namespace std;\r\nint main()\r\n{\r\n    string first,second,third;\r\n    cin>>first>>second>>third;\r\n    if(first==\"vertebrate\")\r\n    {\r\n        if(second==\"bird\")\r\n        {\r\n            if(third==\"carnivore\")\r\n            {\r\n                cout<<\"eagle\"<<endl;\r\n            }\r\n            else if(third==\"herbivore\")\r\n            {\r\n                cout<<\"dove\"<<endl;\r\n            }\r\n        }\r\n        else if(second==\"mammal\")\r\n        {\r\n            if(third==\"omnivore\")\r\n            {\r\n                cout<<\"man\"<<endl;\r\n            }\r\n            else if(third==\"herbivore\")\r\n            {\r\n                cout<<\"cow\"<<endl;\r\n            }\r\n        }\r\n    }\r\n    else if(first==\"invertebrate\")\r\n    {\r\n        if(second==\"insect\")\r\n        {\r\n            if(third==\"hematophagous\")\r\n            {\r\n                cout<<\"flea\"<<endl;\r\n            }\r\n            else if(third==\"herbivore\")\r\n            {\r\n                cout<<\"caterpillar\"<<endl;\r\n            }\r\n        }\r\n        else if(second==\"annelid\")\r\n        {\r\n            if(third==\"omnivore\")\r\n            {\r\n                cout<<\"earthworm\"<<endl;\r\n            }\r\n            else if(third==\"hematophagous\")\r\n            {\r\n                cout<<\"leech\"<<endl;\r\n            }\r\n        }\r\n    }\r\n}"
           }
         },
         {
@@ -647,7 +647,11 @@ window.XMUOJ_SOLUTIONS_DATA = {
               "output": "R$ 80.36"
             }
           ],
-          "solution": null
+          "solution": {
+            "path": "solutions/359/028.cpp",
+            "language": "cpp",
+            "code": "#include<iostream>\r\n#include<iomanip>\r\nusing namespace std;\r\nint main()\r\n{\r\n    double a;\r\n    cin>>a;\r\n    if(a>=0&&a<=2000)\r\n    {\r\n        cout<<\"Isento\"<<endl;\r\n    }\r\n    else if(a>2000&&a<=3000)\r\n    {\r\n        cout<<\"R$ \"<<fixed<<setprecision(2)<<(a-2000)*0.08<<endl;\r\n    }\r\n    else if(a>3000&&a<=4500)\r\n    {\r\n        cout<<\"R$ \"<<fixed<<setprecision(2)<<(1000*0.08+(a-3000)*0.18)<<endl;\r\n    }\r\n    else if(a>4500)\r\n    {\r\n        cout<<\"R$ \"<<fixed<<setprecision(2)<<(1000*0.08+1500*0.18+(a-4500)*0.28)<<endl;\r\n    }\r\n}"
+          }
         },
         {
           "id": "JD029",
@@ -666,7 +670,11 @@ window.XMUOJ_SOLUTIONS_DATA = {
               "output": "2\n4\n6\n8\n10\n12\n14\n16\n18\n20\n22\n24\n26\n28\n30\n32\n34\n36\n38\n40\n42\n44\n46\n48\n50\n52\n54\n56\n58\n60\n62\n64\n66\n68\n70\n72\n74\n76\n78\n80\n82\n84\n86\n88\n90\n92\n94\n96\n98\n100"
             }
           ],
-          "solution": null
+          "solution": {
+            "path": "solutions/359/029.cpp",
+            "language": "cpp",
+            "code": "#include<iostream>\r\nusing namespace std;\r\nint main()\r\n{\r\n    for(int i=2;i<=100;i+=2)\r\n    {\r\n        cout<<i<<endl;\r\n    }\r\n    return 0;\r\n}"
+          }
         },
         {
           "id": "JD030",
@@ -685,7 +693,11 @@ window.XMUOJ_SOLUTIONS_DATA = {
               "output": "1\n3\n5\n7"
             }
           ],
-          "solution": null
+          "solution": {
+            "path": "solutions/359/030.cpp",
+            "language": "cpp",
+            "code": "#include<iostream>\r\nusing namespace std;\r\nint main(){\r\n    int X;\r\n    cin>>X;\r\n    for(int i=1;i<=X;i+=2)\r\n    {\r\n        cout<<i<<endl;\r\n    }\r\n}"
+          }
         },
         {
           "id": "JD031",
@@ -704,7 +716,11 @@ window.XMUOJ_SOLUTIONS_DATA = {
               "output": "1 2 3 4 5\n1 2 3 4 5 6 7 8 9 10\n1 2 3"
             }
           ],
-          "solution": null
+          "solution": {
+            "path": "solutions/359/031.cpp",
+            "language": "cpp",
+            "code": "#include<iostream>\r\nusing namespace std;\r\nint main(){\r\n    int n;\r\n    cin>>n;\r\n    while(n!=0)\r\n    {\r\n        for(int i=1;i<=n;i++)\r\n        {\r\n            if(i>1)cout<<\" \";\r\n            cout<<i;\r\n        }\r\n        cout<<endl;\r\n        cin>>n;\r\n    }\r\n}"
+          }
         },
         {
           "id": "JD032",
@@ -723,7 +739,11 @@ window.XMUOJ_SOLUTIONS_DATA = {
               "output": "9\n11\n13\n15\n17\n19"
             }
           ],
-          "solution": null
+          "solution": {
+            "path": "solutions/359/032.cpp",
+            "language": "cpp",
+            "code": "#include<iostream>\r\nusing namespace std;\r\nint main()\r\n{\r\n    int X;\r\n    cin>>X;\r\n    if(X%2==0)X+=1;\r\n    for(int i=0;i<6;i++)\r\n    {\r\n        cout<<X<<endl;\r\n        X+=2;\r\n    }\r\n    return 0;\r\n}"
+          }
         },
         {
           "id": "JD033",
@@ -742,7 +762,11 @@ window.XMUOJ_SOLUTIONS_DATA = {
               "output": "4 positive numbers"
             }
           ],
-          "solution": null
+          "solution": {
+            "path": "solutions/359/033.cpp",
+            "language": "cpp",
+            "code": "#include<iostream>\r\nusing namespace std;\r\nint main()\r\n{\r\n    double a;\r\n    int n=6,count=0;\r\n    while(n--)\r\n    {\r\n        cin>>a;\r\n        if(a>0)count++;\r\n    }\r\n    cout<<count<<\" positive numbers\"<<endl;\r\n}"
+          }
         },
         {
           "id": "JD034",
@@ -761,7 +785,11 @@ window.XMUOJ_SOLUTIONS_DATA = {
               "output": "2\n15\n28\n41\n54\n..."
             }
           ],
-          "solution": null
+          "solution": {
+            "path": "solutions/359/034.cpp",
+            "language": "cpp",
+            "code": "#include<iostream>\r\nusing namespace std;\r\nint main()\r\n{\r\n    int N;\r\n    cin>>N;\r\n    if(N>9998)return 0;\r\n    for(int i=1;i<=10000;i++)\r\n    {\r\n        if(i%N==2) cout<<i<<endl;\r\n    }\r\n    return 0;\r\n}"
+          }
         },
         {
           "id": "JD035",
@@ -780,7 +808,11 @@ window.XMUOJ_SOLUTIONS_DATA = {
               "output": "3 in\n2 out"
             }
           ],
-          "solution": null
+          "solution": {
+            "path": "solutions/359/035.cpp",
+            "language": "cpp",
+            "code": "#include<iostream>\r\nusing namespace std;\r\nint main()\r\n{\r\n    int N, x;\r\n    cin>>N;\r\n    int count=0;\r\n    for(int i=0;i<N;i++)\r\n    {\r\n        cin>>x;\r\n        if(x>=10&&x<=20)\r\n        {\r\n            count++;\r\n        }\r\n    }\r\n    cout<<count<<\" in\"<<endl;\r\n    cout<<N-count<<\" out\"<<endl;\r\n    return 0;\r\n}"
+          }
         },
         {
           "id": "JD036",
@@ -799,7 +831,11 @@ window.XMUOJ_SOLUTIONS_DATA = {
               "output": "5"
             }
           ],
-          "solution": null
+          "solution": {
+            "path": "solutions/359/036.cpp",
+            "language": "cpp",
+            "code": "#include<iostream>\r\nusing namespace std;\r\nint main()\r\n{\r\n    int X,Y,temp,sum=0;\r\n    cin>>X>>Y;\r\n    if(X>Y)\r\n    {\r\n        temp=X;\r\n        X=Y;\r\n        Y=temp;\r\n    }\r\n    if(X%2!=0)\r\n    {\r\n        X++;\r\n    }\r\n    for(int i=X+1;i<Y;i+=2)\r\n    {\r\n        sum+=i;\r\n    }\r\n    cout<<sum<<endl;\r\n    return 0;\r\n}"
+          }
         },
         {
           "id": "JD037",
@@ -818,7 +854,11 @@ window.XMUOJ_SOLUTIONS_DATA = {
               "output": "18"
             }
           ],
-          "solution": null
+          "solution": {
+            "path": "solutions/359/037.cpp",
+            "language": "cpp",
+            "code": "#include<iostream>\r\nusing namespace std;\r\nint main()\r\n{\r\n    int A,sum=0;\r\n    cin>>A;\r\n    int n;\r\n    cin>>n;\r\n    while(!(n>0))\r\n    {\r\n        cin>>n;\r\n    }\r\n    for(int i=A,j=0;j<n;i++,j++)\r\n    {\r\n        sum+=i;\r\n    }\r\n    cout<<sum<<endl;\r\n    return 0;\r\n}\r\n"
+          }
         },
         {
           "id": "JD038",
@@ -837,7 +877,11 @@ window.XMUOJ_SOLUTIONS_DATA = {
               "output": "5\n3"
             }
           ],
-          "solution": null
+          "solution": {
+            "path": "solutions/359/038.cpp",
+            "language": "cpp",
+            "code": "#include<iostream>\r\n#include<vector>\r\nusing namespace std;\r\nint main()\r\n{\r\n    int N;\r\n    cin>>N;\r\n    vector<int>a;\r\n    for(int i=0;i<N;i++)\r\n    {\r\n        int x;\r\n        cin>>x;\r\n        a.push_back(x);\r\n    }\r\n    int num=0,max=-1000;\r\n    for(int i=0;i<N;i++)\r\n    {\r\n        if(a[i]>max)\r\n        {\r\n            max=a[i];\r\n            num=i;\r\n        }\r\n    }\r\n    cout<<max<<endl<<num+1<<endl;\r\n    return 0;\r\n}"
+          }
         },
         {
           "id": "JD039",
@@ -856,7 +900,11 @@ window.XMUOJ_SOLUTIONS_DATA = {
               "output": "1\n2\n3\n6"
             }
           ],
-          "solution": null
+          "solution": {
+            "path": "solutions/359/039.cpp",
+            "language": "cpp",
+            "code": "#include <iostream>\nusing namespace std;\n\nint main() {\n    int N;\n    cin>>N;\n    for(int i=1;i<=N;i++)\n    {\n        if(N%i==0)\n        {\n            cout<<i<<endl;\n        }\n    }\n    return 0;\n}\n"
+          }
         },
         {
           "id": "JD040",
@@ -875,7 +923,11 @@ window.XMUOJ_SOLUTIONS_DATA = {
               "output": "1 x 140 = 140\n2 x 140 = 280\n3 x 140 = 420\n4 x 140 = 560\n5 x 140 = 700\n6 x 140 = 840\n7 x 140 = 980\n8 x 140 = 1120\n9 x 140 = 1260\n10 x 140 = 1400"
             }
           ],
-          "solution": null
+          "solution": {
+            "path": "solutions/359/040.cpp",
+            "language": "cpp",
+            "code": "#include<iostream>\r\nusing namespace std;\r\nint main()\r\n{\r\n    int N;\r\n    cin>>N;\r\n    for(int i=1;i<=10;i++)\r\n    {\r\n        cout<<i<<\" x \"<<N<<\" = \"<<i*N<<endl;\r\n    }\r\n    return 0;\r\n}"
+          }
         },
         {
           "id": "JD041",
@@ -894,7 +946,11 @@ window.XMUOJ_SOLUTIONS_DATA = {
               "output": "1 2 3 SWORD\n5 6 7 SWORD\n9 10 11 SWORD\n13 14 15 SWORD\n17 18 19 SWORD\n21 22 23 SWORD\n25 26 27 SWORD"
             }
           ],
-          "solution": null
+          "solution": {
+            "path": "solutions/359/041.cpp",
+            "language": "cpp",
+            "code": "#include<iostream>\r\nusing namespace std;\r\nint main(){\r\n    int N,M;\r\n    cin>>N>>M;\r\n    int j=1,num=0;\r\n    for(int i=1;i<=N;i++){\r\n        num=0;\r\n        while(num<M-1)\r\n        {\r\n            cout<<j<<\" \";\r\n            num++;\r\n            j++;\r\n        }\r\n        cout<<\"SWORD\"<<endl;\r\n        j++;\r\n    }\r\n    return 0;\r\n}"
+          }
         },
         {
           "id": "JD042",
@@ -913,7 +969,11 @@ window.XMUOJ_SOLUTIONS_DATA = {
               "output": "Total: 71 weapons\nTotal swords: 33\nTotal blades: 0\nTotal spears: 38\nPercentage of swords: 46.48 %\nPercentage of blades: 0.00 %\nPercentage of spears: 53.52 %"
             }
           ],
-          "solution": null
+          "solution": {
+            "path": "solutions/359/042.cpp",
+            "language": "cpp",
+            "code": "#include<iostream>\r\n#include<iomanip>\r\nusing namespace std;\r\nint main()\r\n{\r\n    int N;\r\n    cin >> N; \r\n    int total = 0;\r\n    int swords = 0;\r\n    int blades = 0; \r\n    int spears = 0;    \r\n    for(int i = 0; i < N; i++)\r\n    {\r\n        int count;\r\n        char type;\r\n        cin >> count >> type;  \r\n        total += count;\r\n        if(type == 'C')\r\n        {\r\n            swords += count;\r\n        }\r\n        else if(type == 'R')\r\n        {\r\n            blades += count;\r\n        }\r\n        else if(type == 'F')\r\n        {\r\n            spears += count;\r\n        }\r\n    }\r\n    double percentC =(double)swords / total * 100;\r\n    double percentR =(double)blades / total * 100;\r\n    double percentF =(double)spears / total * 100;\r\n    cout << \"Total: \" << total << \" weapons\" << endl;\r\n    cout << \"Total swords: \" << swords << endl;\r\n    cout << \"Total blades: \" << blades << endl;\r\n    cout << \"Total spears: \" << spears << endl;\r\n    cout << fixed << setprecision(2);\r\n    cout << \"Percentage of swords: \" << percentC << \" %\" << endl;\r\n    cout << \"Percentage of blades: \" << percentR << \" %\" << endl;\r\n    cout << \"Percentage of spears: \" << percentF << \" %\" << endl;\r\n    return 0;\r\n}"
+          }
         },
         {
           "id": "JD043",
@@ -932,7 +992,11 @@ window.XMUOJ_SOLUTIONS_DATA = {
               "output": "X[0] = 1\nX[1] = 27\nX[2] = 1\nX[3] = 50\nX[4] = 1\nX[5] = 86\nX[6] = 39\nX[7] = 1\nX[8] = 1\nX[9] = 31"
             }
           ],
-          "solution": null
+          "solution": {
+            "path": "solutions/359/043.cpp",
+            "language": "cpp",
+            "code": "#include<iostream>\r\nusing namespace std;\r\nint main(){\r\n    int x[10];\r\n    for(int i=0;i<10;i++){\r\n        cin>>x[i];\r\n    }\r\n    for(int i=0;i<10;i++)\r\n    {\r\n        // if(i<9)\r\n        // {\r\n            if(x[i]<=0)\r\n            {cout<<\"X[\"<<i<<\"] = \"<<1<<endl;}\r\n            else\r\n            {cout<<\"X[\"<<i<<\"] = \"<<x[i]<<endl;}\r\n        // }\r\n        // else\r\n        // {\r\n        //     if(x[i]<0)\r\n        //     {cout<<\"x[\"<<i<<\"] = \"<<1;}\r\n        //     else\r\n        //     {cout<<\"x[\"<<i<<\"] = \"<<x[i];}\r\n        // }\r\n    }\r\n\r\n    return 0;\r\n}"
+          }
         },
         {
           "id": "JD044",
@@ -951,7 +1015,11 @@ window.XMUOJ_SOLUTIONS_DATA = {
               "output": "N[0] = 6\nN[1] = 12\nN[2] = 24\nN[3] = 48\nN[4] = 96\nN[5] = 192\nN[6] = 384\nN[7] = 768\nN[8] = 1536\nN[9] = 3072"
             }
           ],
-          "solution": null
+          "solution": {
+            "path": "solutions/359/044.cpp",
+            "language": "cpp",
+            "code": "#include<iostream>\r\nusing namespace std;\r\nint main()\r\n{\r\n    int V;\r\n    cin >> V; \r\n    for(int i = 0; i < 10; i++)\r\n    {\r\n        cout << \"N[\" << i << \"] = \" << V << endl;\r\n        V = V * 2;\r\n    }\r\n    return 0;\r\n}"
+          }
         },
         {
           "id": "JD045",
@@ -970,7 +1038,11 @@ window.XMUOJ_SOLUTIONS_DATA = {
               "output": "A[1] = -35.1\nA[3] = -89.9\nA[5] = -30.0\nA[6] = -58.1\nA[7] = -74.0\nA[10] = -60.2\nA[11] = -32.1\nA[14] = 0.2\nA[16] = -67.9\nA[22] = -68.2\nA[23] = -87.9\nA[24] = -13.3\nA[26] = -12.0\nA[28] = 1.6\nA[29] = -70.3\nA[30] = -14.0\nA[31] = -84.8\nA[33] = -1.9\nA[37] = -88.6\nA[39] = -21.0\nA[40] = -54.1\nA[41] = -17.3\nA[42] = -11.7\nA[43] = -8.5\nA[45] = -21.6\nA[46] = -12.0\nA[48] = -92.9\nA[50] = -70.1\nA[52] = -23.2\nA[54] = -78.6\nA[57] = -21.0\nA[58] = 3.9\nA[61] = -67.6\nA[63] = -49.1\nA[67] = -80.1\nA[68] = -41.4\nA[70] = -4.6\nA[76] = -80.2\nA[78] = -7.0\nA[79] = -34.4\nA[81] = -62.5\nA[82] = -25.3\nA[85] = 9.0\nA[88] = -98.0\nA[89] = -34.8\nA[91] = -26.6\nA[92] = -48.1\nA[94] = -5.4\nA[95] = -76.7\nA[97] = -90.0\nA[99] = -18.7"
             }
           ],
-          "solution": null
+          "solution": {
+            "path": "solutions/359/045.cpp",
+            "language": "cpp",
+            "code": "#include<iostream>\r\n#include<iomanip>\r\nusing namespace std;\r\nint main()\r\n{\r\n    double A[100];   \r\n    for(int i = 0; i < 100; i++)\r\n    {\r\n        cin >> A[i];\r\n    }  \r\n    cout << fixed << setprecision(1);\r\n    for(int i = 0; i < 100; i++)\r\n    {\r\n        if(A[i] <= 10)\r\n        {\r\n            cout << \"A[\" << i << \"] = \" << A[i] << endl;\r\n        }\r\n    }\r\n    return 0;\r\n}"
+          }
         },
         {
           "id": "JD046",
@@ -989,7 +1061,11 @@ window.XMUOJ_SOLUTIONS_DATA = {
               "output": "N[0] = -32\nN[1] = 1\nN[2] = 54\nN[3] = -55\nN[4] = 48\nN[5] = -55\nN[6] = -100\nN[7] = -100\nN[8] = -92\nN[9] = -95\nN[10] = 98\nN[11] = 70\nN[12] = -76\nN[13] = -67\nN[14] = 25\nN[15] = -20\nN[16] = 2\nN[17] = 99\nN[18] = 57\nN[19] = -40"
             }
           ],
-          "solution": null
+          "solution": {
+            "path": "solutions/359/046.cpp",
+            "language": "cpp",
+            "code": "#include<iostream>\r\nusing namespace std;\r\n\r\nint main()\r\n{\r\n    int a[20];\r\n    for(int i = 0; i < 20; i++)\r\n    {\r\n        cin >> a[i];\r\n    }\r\n    int temp;\r\n    for(int i=0;i<=9;i++)\r\n    {\r\n        temp=a[i];\r\n        a[i]=a[19-i];\r\n        a[19-i]=temp;\r\n    }\r\n    for(int i = 0; i < 20; i++)\r\n    {\r\n        cout << \"N[\" << i << \"] = \" << a[i] << endl;\r\n    }\r\n    return 0;\r\n}"
+          }
         },
         {
           "id": "JD047",
@@ -1008,7 +1084,11 @@ window.XMUOJ_SOLUTIONS_DATA = {
               "output": "Menor valor: -5\nPosicao: 4"
             }
           ],
-          "solution": null
+          "solution": {
+            "path": "solutions/359/047.cpp",
+            "language": "cpp",
+            "code": "#include<iostream>\r\nusing namespace std;\r\nint main()\r\n{\r\n    int N;\r\n    cin >> N;   \r\n    int minVal;\r\n    int minPos = 0;   \r\n    for(int i = 0; i < N; i++)\r\n    {\r\n        int num;\r\n        cin >> num;\r\n        if(i == 0 || num < minVal)\r\n        {\r\n            minVal = num;\r\n            minPos = i;\r\n        }\r\n    }\r\n    cout << \"Menor valor: \" << minVal << endl;\r\n    cout << \"Posicao: \" << minPos << endl;\r\n    return 0;\r\n}"
+          }
         },
         {
           "id": "JD048",
@@ -1027,7 +1107,11 @@ window.XMUOJ_SOLUTIONS_DATA = {
               "output": "3"
             }
           ],
-          "solution": null
+          "solution": {
+            "path": "solutions/359/048.cpp",
+            "language": "cpp",
+            "code": "#include<iostream>\r\nusing namespace std;\r\nint main()\r\n{\r\n    long long a=0,b=1,N,num=0;\r\n    cin >>N;\r\n    if(N==0)\r\n    {\r\n        cout << 0 << endl;\r\n        return 0;\r\n    }\r\n    if(N==1)\r\n    {\r\n        cout << 1 << endl;\r\n        return 0;\r\n    }\r\n    for(long long i=2;i<=N;i++)\r\n    {\r\n        num=a+b;\r\n        a=b;\r\n        b=num;\r\n        \r\n    }\r\n    cout << num << endl;\r\n    return 0;\r\n}\r\n//F1=0\r\n//F2=0+1\r\n//F3=1+1\r\n//F4=1+2\r\n//F5=2+3"
+          }
         },
         {
           "id": "JD049",
@@ -1046,7 +1130,11 @@ window.XMUOJ_SOLUTIONS_DATA = {
               "output": "0 1 1 2 3"
             }
           ],
-          "solution": null
+          "solution": {
+            "path": "solutions/359/049.cpp",
+            "language": "cpp",
+            "code": "#include<iostream>\r\n#include<vector>\r\nusing namespace std;\r\nint main()\r\n{\r\n    long long N;\r\n    cin >>N;\r\n    vector<long long>a;\r\n    a.push_back(0);\r\n    a.push_back(1);\r\n    for(int i=2;i<=N;i++)\r\n    {\r\n        long long temp;\r\n        temp=a[i-1]+a[i-2];\r\n        a.push_back(temp);\r\n    }\r\n    for(int i=0;i<N;i++)\r\n    {\r\n        cout << a[i] << \" \";\r\n    }\r\n    return 0;\r\n}"
+          }
         },
         {
           "id": "JD050",
@@ -1065,7 +1153,11 @@ window.XMUOJ_SOLUTIONS_DATA = {
               "output": "5 6 7 8 9 10 Sum=45\n2 3 Sum=5"
             }
           ],
-          "solution": null
+          "solution": {
+            "path": "solutions/359/050.cpp",
+            "language": "cpp",
+            "code": "#include<iostream>\r\nusing namespace std;\r\nint main()\r\n{\r\n    int M, N; \r\n    while(cin >> M >> N)\r\n    {\r\n        if(M <= 0 && N <= 0)\r\n        {\r\n            break;\r\n        }\r\n        if(M > N)\r\n        {\r\n            int temp = M;\r\n            M = N;\r\n            N = temp;\r\n        }\r\n        int sum = 0;\r\n        for(int i = M; i <= N; i++)\r\n        {\r\n            cout << i;\r\n            if(i < N) cout << \" \";  // 最后一个数字后面不加空格\r\n            sum += i;\r\n        }\r\n        cout << \" Sum=\" << sum << endl;\r\n    }\r\n    return 0;\r\n}"
+          }
         },
         {
           "id": "JD051",
@@ -1084,7 +1176,11 @@ window.XMUOJ_SOLUTIONS_DATA = {
               "output": "17.3"
             }
           ],
-          "solution": null
+          "solution": {
+            "path": "solutions/359/051.cpp",
+            "language": "cpp",
+            "code": "#include<iostream>\r\n#include<iomanip>\r\nusing namespace std;\r\nint main()//测试案例存在问题\r\n{\r\n    int L;\r\n    char op;\r\n    cin >> L >> op;\r\n    double a[12][12];\r\n    for(int i = 0; i < 12; i++)\r\n    {\r\n        for(int j = 0; j < 12; j++)\r\n        {\r\n            cin >> a[i][j];\r\n        }\r\n    }\r\n    double sum = 0;\r\n    for(int j = 0; j < 12; j++)\r\n    {\r\n        sum += a[L][j];\r\n    }\r\n    cout << fixed << setprecision(1);\r\n    if(op == 'S')\r\n    {\r\n        cout << sum << endl;\r\n    }\r\n    else if(op == 'M')\r\n    {\r\n        cout << sum / 12 << endl;\r\n    }\r\n    return 0;\r\n}"
+          }
         },
         {
           "id": "JD052",
