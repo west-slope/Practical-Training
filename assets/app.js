@@ -39,11 +39,7 @@
 
   function flattenProblems() {
     return (data.contests || []).flatMap((contest) =>
-      (contest.problems || []).map((problem) => ({
-        contest,
-        problem,
-        key: `${contest.id}/${problem.id}`
-      }))
+      (contest.problems || []).map((problem) => ({ contest, problem, key: contest.id + "/" + problem.id }))
     );
   }
 
@@ -72,10 +68,7 @@
       item.problem.title,
       textOf(item.problem.description),
       item.problem.solution && item.problem.solution.code
-    ]
-      .filter(Boolean)
-      .join("\n")
-      .toLowerCase();
+    ].filter(Boolean).join("\n").toLowerCase();
     return haystack.includes(state.query.toLowerCase());
   }
 
@@ -95,7 +88,7 @@
 
       const title = document.createElement("div");
       title.className = "contest-title";
-      title.innerHTML = `<span>${escapeHtml(contest.title || `Contest ${contest.id}`)}</span><span>${contestItems.length}</span>`;
+      title.innerHTML = '<span>' + escapeHtml(contest.title || ('Contest ' + contest.id)) + '</span><span>' + contestItems.length + '</span>';
       group.appendChild(title);
 
       const nav = document.createElement("div");
@@ -103,8 +96,8 @@
       contestItems.forEach((item) => {
         const button = document.createElement("button");
         button.type = "button";
-        button.className = `problem-link${item.key === state.activeKey ? " is-active" : ""}`;
-        button.innerHTML = `<span>${escapeHtml(displayProblemLabel(item.problem))}</span><small>${item.problem.solution && item.problem.solution.code ? "答案" : "缺"}</small>`;
+        button.className = "problem-link" + (item.key === state.activeKey ? " is-active" : "");
+        button.innerHTML = '<span>' + escapeHtml(displayProblemLabel(item.problem)) + '</span><small>' + (item.problem.solution && item.problem.solution.code ? "答案" : "缺") + '</small>';
         button.addEventListener("click", () => showProblem(item.key));
         nav.appendChild(button);
       });
@@ -113,9 +106,7 @@
     });
 
     if (!state.activeKey && items.length) showProblem(items[0].key, false);
-    if (state.activeKey && !items.some((item) => item.key === state.activeKey) && items.length) {
-      showProblem(items[0].key, false);
-    }
+    if (state.activeKey && !items.some((item) => item.key === state.activeKey) && items.length) showProblem(items[0].key, false);
   }
 
   function showProblem(key, rerenderNav = true) {
@@ -127,14 +118,14 @@
     const solution = problem.solution || {};
     els.emptyState.hidden = true;
     els.problemView.hidden = false;
-    els.contestLabel.textContent = `Contest ${contest.id}`;
-    els.contestTitle.textContent = contest.title || `Contest ${contest.id}`;
+    els.contestLabel.textContent = 'Contest ' + contest.id;
+    els.contestTitle.textContent = contest.title || ('Contest ' + contest.id);
     els.problemTitle.textContent = displayProblemLabel(problem);
     els.problemId.textContent = displayProblemId(problem.id) || "-";
     els.timeLimit.textContent = formatLimit(problem.timeLimit, "ms");
     els.memoryLimit.textContent = formatLimit(problem.memoryLimit, "MB");
     els.solutionLanguage.textContent = solution.language || "-";
-    els.sourceLink.href = problem.url || `http://www.xmuoj.com/contest/${contest.id}/problem/${problem.id}/`;
+    els.sourceLink.href = problem.url || ('http://www.xmuoj.com/contest/' + contest.id + '/problem/' + problem.id + '/');
     setHtml(els.description, problem.description);
     setHtml(els.inputDescription, problem.inputDescription);
     setHtml(els.outputDescription, problem.outputDescription);
@@ -143,7 +134,8 @@
     renderSamples(problem.samples || []);
     els.solutionPath.textContent = solution.path || "";
     els.solutionPath.className = solution.code ? "" : "missing";
-    els.solutionCode.textContent = solution.code || "还没有找到本题答案代码。把代码放到 solutions/<contestId>/<problemId>.<ext> 后重新运行导入脚本。";
+    const fallbackCode = "还没有找到本题答案代码。把代码放到 solutions/<contestId>/<problemId>.<ext> 后重新运行导入脚本。";
+    els.solutionCode.innerHTML = highlightCode(solution.code || fallbackCode, solution.language);
     els.copyCode.disabled = !solution.code;
 
     if (rerenderNav) renderNav();
@@ -159,23 +151,14 @@
     samples.forEach((sample, index) => {
       const wrap = document.createElement("div");
       wrap.className = "sample-grid";
-      wrap.innerHTML = `
-        <div>
-          <div class="sample-title"><h4>输入样例 ${index + 1}</h4><span>input</span></div>
-          <pre class="sample-box"><code>${escapeHtml(sample.input || "")}</code></pre>
-        </div>
-        <div>
-          <div class="sample-title"><h4>输出样例 ${index + 1}</h4><span>output</span></div>
-          <pre class="sample-box"><code>${escapeHtml(sample.output || "")}</code></pre>
-        </div>
-      `;
+      wrap.innerHTML = '<div><div class="sample-title"><h4>输入样例 ' + (index + 1) + '</h4><span>input</span></div><pre class="sample-box"><code>' + escapeHtml(sample.input || "") + '</code></pre></div><div><div class="sample-title"><h4>输出样例 ' + (index + 1) + '</h4><span>output</span></div><pre class="sample-box"><code>' + escapeHtml(sample.output || "") + '</code></pre></div>';
       els.samples.appendChild(wrap);
     });
   }
 
   function formatLimit(value, unit) {
     if (value === null || value === undefined || value === "") return "-";
-    return `${value} ${unit}`;
+    return value + " " + unit;
   }
 
   function escapeHtml(value) {
@@ -185,6 +168,28 @@
       .replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;")
       .replace(/'/g, "&#039;");
+  }
+
+  function highlightCode(code, language) {
+    const escaped = escapeHtml(code || "");
+    if (!/^(c|cc|cpp|cxx)$/i.test(language || "")) return escaped;
+    const parts = [];
+    const stash = (className) => (match) => {
+      const token = "@@HL" + parts.length + "@@";
+      parts.push('<span class="tok-' + className + '">' + match + '</span>');
+      return token;
+    };
+    let html = escaped
+      .replace(/\/\/[^\n]*/g, stash("comment"))
+      .replace(/\/\*[\s\S]*?\*\//g, stash("comment"))
+      .replace(/&quot;(?:\\.|[^&])*?&quot;/g, stash("string"))
+      .replace(/&#039;(?:\\.|[^&])*?&#039;/g, stash("string"));
+    html = html
+      .replace(/^\s*#\s*\w+.*/gm, stash("preprocessor"))
+      .replace(/\b(alignas|alignof|and|asm|auto|bool|break|case|catch|char|class|const|constexpr|continue|default|delete|do|double|else|enum|explicit|extern|false|float|for|friend|goto|if|inline|int|long|namespace|new|nullptr|operator|private|protected|public|return|short|signed|sizeof|static|struct|switch|template|this|throw|true|try|typedef|typename|union|unsigned|using|virtual|void|volatile|while)\b/g, '<span class="tok-keyword">$1</span>')
+      .replace(/\b(std|cin|cout|cerr|endl|string|vector|map|set|queue|stack|priority_queue|pair|sort|max|min|swap|sqrt|pow|printf|scanf)\b/g, '<span class="tok-builtin">$1</span>')
+      .replace(/\b\d+(?:\.\d+)?\b/g, '<span class="tok-number">$&</span>');
+    return html.replace(/@@HL(\d+)@@/g, (_, index) => parts[Number(index)]);
   }
 
   function applySidebarState() {
@@ -200,7 +205,7 @@
       localStorage.setItem("xmuoj.sidebarCollapsed", state.sidebarCollapsed ? "1" : "0");
       applySidebarState();
     });
-    els.generatedAt.textContent = data.generatedAt ? `更新于 ${data.generatedAt}` : "未导入";
+    els.generatedAt.textContent = data.generatedAt ? '更新于 ' + data.generatedAt : "未导入";
     els.searchInput.addEventListener("input", (event) => {
       state.query = event.target.value.trim();
       renderNav();
@@ -220,9 +225,7 @@
     els.copyCode.addEventListener("click", async () => {
       await navigator.clipboard.writeText(els.solutionCode.textContent);
       els.copyCode.textContent = "已复制";
-      window.setTimeout(() => {
-        els.copyCode.textContent = "复制答案";
-      }, 1200);
+      window.setTimeout(() => { els.copyCode.textContent = "复制答案"; }, 1200);
     });
 
     if (flattenProblems().length === 0) {

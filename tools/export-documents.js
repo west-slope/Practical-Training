@@ -52,9 +52,14 @@ function displayProblemLabel(problem) {
   return [displayProblemId(problem.id), problem.title || ""].filter(Boolean).join(" ");
 }
 
+function inExportRange(problem) {
+  const numericId = Number(displayProblemId(problem.id));
+  return Number.isInteger(numericId) && numericId >= 1 && numericId <= 26;
+}
+
 function buildMarkdown(data) {
   const lines = [];
-  lines.push("# XMUOJ 题集与答案");
+  lines.push("# XMUOJ 题集与答案（001-026）");
   lines.push("");
   lines.push(`导出时间：${new Date().toLocaleString("zh-CN")}`);
   lines.push(`数据更新时间：${data.generatedAt || "-"}`);
@@ -69,7 +74,7 @@ function buildMarkdown(data) {
       lines.push("");
     }
 
-    for (const problem of contest.problems || []) {
+    for (const problem of (contest.problems || []).filter(inExportRange)) {
       lines.push(`### ${displayProblemLabel(problem)}`.trim());
       lines.push("");
       lines.push(`- 原题：${problem.url || ""}`);
@@ -149,7 +154,7 @@ function addSection(children, title, body) {
 
 function buildDocx(data) {
   const children = [];
-  children.push(textParagraph("XMUOJ 题集与答案", { heading: HeadingLevel.TITLE, alignment: AlignmentType.CENTER }));
+  children.push(textParagraph("XMUOJ 题集与答案（001-026）", { heading: HeadingLevel.TITLE, alignment: AlignmentType.CENTER }));
   children.push(textParagraph(`导出时间：${new Date().toLocaleString("zh-CN")}`));
   children.push(textParagraph(`数据更新时间：${data.generatedAt || "-"}`));
 
@@ -157,7 +162,7 @@ function buildDocx(data) {
     children.push(textParagraph(contest.title || `Contest ${contest.id}`, { heading: HeadingLevel.HEADING_1 }));
     addSection(children, "比赛说明", stripHtml(contest.description));
 
-    for (const problem of contest.problems || []) {
+    for (const problem of (contest.problems || []).filter(inExportRange)) {
       children.push(textParagraph(displayProblemLabel(problem), { heading: HeadingLevel.HEADING_2 }));
       children.push(textParagraph(`原题：${problem.url || ""}`));
       children.push(textParagraph(`时间限制：${problem.timeLimit || "-"} ms    内存限制：${problem.memoryLimit || "-"} MB`));

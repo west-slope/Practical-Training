@@ -446,3 +446,28 @@ pre {
     grid-template-columns: 1fr;
   }
 }
+
+
+.tok-keyword {
+  color: #569cd6;
+}
+
+.tok-builtin {
+  color: #4ec9b0;
+}
+
+.tok-number {
+  color: #b5cea8;
+}
+
+.tok-string {
+  color: #ce9178;
+}
+
+.tok-comment {
+  color: #6a9955;
+}
+
+.tok-preprocessor {
+  color: #c586c0;
+}
