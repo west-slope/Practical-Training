@@ -4,6 +4,7 @@
     query: "",
     filter: "all",
     activeKey: null,
+    activeContestId: localStorage.getItem("xmuoj.activeContestId") || "359",
     sidebarCollapsed: localStorage.getItem("xmuoj.sidebarCollapsed") === "1"
   };
 
@@ -22,7 +23,8 @@
     toggleSidebar: document.getElementById("toggleSidebar"),
     homePage: document.getElementById("homePage"),
     archiveApp: document.getElementById("archiveApp"),
-    enterArchive: document.getElementById("enterArchive"),
+    homeContestCards: document.getElementById("homeContestCards"),
+    contestSwitch: document.getElementById("contestSwitch"),
     backHome: document.getElementById("backHome"),
     homeProblemCount: document.getElementById("homeProblemCount"),
     homeSolvedCount: document.getElementById("homeSolvedCount"),
@@ -51,8 +53,31 @@
     );
   }
 
-  function getPrimaryContest() {
-    return (data.contests || []).find((contest) => String(contest.id) === "359") || (data.contests || [])[0];
+  function getContest(contestId) {
+    return (data.contests || []).find((contest) => String(contest.id) === String(contestId));
+  }
+
+  function getActiveContest() {
+    return getContest(state.activeContestId) || (data.contests || [])[0];
+  }
+
+  function contestShortTitle(contest) {
+    const title = contest && contest.title ? contest.title : "";
+    if (String(contest && contest.id) === "359") return "剑道试炼";
+    if (String(contest && contest.id) === "362") return "程序设计实践";
+    return title.replace(/^2026年/, "").replace(/\(.+\)$/, "") || ("Contest " + contest.id);
+  }
+
+  function contestClassLabel(contest) {
+    const title = contest && contest.title ? contest.title : "";
+    const match = title.match(/\(([^)]+)\)/);
+    return match ? match[1] : "XMUOJ";
+  }
+
+  function contestDescription(contest) {
+    if (String(contest && contest.id) === "359") return "校外实训一题库，包含剑道试炼题面与西坡整理的参考代码。";
+    if (String(contest && contest.id) === "362") return "程序设计实践例题题库，适合按算法专题继续练习。";
+    return "题面、样例和参考代码归档。";
   }
 
   function textOf(value) {
@@ -69,7 +94,14 @@
     return [displayProblemId(problem.id), problem.title || "Untitled"].filter(Boolean).join(" ");
   }
 
+  function displaySolutionExt(solution) {
+    if (!solution || !solution.path) return "";
+    const match = String(solution.path).match(/(\.[a-z0-9]+)$/i);
+    return match ? match[1] : "";
+  }
+
   function matches(item) {
+    if (String(item.contest.id) !== String(state.activeContestId)) return false;
     const hasSolution = Boolean(item.problem.solution && item.problem.solution.code);
     if (state.filter === "solved" && !hasSolution) return false;
     if (state.filter === "missing" && hasSolution) return false;
@@ -108,8 +140,9 @@
       contestItems.forEach((item) => {
         const button = document.createElement("button");
         button.type = "button";
-        button.className = "problem-link" + (item.key === state.activeKey ? " is-active" : "");
-        button.innerHTML = '<span>' + escapeHtml(displayProblemLabel(item.problem)) + '</span><small>' + (item.problem.solution && item.problem.solution.code ? "答案" : "缺") + '</small>';
+        const hasSolution = Boolean(item.problem.solution && item.problem.solution.code);
+        button.className = "problem-link" + (item.key === state.activeKey ? " is-active" : "") + (hasSolution ? " has-solution" : " is-missing");
+        button.innerHTML = '<span>' + escapeHtml(displayProblemLabel(item.problem)) + '</span><small>' + (hasSolution ? "有" : "缺") + '</small>';
         button.addEventListener("click", () => showProblem(item.key));
         nav.appendChild(button);
       });
@@ -125,6 +158,8 @@
     const item = flattenProblems().find((entry) => entry.key === key);
     if (!item) return;
     state.activeKey = key;
+    state.activeContestId = String(item.contest.id);
+    localStorage.setItem("xmuoj.activeContestId", state.activeContestId);
 
     const { contest, problem } = item;
     const solution = problem.solution || {};
@@ -144,9 +179,9 @@
     setHtml(els.hint, problem.hint);
     els.hintSection.hidden = !textOf(problem.hint);
     renderSamples(problem.samples || []);
-    els.solutionPath.textContent = solution.path || "";
+    els.solutionPath.textContent = displaySolutionExt(solution);
     els.solutionPath.className = solution.code ? "" : "missing";
-    const fallbackCode = "还没有找到本题答案代码。把代码放到 solutions/<contestId>/<problemId>.<ext> 后重新运行导入脚本。";
+    const fallbackCode = "还没有参考代码,欢迎投稿!";
     els.solutionCode.innerHTML = highlightCode(solution.code || fallbackCode, solution.language);
     els.copyCode.disabled = !solution.code;
     if (els.content) els.content.scrollTop = 0;
@@ -164,7 +199,7 @@
     samples.forEach((sample, index) => {
       const wrap = document.createElement("div");
       wrap.className = "sample-grid";
-      wrap.innerHTML = '<div><div class="sample-title"><h4>输入样例 ' + (index + 1) + '</h4><span>input</span></div><pre class="sample-box"><code>' + escapeHtml(sample.input || "") + '</code></pre></div><div><div class="sample-title"><h4>输出样例 ' + (index + 1) + '</h4><span>output</span></div><pre class="sample-box"><code>' + escapeHtml(sample.output || "") + '</code></pre></div>';
+      wrap.innerHTML = '<div><div class="sample-title"><h4>输入样例 ' + (index + 1) + '</h4></div><pre class="sample-box"><code>' + escapeHtml(sample.input || "") + '</code></pre></div><div><div class="sample-title"><h4>输出样例 ' + (index + 1) + '</h4></div><pre class="sample-box"><code>' + escapeHtml(sample.output || "") + '</code></pre></div>';
       els.samples.appendChild(wrap);
     });
   }
@@ -212,12 +247,55 @@
   }
 
   function renderHomeStats() {
-    const contest = getPrimaryContest();
-    const problems = contest && contest.problems ? contest.problems : [];
-    const solved = problems.filter((problem) => problem.solution && problem.solution.code).length;
-    els.homeProblemCount.textContent = '共 ' + problems.length + ' 道题';
-    els.homeSolvedCount.textContent = '已整理 ' + solved + ' 份答案';
+    const contests = data.contests || [];
+    const problemCount = contests.reduce((total, contest) => total + ((contest.problems || []).length), 0);
+    const solvedCount = contests.reduce((total, contest) => total + (contest.problems || []).filter((problem) => problem.solution && problem.solution.code).length, 0);
+    els.homeProblemCount.textContent = '共 ' + problemCount + ' 道题';
+    els.homeSolvedCount.textContent = '已整理 ' + solvedCount + ' 份答案';
     els.homeUpdatedAt.textContent = data.generatedAt ? '更新于 ' + data.generatedAt : '未导入';
+  }
+
+  function renderHomeCards() {
+    els.homeContestCards.innerHTML = "";
+    (data.contests || []).forEach((contest) => {
+      const problems = contest.problems || [];
+      const solved = problems.filter((problem) => problem.solution && problem.solution.code).length;
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "home-contest-card";
+      button.innerHTML =
+        '<small>CONTEST ' + escapeHtml(contest.id) + '</small>' +
+        '<strong>' + escapeHtml(contestShortTitle(contest)) + '</strong>' +
+        '<p>' + escapeHtml(contestDescription(contest)) + '</p>' +
+        '<div class="home-card-meta"><span>' + problems.length + ' 道题</span><span>' + solved + ' 份答案</span><span>' + escapeHtml(contestClassLabel(contest)) + '</span></div>';
+      button.addEventListener("click", () => selectContest(contest.id, true));
+      els.homeContestCards.appendChild(button);
+    });
+  }
+
+  function renderContestSwitch() {
+    els.contestSwitch.innerHTML = "";
+    (data.contests || []).forEach((contest) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = String(contest.id) === String(state.activeContestId) ? "is-active" : "";
+      button.textContent = contestShortTitle(contest);
+      button.addEventListener("click", () => selectContest(contest.id, false));
+      els.contestSwitch.appendChild(button);
+    });
+  }
+
+  function selectContest(contestId, enterArchive) {
+    const contest = getContest(contestId) || getActiveContest();
+    if (!contest) return;
+    state.activeContestId = String(contest.id);
+    state.activeKey = null;
+    localStorage.setItem("xmuoj.activeContestId", state.activeContestId);
+    state.query = "";
+    els.searchInput.value = "";
+    renderContestSwitch();
+    renderNav();
+    if (enterArchive) showArchive();
   }
 
   function showArchive() {
@@ -234,8 +312,12 @@
 
   function init() {
     renderHomeStats();
+    renderHomeCards();
+    if (!getContest(state.activeContestId) && (data.contests || [])[0]) {
+      state.activeContestId = String(data.contests[0].id);
+    }
+    renderContestSwitch();
     applySidebarState();
-    els.enterArchive.addEventListener("click", showArchive);
     els.backHome.addEventListener("click", showHome);
     els.toggleSidebar.addEventListener("click", () => {
       state.sidebarCollapsed = !state.sidebarCollapsed;
@@ -262,7 +344,7 @@
     els.copyCode.addEventListener("click", async () => {
       await navigator.clipboard.writeText(els.solutionCode.textContent);
       els.copyCode.textContent = "已复制";
-      window.setTimeout(() => { els.copyCode.textContent = "复制答案"; }, 1200);
+      window.setTimeout(() => { els.copyCode.textContent = "复制代码"; }, 1200);
     });
 
     if (flattenProblems().length === 0) {
@@ -275,3 +357,4 @@
 
   init();
 })();
+
