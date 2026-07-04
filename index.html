@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>XMUOJ 题解集</title>
-    <link rel="stylesheet" href="./assets/styles.css?v=20260703-1" />
+    <link rel="stylesheet" href="./assets/styles.css?v=20260704-1" />
   </head>
   <body>
     <section id="homePage" class="home-page">
@@ -27,6 +27,7 @@
           <span id="homeSolvedCount">已整理 - 份答案</span>
           <span id="homeUpdatedAt">更新于 -</span>
         </div>
+        <button id="homeContribute" class="home-button secondary" type="button">投稿参考代码</button>
       </div>
     </section>
 
@@ -38,6 +39,7 @@
       </div>
       <div class="topbar-meta">
         <span class="owner-chip">west-slope</span>
+        <button id="contributeButton" class="ghost-button" type="button">投稿</button>
         <button id="backHome" class="ghost-button" type="button">首页</button>
         <span id="generatedAt">未导入</span>
         <a href="http://www.xmuoj.com/contest" target="_blank" rel="noreferrer">XMUOJ</a>
@@ -134,6 +136,10 @@
               <h3>参考代码</h3>
               <span id="solutionPath"></span>
             </div>
+            <div id="contributeHint" class="contribute-hint" hidden>
+              <span>还没有参考代码，欢迎投稿。</span>
+              <button id="contributeProblem" type="button">投稿本题</button>
+            </div>
             <pre class="code-block"><code id="solutionCode"></code></pre>
           </section>
         </article>
@@ -141,7 +147,34 @@
     </main>
     </div>
 
-    <script src="./data.js?v=20260703-1"></script>
-    <script src="./assets/app.js?v=20260703-1"></script>
+    <div id="contributeModal" class="modal-backdrop" hidden>
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="contributeTitle">
+        <div class="modal-head">
+          <div>
+            <p class="eyebrow">Contribute</p>
+            <h2 id="contributeTitle">投稿参考代码</h2>
+          </div>
+          <button id="closeContribute" class="modal-close" type="button" title="关闭">×</button>
+        </div>
+        <div class="modal-body">
+          <p>欢迎通过 GitHub Pull Request 投稿。文件放到对应目录，命名保持题号即可。</p>
+          <div class="submit-rules">
+            <span>剑道试炼：<code>solutions/359/080.cpp</code></span>
+            <span>程序设计实践：<code>solutions/362/LinK33.cpp</code></span>
+          </div>
+          <ol>
+            <li>Fork 仓库并添加或修改对应参考代码。</li>
+            <li>提交 Pull Request，标题写清题号和题名。</li>
+            <li>我审核通过后合并，网站下次同步就会显示。</li>
+          </ol>
+        </div>
+        <div class="modal-actions">
+          <a id="repoLink" class="button-link" href="https://github.com/west-slope/XMUOJ_coding" target="_blank" rel="noreferrer">打开 GitHub 仓库</a>
+        </div>
+      </div>
+    </div>
+
+    <script src="./data.js?v=20260704-1"></script>
+    <script src="./assets/app.js?v=20260704-1"></script>
   </body>
 </html>

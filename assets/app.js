@@ -24,7 +24,14 @@
     homePage: document.getElementById("homePage"),
     archiveApp: document.getElementById("archiveApp"),
     homeContestCards: document.getElementById("homeContestCards"),
+    homeContribute: document.getElementById("homeContribute"),
     contestSwitch: document.getElementById("contestSwitch"),
+    contributeButton: document.getElementById("contributeButton"),
+    contributeModal: document.getElementById("contributeModal"),
+    closeContribute: document.getElementById("closeContribute"),
+    contributeHint: document.getElementById("contributeHint"),
+    contributeProblem: document.getElementById("contributeProblem"),
+    repoLink: document.getElementById("repoLink"),
     backHome: document.getElementById("backHome"),
     homeProblemCount: document.getElementById("homeProblemCount"),
     homeSolvedCount: document.getElementById("homeSolvedCount"),
@@ -188,6 +195,9 @@
     const fallbackCode = "还没有参考代码,欢迎投稿!";
     els.solutionCode.innerHTML = highlightCode(solution.code || fallbackCode, solution.language);
     els.copyCode.disabled = !solution.code;
+    els.contributeHint.hidden = Boolean(solution.code);
+    els.contributeProblem.dataset.problemId = problem.id || "";
+    els.contributeProblem.dataset.contestId = contest.id || "";
     if (els.content) els.content.scrollTop = 0;
     els.problemView.classList.remove("is-refreshing");
     window.requestAnimationFrame(() => {
@@ -318,6 +328,14 @@
     document.body.classList.remove("is-archive");
   }
 
+  function showContribute() {
+    els.contributeModal.hidden = false;
+  }
+
+  function hideContribute() {
+    els.contributeModal.hidden = true;
+  }
+
   function init() {
     renderHomeStats();
     renderHomeCards();
@@ -326,6 +344,16 @@
     }
     renderContestSwitch();
     applySidebarState();
+    els.homeContribute.addEventListener("click", showContribute);
+    els.contributeButton.addEventListener("click", showContribute);
+    els.contributeProblem.addEventListener("click", showContribute);
+    els.closeContribute.addEventListener("click", hideContribute);
+    els.contributeModal.addEventListener("click", (event) => {
+      if (event.target === els.contributeModal) hideContribute();
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && !els.contributeModal.hidden) hideContribute();
+    });
     els.backHome.addEventListener("click", showHome);
     els.toggleSidebar.addEventListener("click", () => {
       state.sidebarCollapsed = !state.sidebarCollapsed;
