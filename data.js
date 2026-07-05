@@ -1,5 +1,5 @@
 window.XMUOJ_SOLUTIONS_DATA = {
-  "generatedAt": "2026-7-5 11:25:28",
+  "generatedAt": "2026-7-5 12:24:15",
   "contests": [
     {
       "id": "359",
@@ -2052,7 +2052,7 @@ window.XMUOJ_SOLUTIONS_DATA = {
           "solution": {
             "path": "solutions/359/089.cpp",
             "language": "cpp",
-            "code": "#include<iostream>//每行末尾有空格\r\nusing namespace std;\r\nint main()\r\n{\r\n    int a[200][200],row,col;\r\n    cin>>row>>col;\r\n    for(int i=0;i<row;i++)\r\n    {\r\n        for(int j=0;j<col;j++)\r\n        {\r\n            cin>>a[i][j];\r\n        }\r\n    }\r\n    for(int i=0;i<row;i++)\r\n    {\r\n        for(int j=0;j<col;j++)\r\n        {\r\n            //cout<<\" \";\r\n            cout<<a[i][j]<<\" \";\r\n        }\r\n        cout<<endl;\r\n    }\r\n    \r\n\r\n\r\n}"
+            "code": "// 每行末尾有空格\n#include<iostream>\nusing namespace std;\r\nint main()\r\n{\r\n    int a[200][200],row,col;\r\n    cin>>row>>col;\r\n    for(int i=0;i<row;i++)\r\n    {\r\n        for(int j=0;j<col;j++)\r\n        {\r\n            cin>>a[i][j];\r\n        }\r\n    }\r\n    for(int i=0;i<row;i++)\r\n    {\r\n        for(int j=0;j<col;j++)\r\n        {\r\n            //cout<<\" \";\r\n            cout<<a[i][j]<<\" \";\r\n        }\r\n        cout<<endl;\r\n    }\r\n    \r\n\r\n\r\n}"
           }
         },
         {

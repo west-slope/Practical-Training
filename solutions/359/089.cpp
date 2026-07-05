@@ -1,4 +1,5 @@
-#include<iostream>//每行末尾有空格
+// 每行末尾有空格
+#include<iostream>
 using namespace std;
 int main()
 {
