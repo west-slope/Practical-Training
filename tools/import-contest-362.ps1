@@ -2,14 +2,14 @@ $ErrorActionPreference = "Stop"
 
 $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $SiteRoot = Resolve-Path (Join-Path $ScriptDir "..")
-$contestId = "359"
+$contestId = "362"
 $defaultPassword = "ilovexmu"
-$contestUrl = "http://www.xmuoj.com/contest/359/problems"
+$contestUrl = "http://www.xmuoj.com/contest/362/problems"
 
 Set-Location $SiteRoot
 
 Write-Host ""
-Write-Host "XMUOJ import helper for contest 359" -ForegroundColor Cyan
+Write-Host "XMUOJ import helper for contest 362" -ForegroundColor Cyan
 Write-Host "Default contest password: $defaultPassword"
 Write-Host ""
 Write-Host "Steps:"
@@ -31,7 +31,7 @@ Write-Host "Chrome/Edge: F12 -> Network -> refresh XMUOJ -> click a www.xmuoj.co
 $cookie = Read-Host "Cookie"
 
 if ([string]::IsNullOrWhiteSpace($cookie)) {
-  throw "Cookie is required because contest 359 needs a logged-in XMUOJ session."
+  throw "Cookie is required because contest 362 needs a logged-in XMUOJ session."
 }
 
 & (Join-Path $ScriptDir "import-xmuoj.ps1") -ContestId $contestId -ContestPassword $passwordInput -Cookie $cookie -MergeExisting

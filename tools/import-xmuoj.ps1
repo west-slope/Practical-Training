@@ -7,7 +7,8 @@ param(
   [string]$Cookie = "",
   [string]$CookieFile = "",
   [string]$SolutionsDir = "",
-  [string]$OutFile = ""
+  [string]$OutFile = "",
+  [switch]$MergeExisting
 )
 
 $ErrorActionPreference = "Stop"
@@ -201,13 +202,34 @@ if ($contests.Count -eq 0) {
   throw "No contest was imported. For login/password contests, use -Cookie and optionally -ContestPassword."
 }
 
+$finalContests = @()
+if ($MergeExisting -and (Test-Path -LiteralPath $OutFile)) {
+  $existingText = Get-Content -Raw -LiteralPath $OutFile
+  $jsonText = $existingText -replace '^\s*window\.XMUOJ_SOLUTIONS_DATA\s*=\s*', '' -replace ';\s*$', ''
+  try {
+    $existingPayload = $jsonText | ConvertFrom-Json
+    $importedIds = @($contests | ForEach-Object { [string]$_.id })
+    foreach ($existingContest in @($existingPayload.contests)) {
+      if ($importedIds -notcontains [string]$existingContest.id) {
+        $finalContests += $existingContest
+      }
+    }
+  } catch {
+    Write-Warning "Could not parse existing data.js for merge; writing imported contests only. Detail: $($_.Exception.Message)"
+  }
+}
+$finalContests += $contests
+
 $payload = [pscustomobject]@{
   generatedAt = (Get-Date).ToString("yyyy-MM-dd HH:mm:ss")
   source = $BaseUrl
-  contests = $contests
+  contests = $finalContests
 }
 
 $json = $payload | ConvertTo-Json -Depth 20
 $content = "window.XMUOJ_SOLUTIONS_DATA = $json;"
 Set-Content -LiteralPath $OutFile -Value $content -Encoding UTF8
 Write-Host "Done: $OutFile"
+
+
+

@@ -1,6 +1,11 @@
 const fs = require("fs");
 const path = require("path");
 const vm = require("vm");
+
+const bundledNodeModules = "C:\\Users\\笑春风\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\node_modules";
+process.env.NODE_PATH = [process.env.NODE_PATH, bundledNodeModules].filter(Boolean).join(path.delimiter);
+require("module").Module._initPaths();
+
 const {
   AlignmentType,
   BorderStyle,
@@ -38,28 +43,32 @@ function stripHtml(html) {
     .trim();
 }
 
-function fenced(code, language) {
-  if (!code) return "_暂无答案代码_";
-  return `\`\`\`${language || ""}\n${code.trimEnd()}\n\`\`\``;
-}
-
-
 function displayProblemId(id) {
-  return String(id || "").replace(/^JD(\d+)$/i, "$1");
+  return String(id || "")
+    .replace(/^JD(\d+)$/i, "$1")
+    .replace(/^LinK/i, "LinK");
 }
 
 function displayProblemLabel(problem) {
   return [displayProblemId(problem.id), problem.title || ""].filter(Boolean).join(" ");
 }
 
-function inExportRange(problem) {
-  const numericId = Number(displayProblemId(problem.id));
-  return Number.isInteger(numericId) && numericId >= 1 && numericId <= 26;
+function fenced(code, language) {
+  if (!code) return "_还没有参考代码,欢迎投稿!_";
+  return `\`\`\`${language || ""}\n${code.trimEnd()}\n\`\`\``;
+}
+
+function appendTextSection(lines, title, body) {
+  if (!body) return;
+  lines.push(`#### ${title}`);
+  lines.push("");
+  lines.push(body);
+  lines.push("");
 }
 
 function buildMarkdown(data) {
   const lines = [];
-  lines.push("# XMUOJ 题集与答案（001-026）");
+  lines.push("# 西坡的题集");
   lines.push("");
   lines.push(`导出时间：${new Date().toLocaleString("zh-CN")}`);
   lines.push(`数据更新时间：${data.generatedAt || "-"}`);
@@ -74,10 +83,10 @@ function buildMarkdown(data) {
       lines.push("");
     }
 
-    for (const problem of (contest.problems || []).filter(inExportRange)) {
+    for (const problem of contest.problems || []) {
       lines.push(`### ${displayProblemLabel(problem)}`.trim());
       lines.push("");
-      lines.push(`- 原题：${problem.url || ""}`);
+      lines.push(`- 题目来源：${problem.url || ""}`);
       lines.push(`- 时间限制：${problem.timeLimit || "-"} ms`);
       lines.push(`- 内存限制：${problem.memoryLimit || "-"} MB`);
       if (problem.source) lines.push(`- 来源：${problem.source}`);
@@ -85,28 +94,8 @@ function buildMarkdown(data) {
       appendTextSection(lines, "题面", stripHtml(problem.description));
       appendTextSection(lines, "输入", stripHtml(problem.inputDescription));
       appendTextSection(lines, "输出", stripHtml(problem.outputDescription));
-
-      if (problem.samples && problem.samples.length) {
-        lines.push("#### 样例");
-        lines.push("");
-        problem.samples.forEach((sample, index) => {
-          lines.push(`样例 ${index + 1}`);
-          lines.push("");
-          lines.push("输入：");
-          lines.push("```text");
-          lines.push(sample.input || "");
-          lines.push("```");
-          lines.push("");
-          lines.push("输出：");
-          lines.push("```text");
-          lines.push(sample.output || "");
-          lines.push("```");
-          lines.push("");
-        });
-      }
-
       appendTextSection(lines, "提示", stripHtml(problem.hint));
-      lines.push("#### 答案代码");
+      lines.push("#### 参考代码");
       lines.push("");
       lines.push(fenced(problem.solution && problem.solution.code, problem.solution && problem.solution.language));
       lines.push("");
@@ -114,14 +103,6 @@ function buildMarkdown(data) {
   }
 
   return lines.join("\n");
-}
-
-function appendTextSection(lines, title, body) {
-  if (!body) return;
-  lines.push(`#### ${title}`);
-  lines.push("");
-  lines.push(body);
-  lines.push("");
 }
 
 function textParagraph(text, options = {}) {
@@ -154,7 +135,7 @@ function addSection(children, title, body) {
 
 function buildDocx(data) {
   const children = [];
-  children.push(textParagraph("XMUOJ 题集与答案（001-026）", { heading: HeadingLevel.TITLE, alignment: AlignmentType.CENTER }));
+  children.push(textParagraph("西坡的题集", { heading: HeadingLevel.TITLE, alignment: AlignmentType.CENTER }));
   children.push(textParagraph(`导出时间：${new Date().toLocaleString("zh-CN")}`));
   children.push(textParagraph(`数据更新时间：${data.generatedAt || "-"}`));
 
@@ -162,40 +143,27 @@ function buildDocx(data) {
     children.push(textParagraph(contest.title || `Contest ${contest.id}`, { heading: HeadingLevel.HEADING_1 }));
     addSection(children, "比赛说明", stripHtml(contest.description));
 
-    for (const problem of (contest.problems || []).filter(inExportRange)) {
+    for (const problem of contest.problems || []) {
       children.push(textParagraph(displayProblemLabel(problem), { heading: HeadingLevel.HEADING_2 }));
-      children.push(textParagraph(`原题：${problem.url || ""}`));
+      children.push(textParagraph(`题目来源：${problem.url || ""}`));
       children.push(textParagraph(`时间限制：${problem.timeLimit || "-"} ms    内存限制：${problem.memoryLimit || "-"} MB`));
       if (problem.source) children.push(textParagraph(`来源：${problem.source}`));
 
       addSection(children, "题面", stripHtml(problem.description));
       addSection(children, "输入", stripHtml(problem.inputDescription));
       addSection(children, "输出", stripHtml(problem.outputDescription));
-
-      if (problem.samples && problem.samples.length) {
-        children.push(textParagraph("样例", { heading: HeadingLevel.HEADING_4 }));
-        problem.samples.forEach((sample, index) => {
-          children.push(textParagraph(`样例 ${index + 1}`));
-          children.push(codeParagraph(`输入:\n${sample.input || ""}\n\n输出:\n${sample.output || ""}`));
-        });
-      }
-
       addSection(children, "提示", stripHtml(problem.hint));
-      children.push(textParagraph("答案代码", { heading: HeadingLevel.HEADING_4 }));
+      children.push(textParagraph("参考代码", { heading: HeadingLevel.HEADING_4 }));
       const solution = problem.solution || {};
-      children.push(codeParagraph(solution.code || "暂无答案代码"));
+      children.push(codeParagraph(solution.code || "还没有参考代码,欢迎投稿!"));
     }
   }
 
-  return new Document({
-    sections: [{ properties: {}, children }]
-  });
+  return new Document({ sections: [{ properties: {}, children }] });
 }
 
 async function main() {
-  if (!fs.existsSync(dataPath)) {
-    throw new Error(`Missing data file: ${dataPath}`);
-  }
+  if (!fs.existsSync(dataPath)) throw new Error(`Missing data file: ${dataPath}`);
   fs.mkdirSync(exportDir, { recursive: true });
   const data = loadData();
   const stamp = new Date().toISOString().replace(/[-:T]/g, "").slice(0, 12);
