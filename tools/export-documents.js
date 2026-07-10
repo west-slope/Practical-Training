@@ -28,6 +28,63 @@ function loadData() {
   return context.window.XMUOJ_SOLUTIONS_DATA || { contests: [] };
 }
 
+function normalizeSolutionPath(value) {
+  return String(value || "").replace(/\\/g, "/").replace(/^\.\//, "");
+}
+
+function languageFromPath(value) {
+  const ext = (String(value || "").match(/\.([a-z0-9]+)$/i) || [])[1] || "";
+  const map = { cc: "cpp", cxx: "cpp", hpp: "cpp" };
+  return map[ext.toLowerCase()] || ext.toLowerCase();
+}
+
+function solutionCandidates(contest, problem) {
+  const solution = problem.solution || {};
+  const seen = new Set();
+  const candidates = [];
+  const add = (value) => {
+    const normalized = normalizeSolutionPath(value);
+    if (!normalized || seen.has(normalized)) return;
+    seen.add(normalized);
+    candidates.push(normalized);
+  };
+  add(solution.path);
+  const contestId = String(contest && contest.id || "");
+  const problemId = String(problem && problem.id || "");
+  const displayId = displayProblemId(problemId);
+  const bases = [problemId, displayId].filter(Boolean);
+  const exts = ["cpp", "cc", "cxx", "c", "py", "java", "js", "ts", "go", "rs", "kt"];
+  bases.forEach((base) => exts.forEach((ext) => add(`solutions/${contestId}/${base}.${ext}`)));
+  return candidates;
+}
+
+function hydrateSolutions(data) {
+  for (const contest of data.contests || []) {
+    for (const problem of contest.problems || []) {
+      const current = problem.solution || {};
+      for (const candidate of solutionCandidates(contest, problem)) {
+        const filePath = path.join(siteRoot, candidate);
+        if (!fs.existsSync(filePath)) continue;
+        const code = fs.readFileSync(filePath, "utf8");
+        if (!code.trim()) continue;
+        problem.solution = {
+          path: candidate,
+          language: current.language || languageFromPath(candidate),
+          code
+        };
+        break;
+      }
+      if (!problem.solution || !problem.solution.code) {
+        problem.solution = {
+          path: normalizeSolutionPath(current.path || solutionCandidates(contest, problem)[0]),
+          language: current.language || languageFromPath(current.path || solutionCandidates(contest, problem)[0]),
+          code: ""
+        };
+      }
+    }
+  }
+  return data;
+}
 function stripHtml(html) {
   return String(html || "")
     .replace(/<br\s*\/?>/gi, "\n")
@@ -165,7 +222,7 @@ function buildDocx(data) {
 async function main() {
   if (!fs.existsSync(dataPath)) throw new Error(`Missing data file: ${dataPath}`);
   fs.mkdirSync(exportDir, { recursive: true });
-  const data = loadData();
+  const data = hydrateSolutions(loadData());
   const stamp = new Date().toISOString().replace(/[-:T]/g, "").slice(0, 12);
   const mdPath = path.join(exportDir, `xmuoj-solutions-${stamp}.md`);
   const docxPath = path.join(exportDir, `xmuoj-solutions-${stamp}.docx`);
@@ -182,3 +239,4 @@ main().catch((error) => {
   console.error(error);
   process.exit(1);
 });
+

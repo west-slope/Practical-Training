@@ -20,12 +20,12 @@ LL merge_sort(LL arr[],int l,int r)
         if(arr[p1]<=arr[p2]) temp[p0++]=arr[p1++];
         else {
             temp[p0++]=arr[p2++];
-            res+=mid-p1+1;
+            res+=mid-p1+1;//一定要是mid
         }
     }
     while(p1<=mid)temp[p0++]=arr[p1++];
     while(p2<=r)temp[p0++]=arr[p2++];
-    for(int i=l,j=0;i<=r;i++,j++)arr[i]=temp[j];
+    for(int i=l,j=0;i<=r;i++,j++)arr[i]=temp[j];//**
     return res;
 
 }

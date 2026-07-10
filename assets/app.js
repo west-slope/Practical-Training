@@ -1,5 +1,6 @@
 (function () {
   const data = window.XMUOJ_SOLUTIONS_DATA || { contests: [] };
+  const bundledSolutions = window.XMUOJ_SOLUTIONS_CODE || { solutions: {} };
   const state = {
     query: "",
     filter: "all",
@@ -102,6 +103,92 @@
     return [displayProblemId(problem.id), problem.title || "Untitled"].filter(Boolean).join(" ");
   }
 
+  function normalizeSolutionPath(path) {
+    return String(path || "").replace(/\\/g, "/").replace(/^\.\//, "");
+  }
+
+  function languageFromPath(path) {
+    const ext = (String(path || "").match(/\.([a-z0-9]+)$/i) || [])[1] || "";
+    const map = { cc: "cpp", cxx: "cpp", hpp: "cpp" };
+    return map[ext.toLowerCase()] || ext.toLowerCase();
+  }
+
+  function solutionCandidates(contest, problem) {
+    const solution = problem.solution || {};
+    const seen = new Set();
+    const candidates = [];
+    const add = (path) => {
+      const normalized = normalizeSolutionPath(path);
+      if (!normalized || seen.has(normalized)) return;
+      seen.add(normalized);
+      candidates.push(normalized);
+    };
+    add(solution.path);
+    const contestId = String(contest && contest.id || "");
+    const problemId = String(problem && problem.id || "");
+    const displayId = displayProblemId(problemId);
+    const bases = [problemId, displayId].filter(Boolean);
+    const exts = ["cpp", "cc", "cxx", "c", "py", "java", "js", "ts", "go", "rs", "kt"];
+    bases.forEach((base) => exts.forEach((ext) => add("solutions/" + contestId + "/" + base + "." + ext)));
+    return candidates;
+  }
+
+  function findBundledSolution(contest, problem) {
+    const contestSolutions = bundledSolutions.solutions && bundledSolutions.solutions[String(contest && contest.id)] || {};
+    const problemId = String(problem && problem.id || "");
+    const displayId = displayProblemId(problemId);
+    return contestSolutions[problemId] || contestSolutions[displayId] || null;
+  }
+  async function loadSolutionCode(contest, problem) {
+    const solution = problem.solution || {};
+    for (const path of solutionCandidates(contest, problem)) {
+      try {
+        const response = await fetch(path + "?v=" + encodeURIComponent(data.generatedAt || ""), { cache: "no-cache" });
+        if (!response.ok) continue;
+        const code = await response.text();
+        if (!code.trim()) continue;
+        problem.solution = {
+          path,
+          language: solution.language || languageFromPath(path),
+          code
+        };
+        return problem.solution;
+      } catch (error) {
+        // Local file:// previews cannot fetch sibling files in some browsers; keep embedded fallback below.
+      }
+    }
+    if (solution.code) {
+      problem.solution = {
+        path: normalizeSolutionPath(solution.path),
+        language: solution.language || languageFromPath(solution.path),
+        code: solution.code
+      };
+      return problem.solution;
+    }
+    problem.solution = {
+      path: normalizeSolutionPath(solution.path || solutionCandidates(contest, problem)[0]),
+      language: solution.language || languageFromPath(solution.path || solutionCandidates(contest, problem)[0]),
+      code: ""
+    };
+    return problem.solution;
+  }
+
+  function hasKnownSolution(problem) {
+    return Boolean(problem.solution && problem.solution.code);
+  }
+
+  async function refreshSolutionStatuses() {
+    const items = flattenProblems();
+    await Promise.all(items.map(async ({ contest, problem }) => {
+      if (problem.solution && problem.solution.code) return;
+      const solution = await loadSolutionCode(contest, problem);
+      problem.solutionStatus = solution && solution.code ? "loaded" : "missing";
+    }));
+    renderHomeStats();
+    renderHomeCards();
+    renderNav();
+    if (state.activeKey) showProblem(state.activeKey, false);
+  }
   function displaySolutionExt(solution) {
     if (!solution || !solution.path) return "";
     const match = String(solution.path).match(/(\.[a-z0-9]+)$/i);
@@ -110,7 +197,7 @@
 
   function matches(item) {
     if (String(item.contest.id) !== String(state.activeContestId)) return false;
-    const hasSolution = Boolean(item.problem.solution && item.problem.solution.code);
+    const hasSolution = hasKnownSolution(item.problem);
     if (state.filter === "solved" && !hasSolution) return false;
     if (state.filter === "missing" && hasSolution) return false;
     if (!state.query) return true;
@@ -148,7 +235,7 @@
       contestItems.forEach((item) => {
         const button = document.createElement("button");
         button.type = "button";
-        const hasSolution = Boolean(item.problem.solution && item.problem.solution.code);
+        const hasSolution = hasKnownSolution(item.problem);
         button.className = "problem-link" + (item.key === state.activeKey ? " is-active" : "") + (hasSolution ? " has-solution" : " is-missing");
         button.innerHTML = '<span>' + escapeHtml(displayProblemLabel(item.problem)) + '</span><small>' + (hasSolution ? "有" : "缺") + '</small>';
         button.addEventListener("click", () => showProblem(item.key));
@@ -162,7 +249,7 @@
     if (state.activeKey && !items.some((item) => item.key === state.activeKey) && items.length) showProblem(items[0].key, false);
   }
 
-  function showProblem(key, rerenderNav = true) {
+  async function showProblem(key, rerenderNav = true) {
     const item = flattenProblems().find((entry) => entry.key === key);
     if (!item) return;
     state.activeKey = key;
@@ -170,7 +257,7 @@
     localStorage.setItem("xmuoj.activeContestId", state.activeContestId);
 
     const { contest, problem } = item;
-    const solution = problem.solution || {};
+    const solution = await loadSolutionCode(contest, problem);
     els.emptyState.hidden = true;
     els.problemView.hidden = false;
     els.contestLabel.textContent = 'Contest ' + contest.id;
@@ -190,12 +277,14 @@
     setHtml(els.hint, problem.hint);
     els.hintSection.hidden = !textOf(problem.hint);
     renderSamples(problem.samples || []);
-    els.solutionPath.textContent = displaySolutionExt(solution);
+    els.solutionPath.textContent = solution.path ? displaySolutionExt(solution) : "";
     els.solutionPath.className = solution.code ? "" : "missing";
     const fallbackCode = "还没有参考代码,欢迎投稿!";
     els.solutionCode.innerHTML = highlightCode(solution.code || fallbackCode, solution.language);
     els.copyCode.disabled = !solution.code;
-    els.contributeHint.hidden = Boolean(solution.code);
+    els.contributeHint.hidden = false;
+    els.contributeHint.classList.toggle("has-code", Boolean(solution.code));
+    els.contributeHint.querySelector("span").textContent = solution.code ? "若有更好的解法，欢迎投稿本题。" : "还没有参考代码,欢迎投稿!";
     els.contributeProblem.dataset.problemId = problem.id || "";
     els.contributeProblem.dataset.contestId = contest.id || "";
     if (els.content) els.content.scrollTop = 0;
@@ -267,7 +356,7 @@
   function renderHomeStats() {
     const contests = data.contests || [];
     const problemCount = contests.reduce((total, contest) => total + ((contest.problems || []).length), 0);
-    const solvedCount = contests.reduce((total, contest) => total + (contest.problems || []).filter((problem) => problem.solution && problem.solution.code).length, 0);
+    const solvedCount = contests.reduce((total, contest) => total + (contest.problems || []).filter(hasKnownSolution).length, 0);
     els.homeProblemCount.textContent = '共 ' + problemCount + ' 道题';
     els.homeSolvedCount.textContent = '已整理 ' + solvedCount + ' 份答案';
     els.homeUpdatedAt.textContent = data.generatedAt ? '更新于 ' + data.generatedAt : '未导入';
@@ -277,7 +366,7 @@
     els.homeContestCards.innerHTML = "";
     (data.contests || []).forEach((contest) => {
       const problems = contest.problems || [];
-      const solved = problems.filter((problem) => problem.solution && problem.solution.code).length;
+      const solved = problems.filter(hasKnownSolution).length;
       const button = document.createElement("button");
       button.type = "button";
       button.className = "home-contest-card";
@@ -389,8 +478,16 @@
       return;
     }
     renderNav();
+    refreshSolutionStatuses();
   }
 
   init();
 })();
+
+
+
+
+
+
+
 

@@ -14,7 +14,7 @@ void merge_sort(int arr[],int l,int r)
     }
     while(p1<=mid)temp[p0++]=arr[p1++];
     while(p2<=r)temp[p0++]=arr[p2++];
-    for(int i=l,k=0;i<=r;i++,k++)arr[i]=temp[k];
+    for(int i=l,k=0;i<=r;i++,k++)arr[i]=temp[k];//**
 }
 
 
