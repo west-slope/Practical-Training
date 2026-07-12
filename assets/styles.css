@@ -1246,3 +1246,6 @@ pre {
 .solution-item-head span { color:var(--muted); font-size:12px; }
 .copy-solution { white-space:nowrap; }
 .missing-code { color:var(--warn); }
+
+.rich-text img { content-visibility:auto; max-width:100%; height:auto; }
+.rich-text img.is-missing-image { display:inline-block; min-width:180px; min-height:54px; padding:16px; border:1px dashed #a8bac8; background:#f3f8fc; color:#607786; }

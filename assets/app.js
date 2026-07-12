@@ -311,6 +311,16 @@
 
   function setHtml(el, html) {
     el.innerHTML = html || '<span class="missing">暂无内容</span>';
+    el.querySelectorAll("img").forEach((image) => {
+      image.loading = "lazy";
+      image.decoding = "async";
+      image.fetchPriority = "low";
+      image.referrerPolicy = "no-referrer";
+      image.addEventListener("error", () => {
+        image.classList.add("is-missing-image");
+        image.alt = image.alt || "题目图片暂未导入";
+      }, { once: true });
+    });
   }
 
   function renderSamples(samples) {
