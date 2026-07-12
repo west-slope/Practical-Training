@@ -1,5 +1,5 @@
 window.XMUOJ_SOLUTIONS_CODE = {
-  "generatedAt": "2026/7/12 18:31:14",
+  "generatedAt": "2026/7/12 18:49:34",
   "solutions": {
     "359": {
       "100": {
