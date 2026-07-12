@@ -1474,10 +1474,10 @@ window.XMUOJ_SOLUTIONS_DATA = {
           "url": "http://www.xmuoj.com/contest/362/problem/LinK63/",
           "timeLimit": 1000,
           "memoryLimit": 256,
-          "description": "<p>一眨眼一学期快结束了，早就自学完大四4年计算机专业的小华拿到了任天堂公司的offer提前毕业走上他喜爱的设计之路。</p><p>放心不下还在学校苦苦自学的小鲁，小华送给小鲁一套VR装置和一个新名字——林克。</p><p>他对小鲁说：从此以后，我写的VR编程环境来继续引导你自学编程，但是在这新的虚拟世界中，你要化身为林克，接受各种编程试炼的挑战，你愿意吗？</p><p>小鲁知道随着小华的离开，自己自主学习的新时代来了，他挥泪痛别小华，欣然接过小华的赠与，带上林克头套，进入编程大陆，开始了奇妙的VR编程之旅。</p><p>他还来不及为着小华的离开伤感，第一个挑战就来临了。<br /></p><p>“林克”面临一个艰难的选择,他的背包容量有限,而面前摆放着价值不同的物品(各种套装)</p><p>你可以帮帮他吗?</p><p><img alt=\\\"image.png\\\" src=\\\"https://www.xmuoj.com/public/upload/4605ef2575.png\\\" width=\\\"357\\\" height=\\\"201\\\" /><br /></p><p><img alt=\\\"image.png\\\" src=\\\"https://www.xmuoj.com/public/upload/6f6acafda3.png\\\" width=\\\"612\\\" height=\\\"143\\\" /><br /></p>",
-          "inputDescription": "<p><img alt=\\\"image.png\\\" src=\\\"https://www.xmuoj.com/public/upload/a884a9d2d3.png\\\" width=\\\"651\\\" height=\\\"72\\\" /><br /></p><p><img alt=\\\"image.png\\\" src=\\\"https://www.xmuoj.com/public/upload/a1dc684fed.png\\\" width=\\\"192\\\" height=\\\"59\\\" /><br /></p>",
-          "outputDescription": "<p><span style=\\\"color: rgb(51, 51, 51);\\\">输出一个整数，表示最大价值。</span><br /></p>",
-          "hint": "<p><a href=\\\"https://www.bilibili.com/video/BV197411y7mb\\\" target=\\\"_blank\\\">Andy的讲解</a><br /></p><p><a href=\\\"https://www.acwing.com/video/944/\\\" target=\\\"_blank\\\">acwing讲解(2020)</a><br /></p>",
+          "description": "<p>一眨眼一学期快结束了，早就自学完大四4年计算机专业的小华拿到了任天堂公司的offer提前毕业走上他喜爱的设计之路。</p><p>放心不下还在学校苦苦自学的小鲁，小华送给小鲁一套VR装置和一个新名字——林克。</p><p>他对小鲁说：从此以后，我写的VR编程环境来继续引导你自学编程，但是在这新的虚拟世界中，你要化身为林克，接受各种编程试炼的挑战，你愿意吗？</p><p>小鲁知道随着小华的离开，自己自主学习的新时代来了，他挥泪痛别小华，欣然接过小华的赠与，带上林克头套，进入编程大陆，开始了奇妙的VR编程之旅。</p><p>他还来不及为着小华的离开伤感，第一个挑战就来临了。<br /></p><p>“林克”面临一个艰难的选择,他的背包容量有限,而面前摆放着价值不同的物品(各种套装)</p><p>你可以帮帮他吗?</p><p><img alt=\"image.png\" src=\"assets/problem-images/LinK63-b7ace903ef.png\" width=\"357\" height=\"201\" /><br /></p><p><img alt=\"image.png\" src=\"assets/problem-images/LinK63-c5ae378010.png\" width=\"612\" height=\"143\" /><br /></p>",
+          "inputDescription": "<p><img alt=\"image.png\" src=\"assets/problem-images/LinK63-f9253bf6ed.png\" width=\"651\" height=\"72\" /><br /></p><p><img alt=\"image.png\" src=\"assets/problem-images/LinK63-3d3d115424.png\" width=\"192\" height=\"59\" /><br /></p>",
+          "outputDescription": "<p><span style=\"color: rgb(51, 51, 51);\">输出一个整数，表示最大价值。</span><br /></p>",
+          "hint": "<p><a href=\"https://www.bilibili.com/video/BV197411y7mb\" target=\"_blank\">Andy的讲解</a><br /></p><p><a href=\"https://www.acwing.com/video/944/\" target=\"_blank\">acwing讲解(2020)</a><br /></p>",
           "source": "",
           "samples": [
             {
@@ -1501,10 +1501,10 @@ window.XMUOJ_SOLUTIONS_DATA = {
           "url": "http://www.xmuoj.com/contest/362/problem/LinK64/",
           "timeLimit": 1000,
           "memoryLimit": 256,
-          "description": "<p>搞定了01背包问题，林克继续挑战完全背包问题：</p><p><img src=\\\"https://pic4.zhimg.com/80/v2-6fc1150fbb9af0f4ea680b29f2ebea23_720w.jpg\\\" /><br /></p><p>有N种物品和一个容量是V的背包，每种物品都有无限件可用。</p><p>第i种物品的体积是vi，价值是wi。</p><p>求解将哪些物品装入背包，可使这些物品的总体积不超过背包容量，且总价值最大。<br />输出最大价值。</p><p><span style=\\\"color: rgb(227, 55, 55);\\\">数据范围</span><br /></p><p><span style=\\\"color: rgb(227, 55, 55);\\\">0&lt;N,V≤1000<br />0&lt;vi,wi≤1000</span></p>",
+          "description": "<p>搞定了01背包问题，林克继续挑战完全背包问题：</p><p><img src=\"assets/problem-images/LinK64-0634dc7691.webp\" /><br /></p><p>有N种物品和一个容量是V的背包，每种物品都有无限件可用。</p><p>第i种物品的体积是vi，价值是wi。</p><p>求解将哪些物品装入背包，可使这些物品的总体积不超过背包容量，且总价值最大。<br />输出最大价值。</p><p><span style=\"color: rgb(227, 55, 55);\">数据范围</span><br /></p><p><span style=\"color: rgb(227, 55, 55);\">0&lt;N,V≤1000<br />0&lt;vi,wi≤1000</span></p>",
           "inputDescription": "<p>第一行两个整数，N，V，用空格隔开，分别表示物品种数和背包容积。</p><p>接下来有N行，每行两个整数vi,wi，用空格隔开，分别表示第i种物品的体积和价值。</p>",
-          "outputDescription": "<p><span style=\\\"color: rgb(51, 51, 51);\\\">输出一个整数，表示最大价值。</span><br /></p>",
-          "hint": "<p><a href=\\\"https://www.acwing.com/video/945/\\\" target=\\\"_blank\\\">acwing讲解</a></p>",
+          "outputDescription": "<p><span style=\"color: rgb(51, 51, 51);\">输出一个整数，表示最大价值。</span><br /></p>",
+          "hint": "<p><a href=\"https://www.acwing.com/video/945/\" target=\"_blank\">acwing讲解</a></p>",
           "source": "xmu",
           "samples": [
             {
@@ -1524,10 +1524,10 @@ window.XMUOJ_SOLUTIONS_DATA = {
           "url": "http://www.xmuoj.com/contest/362/problem/LinK65/",
           "timeLimit": 1000,
           "memoryLimit": 256,
-          "description": "<p style=\\\"margin-left: 0px;\\\"><img alt=\\\"image.png\\\" src=\\\"https://www.xmuoj.com/public/upload/f54a4768cf.png\\\" width=\\\"600\\\" height=\\\"322.2488038277512\\\" /><br /></p><p style=\\\"margin-left: 0px;\\\">有N种物品和一个容量是V的背包。</p><p>第i种物品最多有si件，每件体积是vi，价值是wi。</p><p>求解将哪些物品装入背包，可使物品体积总和不超过背包容量，且价值总和最大。<br />输出最大价值。</p><h4><span style=\\\"color: rgb(227, 55, 55);\\\">数据范围</span></h4><p><span style=\\\"color: rgb(227, 55, 55);\\\">0&lt;N,V≤100<br />0&lt;vi,wi,si≤100</span></p>",
+          "description": "<p style=\"margin-left: 0px;\"><img alt=\"image.png\" src=\"assets/problem-images/LinK65-81a3726934.png\" width=\"600\" height=\"322.2488038277512\" /><br /></p><p style=\"margin-left: 0px;\">有N种物品和一个容量是V的背包。</p><p>第i种物品最多有si件，每件体积是vi，价值是wi。</p><p>求解将哪些物品装入背包，可使物品体积总和不超过背包容量，且价值总和最大。<br />输出最大价值。</p><h4><span style=\"color: rgb(227, 55, 55);\">数据范围</span></h4><p><span style=\"color: rgb(227, 55, 55);\">0&lt;N,V≤100<br />0&lt;vi,wi,si≤100</span></p>",
           "inputDescription": "<p>第一行两个整数，N，V，用空格隔开，分别表示物品种数和背包容积。</p><p>接下来有N行，每行三个整数vi,wi,si，用空格隔开，分别表示第i种物品的体积、价值和数量。</p>",
-          "outputDescription": "<p><span style=\\\"color: rgb(51, 51, 51);\\\">输出一个整数，表示最大价值。</span><br /></p>",
-          "hint": "<p><a href=\\\"https://www.acwing.com/problem/content/4/\\\" target=\\\"_blank\\\">原题链接</a><br /></p>",
+          "outputDescription": "<p><span style=\"color: rgb(51, 51, 51);\">输出一个整数，表示最大价值。</span><br /></p>",
+          "hint": "<p><a href=\"https://www.acwing.com/problem/content/4/\" target=\"_blank\">原题链接</a><br /></p>",
           "source": "xmu",
           "samples": [
             {
@@ -1547,10 +1547,10 @@ window.XMUOJ_SOLUTIONS_DATA = {
           "url": "http://www.xmuoj.com/contest/362/problem/LinK66/",
           "timeLimit": 1000,
           "memoryLimit": 256,
-          "description": "<p style=\\\"margin-left: 0px;\\\"><img alt=\\\"image.png\\\" src=\\\"https://www.xmuoj.com/public/upload/205e8efc71.png\\\" width=\\\"600\\\" height=\\\"322.2488038277512\\\" /><br /></p><p style=\\\"margin-left: 0px;\\\">有N种物品和一个容量是V的背包。</p><p>第i种物品最多有si件，每件体积是vivi，价值是wi。</p><p>求解将哪些物品装入背包，可使物品体积总和不超过背包容量，且价值总和最大。<br />输出最大价值。</p><p><img alt=\\\"image.png\\\" src=\\\"https://www.xmuoj.com/public/upload/d98a38438e.png\\\" width=\\\"174\\\" height=\\\"106\\\" /><br /></p><h5>提示：</h5><p>本题考查多重背包的二进制优化方法。</p>",
+          "description": "<p style=\"margin-left: 0px;\"><img alt=\"image.png\" src=\"assets/problem-images/LinK66-81a3726934.png\" width=\"600\" height=\"322.2488038277512\" /><br /></p><p style=\"margin-left: 0px;\">有N种物品和一个容量是V的背包。</p><p>第i种物品最多有si件，每件体积是vivi，价值是wi。</p><p>求解将哪些物品装入背包，可使物品体积总和不超过背包容量，且价值总和最大。<br />输出最大价值。</p><p><img alt=\"image.png\" src=\"assets/problem-images/LinK66-8ed3773527.png\" width=\"174\" height=\"106\" /><br /></p><h5>提示：</h5><p>本题考查多重背包的二进制优化方法。</p>",
           "inputDescription": "<p>第一行两个整数，N，V，用空格隔开，分别表示物品种数和背包容积。</p><p>接下来有N行，每行三个整数vi,wi,si，用空格隔开，分别表示第i种物品的体积、价值和数量。</p>",
-          "outputDescription": "<p><span style=\\\"color: rgb(51, 51, 51);\\\">输出一个整数，表示最大价值。</span><br /></p>",
-          "hint": "<p><a href=\\\"https://www.acwing.com/problem/content/5/\\\" target=\\\"_blank\\\">原题链接</a></p>",
+          "outputDescription": "<p><span style=\"color: rgb(51, 51, 51);\">输出一个整数，表示最大价值。</span><br /></p>",
+          "hint": "<p><a href=\"https://www.acwing.com/problem/content/5/\" target=\"_blank\">原题链接</a></p>",
           "source": "xmu",
           "samples": [
             {
@@ -1570,10 +1570,10 @@ window.XMUOJ_SOLUTIONS_DATA = {
           "url": "http://www.xmuoj.com/contest/362/problem/LinK67/",
           "timeLimit": 1000,
           "memoryLimit": 256,
-          "description": "<p style=\\\"margin-left: 0px;\\\"><img alt=\\\"image.png\\\" src=\\\"https://www.xmuoj.com/public/upload/904c138622.png\\\" width=\\\"600\\\" height=\\\"311.04477611940297\\\" /><br /></p><p style=\\\"margin-left: 0px;\\\">有N组物品和一个容量是V的背包。</p><p>每组物品有若干个，同一组内的物品最多只能选一个。<br />每件物品的体积是vij，价值是wij，其中i是组号，j是组内编号。</p><p>求解将哪些物品装入背包，可使物品总体积不超过背包容量，且总价值最大。</p><p>输出最大价值。</p><p><img alt=\\\"image.png\\\" src=\\\"https://www.xmuoj.com/public/upload/3d0e1e535d.png\\\" width=\\\"156\\\" height=\\\"118\\\" /><br /></p>",
-          "inputDescription": "<p>第一行有两个整数N，V用空格隔开，分别表示物品组数和背包容量。</p><p>接下来有N组数据：</p><p><img alt=\\\"image.png\\\" src=\\\"https://www.xmuoj.com/public/upload/5adac9c21a.png\\\" width=\\\"487\\\" height=\\\"72\\\" /><br /></p>",
-          "outputDescription": "<p><span style=\\\"color: rgb(51, 51, 51);\\\">输出一个整数，表示最大价值。</span><br /></p>",
-          "hint": "<p><a href=\\\"https://www.acwing.com/problem/content/9/\\\" target=\\\"_blank\\\">原题链接</a></p><p><a href=\\\"https://www.acwing.com/video/341/\\\" target=\\\"_blank\\\">Y总讲解(基础课)</a></p>",
+          "description": "<p style=\"margin-left: 0px;\"><img alt=\"image.png\" src=\"assets/problem-images/LinK67-22a4eade36.png\" width=\"600\" height=\"311.04477611940297\" /><br /></p><p style=\"margin-left: 0px;\">有N组物品和一个容量是V的背包。</p><p>每组物品有若干个，同一组内的物品最多只能选一个。<br />每件物品的体积是vij，价值是wij，其中i是组号，j是组内编号。</p><p>求解将哪些物品装入背包，可使物品总体积不超过背包容量，且总价值最大。</p><p>输出最大价值。</p><p><img alt=\"image.png\" src=\"assets/problem-images/LinK67-a427601061.png\" width=\"156\" height=\"118\" /><br /></p>",
+          "inputDescription": "<p>第一行有两个整数N，V用空格隔开，分别表示物品组数和背包容量。</p><p>接下来有N组数据：</p><p><img alt=\"image.png\" src=\"assets/problem-images/LinK67-859803456f.png\" width=\"487\" height=\"72\" /><br /></p>",
+          "outputDescription": "<p><span style=\"color: rgb(51, 51, 51);\">输出一个整数，表示最大价值。</span><br /></p>",
+          "hint": "<p><a href=\"https://www.acwing.com/problem/content/9/\" target=\"_blank\">原题链接</a></p><p><a href=\"https://www.acwing.com/video/341/\" target=\"_blank\">Y总讲解(基础课)</a></p>",
           "source": "xmu",
           "samples": [
             {
@@ -1595,7 +1595,7 @@ window.XMUOJ_SOLUTIONS_DATA = {
           "memoryLimit": 256,
           "description": "<p>有 N 种物品和一个容量是 V 的背包。</p><p>物品一共有三类：</p><p>第一类物品只能用1次（01背包）；</p><p>第二类物品可以用无限次（完全背包）；</p><p>第三类物品最多只能用 si 次（多重背包）；</p><p>每种体积是 vi，价值是 wi。</p><p>求解将哪些物品装入背包，可使物品体积总和不超过背包容量，且价值总和最大。</p><p>输出最大价值。</p>",
           "inputDescription": "<p>第一行两个整数，N，V，用空格隔开，分别表示物品种数和背包容积。</p><p>接下来有 N 行，每行三个整数 vi,wi,si，用空格隔开，分别表示第 i 种物品的体积、价值和数量。</p><p>si=−1 表示第 i 种物品只能用1次；</p><p>si=0 表示第 i 种物品可以用无限次；</p><p>si&gt;0 表示第 i 种物品可以使用 si 次；</p>",
-          "outputDescription": "<p><span style=\\\"color: rgb(51, 51, 51);\\\">输出一个整数，表示最大价值。</span><br /></p>",
+          "outputDescription": "<p><span style=\"color: rgb(51, 51, 51);\">输出一个整数，表示最大价值。</span><br /></p>",
           "hint": "",
           "source": "xmu",
           "samples": [
@@ -1616,10 +1616,10 @@ window.XMUOJ_SOLUTIONS_DATA = {
           "url": "http://www.xmuoj.com/contest/362/problem/LinK69/",
           "timeLimit": 1000,
           "memoryLimit": 256,
-          "description": "<p>她来到一片有网格状道路的矩形花生地，从西北角进去，东南角出来。</p><p>地里每个道路的交叉点上都有种着一株花生苗，上面有若干颗花生，经过一株花生苗就能摘走该它上面所有的花生。</p><p>Hello Kitty只能向东或向南走，不能向西或向北走。</p><p>问Hello Kitty最多能够摘到多少颗花生。</p><p><br /></p><p><img src=\\\"https://cdn.acwing.com/media/article/image/2019/09/12/19_a8509f26d5-1.gif\\\" alt=\\\"1.gif\\\" /><br /></p>",
+          "description": "<p>她来到一片有网格状道路的矩形花生地，从西北角进去，东南角出来。</p><p>地里每个道路的交叉点上都有种着一株花生苗，上面有若干颗花生，经过一株花生苗就能摘走该它上面所有的花生。</p><p>Hello Kitty只能向东或向南走，不能向西或向北走。</p><p>问Hello Kitty最多能够摘到多少颗花生。</p><p><br /></p><p><img src=\"assets/problem-images/LinK69-2215907436.gif\" alt=\"1.gif\" /><br /></p>",
           "inputDescription": "<p>第一行是一个整数<code>T</code>，代表一共有多少组数据。</p><p>接下来是<code>T</code>组数据。</p><p>每组数据的第一行是两个整数，分别代表花生苗的行数<code>R</code>和列数<code>C</code>。</p><p>每组数据的接下来<code>R</code>行数据，从北向南依次描述每行花生苗的情况。每行数据有<code>C</code>个整数，按从西向东的顺序描述了该行每株花生苗上的花生数目<code>M</code>。</p><p><strong>数据范围</strong></p><p>1 ≤<code>T</code>≤ 100</p><p>1 ≤<code>R</code>，<code>C</code>≤ 100</p><p>0 ≤<code>M</code>≤ 1000</p>",
           "outputDescription": "<p>对每组输入数据，输出一行，内容为Hello Kitty能摘到得最多的花生颗数。</p>",
-          "hint": "<p><a href=\\\"https://www.acwing.com/problem/content/1017/\\\" target=\\\"_blank\\\">原题链接</a></p><p><a href=\\\"http://www.example.comhttps://www.acwing.com/video/2332/\\\" target=\\\"_blank\\\">Y总讲解</a></p><p><a href=\\\"https://www.acwing.com/activity/content/code/content/112796/\\\" target=\\\"_blank\\\">Y总代码</a></p>",
+          "hint": "<p><a href=\"https://www.acwing.com/problem/content/1017/\" target=\"_blank\">原题链接</a></p><p><a href=\"http://www.example.comhttps://www.acwing.com/video/2332/\" target=\"_blank\">Y总讲解</a></p><p><a href=\"https://www.acwing.com/activity/content/code/content/112796/\" target=\"_blank\">Y总代码</a></p>",
           "source": "xmu",
           "samples": [
             {
@@ -1642,7 +1642,7 @@ window.XMUOJ_SOLUTIONS_DATA = {
           "description": "<p>一个商人穿过一个N×N的正方形的网格，去参加一个非常重要的商务活动。</p><p>他要从网格的左上角进，右下角出。</p><p>每穿越中间1个小方格，都要花费1个单位时间。</p><p>商人必须在(2N - 1)个单位时间穿越出去。</p><p>而在经过中间的每个小方格时，都需要缴纳一定的费用。</p><p>这个商人期望在规定时间内用最少费用穿越出去。</p><p>请问至少需要多少费用？</p><p>注意：不能对角穿越各个小方格（即，只能向上下左右四个方向移动且不能离开网格）。</p>",
           "inputDescription": "<p>第一行是一个整数，表示正方形的宽度N。</p><p>后面N行，每行N个不大于100的正整数，为网格上每个小方格的费用。</p><p><strong>数据范围</strong></p><p>1 ≤ N ≤ 100</p>",
           "outputDescription": "<p>输出一个整数，表示至少需要的费用。</p><p><strong>样例解释</strong></p><p>样例中，最小值为109 = 1 + 2 + 5 + 7 + 9 + 12 + 19 + 21 + 33。</p>",
-          "hint": "<p><a href=\\\"https://www.acwing.com/problem/content/1020/\\\" target=\\\"_blank\\\">原题链接</a></p><p><a href=\\\"https://www.acwing.com/solution/content/51101/\\\" target=\\\"_blank\\\">参考题解</a></p><p><a href=\\\"https://www.acwing.com/activity/content/code/content/112797/\\\" target=\\\"_blank\\\">Y总代码</a></p><p><a href=\\\"https://www.acwing.com/video/353/\\\" target=\\\"_blank\\\">Y总讲解</a></p>",
+          "hint": "<p><a href=\"https://www.acwing.com/problem/content/1020/\" target=\"_blank\">原题链接</a></p><p><a href=\"https://www.acwing.com/solution/content/51101/\" target=\"_blank\">参考题解</a></p><p><a href=\"https://www.acwing.com/activity/content/code/content/112797/\" target=\"_blank\">Y总代码</a></p><p><a href=\"https://www.acwing.com/video/353/\" target=\"_blank\">Y总讲解</a></p>",
           "source": "xmu",
           "samples": [
             {
@@ -1662,10 +1662,10 @@ window.XMUOJ_SOLUTIONS_DATA = {
           "url": "http://www.xmuoj.com/contest/362/problem/LinK71/",
           "timeLimit": 1000,
           "memoryLimit": 256,
-          "description": "<p><span style=\\\"color: rgb(51, 51, 51);\\\">给定一个长度为N的数列，求数值严格单调递增的子序列的长度最长是多少。</span><br /></p><p><span style=\\\"color: rgb(51, 51, 51);\\\"><img alt=\\\"image.png\\\" src=\\\"https://www.xmuoj.com/public/upload/743ae6c848.png\\\" width=\\\"212\\\" height=\\\"87\\\" /><br /></span></p>",
+          "description": "<p><span style=\"color: rgb(51, 51, 51);\">给定一个长度为N的数列，求数值严格单调递增的子序列的长度最长是多少。</span><br /></p><p><span style=\"color: rgb(51, 51, 51);\"><img alt=\"image.png\" src=\"assets/problem-images/LinK71-230d0e8f0a.png\" width=\"212\" height=\"87\" /><br /></span></p>",
           "inputDescription": "<p>第一行包含整数N。</p><p>第二行包含N个整数，表示完整序列。</p>",
-          "outputDescription": "<p><span style=\\\"color: rgb(51, 51, 51);\\\">输出一个整数，表示最大长度。</span><br /></p>",
-          "hint": "<p><a href=\\\"https://www.acwing.com/problem/content/897/\\\" target=\\\"_blank\\\">原题链接</a></p>",
+          "outputDescription": "<p><span style=\"color: rgb(51, 51, 51);\">输出一个整数，表示最大长度。</span><br /></p>",
+          "hint": "<p><a href=\"https://www.acwing.com/problem/content/897/\" target=\"_blank\">原题链接</a></p>",
           "source": "",
           "samples": [
             {
@@ -1685,10 +1685,10 @@ window.XMUOJ_SOLUTIONS_DATA = {
           "url": "http://www.xmuoj.com/contest/362/problem/LinK72/",
           "timeLimit": 1000,
           "memoryLimit": 256,
-          "description": "<p>给定一个长度为N的数列，求数值严格单调递增的子序列的长度最长是多少。<br /></p><p><span style=\\\"color: rgb(51, 51, 51);\\\"><img alt=\\\"image.png\\\" src=\\\"https://www.xmuoj.com/public/upload/77823fbbb0.png\\\" width=\\\"209\\\" height=\\\"85\\\" /></span><br /></p>",
+          "description": "<p>给定一个长度为N的数列，求数值严格单调递增的子序列的长度最长是多少。<br /></p><p><span style=\"color: rgb(51, 51, 51);\"><img alt=\"image.png\" src=\"assets/problem-images/LinK72-a96adbda73.png\" width=\"209\" height=\"85\" /></span><br /></p>",
           "inputDescription": "<p>第一行包含整数N。</p><p>第二行包含N个整数，表示完整序列。</p>",
-          "outputDescription": "<p><span style=\\\"color: rgb(51, 51, 51);\\\">输出一个整数，表示最大长度。</span><br /></p>",
-          "hint": "<p><a href=\\\"https://www.acwing.com/problem/content/898/\\\" target=\\\"_blank\\\">原题链接</a></p>",
+          "outputDescription": "<p><span style=\"color: rgb(51, 51, 51);\">输出一个整数，表示最大长度。</span><br /></p>",
+          "hint": "<p><a href=\"https://www.acwing.com/problem/content/898/\" target=\"_blank\">原题链接</a></p>",
           "source": "xmu",
           "samples": [
             {
@@ -1711,7 +1711,7 @@ window.XMUOJ_SOLUTIONS_DATA = {
           "description": "<p><font>某国为了防御敌国的导弹袭击，发展出一种导弹</font><font>拦截系统。</font></p><p><font>但是这种导弹拦截系统有一个缺陷：虽然它的第一发炮弹能够到达任意的高度，但是以后每一发炮弹都不能高于前一发的高度。</font></p><p><font>某天，雷达捕捉到敌国的</font><font>导弹来袭。由于该系统还在试用阶段，所以只有一套系统，因此有可能不能拦截所有的导弹。</font><br /><br /><font>输入导弹依次飞来的高度（雷达给出的高度数据是不大于</font>30000的正整数），计算这套系统最多能拦截多少导弹，如果要拦截所有导弹最少要配备多少套这种导弹拦截系统。<br /></p>",
           "inputDescription": "<p><font>一行，为导弹依次飞来的高度</font><br /></p>",
           "outputDescription": "<p><font>两行，分别是最多能拦截的导弹数与要拦截所有导弹最少要配备的系统数</font><br /></p>",
-          "hint": "<p><a href=\\\"https://www.acwing.com/problem/content/1012/\\\" target=\\\"_blank\\\">原题链接</a></p>",
+          "hint": "<p><a href=\"https://www.acwing.com/problem/content/1012/\" target=\"_blank\">原题链接</a></p>",
           "source": "xmu",
           "samples": [
             {
@@ -1731,10 +1731,10 @@ window.XMUOJ_SOLUTIONS_DATA = {
           "url": "http://www.xmuoj.com/contest/362/problem/LinK75/",
           "timeLimit": 1000,
           "memoryLimit": 256,
-          "description": "<h4><span style=\\\"color: rgb(51, 51, 51);\\\">给定两个长度分别为N和M的字符串A和B，求既是A的子序列又是B的子序列的字符串长度最长是多少。</span><br /></h4><h4 style=\\\"margin-left: 0px;\\\">数据范围</h4><p>1≤N,M≤1000</p>",
+          "description": "<h4><span style=\"color: rgb(51, 51, 51);\">给定两个长度分别为N和M的字符串A和B，求既是A的子序列又是B的子序列的字符串长度最长是多少。</span><br /></h4><h4 style=\"margin-left: 0px;\">数据范围</h4><p>1≤N,M≤1000</p>",
           "inputDescription": "<p>第一行包含两个整数N和M。</p><p>第二行包含一个长度为N的字符串，表示字符串A。</p><p>第三行包含一个长度为M的字符串，表示字符串B。</p><p>字符串均由小写字母构成。</p>",
-          "outputDescription": "<p><span style=\\\"color: rgb(51, 51, 51);\\\">输出一个整数，表示最大长度。</span><br /></p>",
-          "hint": "<p><a href=\\\"https://www.acwing.com/problem/content/899/\\\" target=\\\"_blank\\\">原题链接</a></p><p><a href=\\\"https://www.acwing.com/video/946/\\\" target=\\\"_blank\\\">Y总讲解</a></p>",
+          "outputDescription": "<p><span style=\"color: rgb(51, 51, 51);\">输出一个整数，表示最大长度。</span><br /></p>",
+          "hint": "<p><a href=\"https://www.acwing.com/problem/content/899/\" target=\"_blank\">原题链接</a></p><p><a href=\"https://www.acwing.com/video/946/\" target=\"_blank\">Y总讲解</a></p>",
           "source": "",
           "samples": [
             {
@@ -1754,10 +1754,10 @@ window.XMUOJ_SOLUTIONS_DATA = {
           "url": "http://www.xmuoj.com/contest/362/problem/LinK76/",
           "timeLimit": 1000,
           "memoryLimit": 256,
-          "description": "<p style=\\\"margin-left: 0px;\\\"><img alt=\\\"image.png\\\" src=\\\"https://www.xmuoj.com/public/upload/d47e1d10c6.png\\\" width=\\\"600\\\" height=\\\"336.8560105680317\\\" /><br /></p><p style=\\\"margin-left: 0px;\\\">设有N堆石子排成一排，其编号为1，2，3，…，N。</p><p>每堆石子有一定的质量，可以用一个整数来描述，现在要将这N堆石子合并成为一堆。</p><p>每次只能合并相邻的两堆，合并的代价为这两堆石子的质量之和，合并后与这两堆石子相邻的石子将和新堆相邻，合并时由于选择的顺序不同，合并的总代价也不相同。</p><p>例如有4堆石子分别为 1 3 5 2， 我们可以先合并1、2堆，代价为4，得到4 5 2， 又合并 1，2堆，代价为9，得到9 2 ，再合并得到11，总代价为4+9+11=24；</p><p>如果第二步是先合并2，3堆，则代价为7，得到4 7，最后一次合并代价为11，总代价为4+7+11=22。</p><p>问题是：找出一种合理的方法，使总的代价最小，输出最小代价。</p><h4><span style=\\\"color: rgb(227, 55, 55);\\\">数据范围</span></h4><p><span style=\\\"color: rgb(227, 55, 55);\\\">1≤N≤300</span></p>",
+          "description": "<p style=\"margin-left: 0px;\"><img alt=\"image.png\" src=\"assets/problem-images/LinK76-97099756bc.png\" width=\"600\" height=\"336.8560105680317\" /><br /></p><p style=\"margin-left: 0px;\">设有N堆石子排成一排，其编号为1，2，3，…，N。</p><p>每堆石子有一定的质量，可以用一个整数来描述，现在要将这N堆石子合并成为一堆。</p><p>每次只能合并相邻的两堆，合并的代价为这两堆石子的质量之和，合并后与这两堆石子相邻的石子将和新堆相邻，合并时由于选择的顺序不同，合并的总代价也不相同。</p><p>例如有4堆石子分别为 1 3 5 2， 我们可以先合并1、2堆，代价为4，得到4 5 2， 又合并 1，2堆，代价为9，得到9 2 ，再合并得到11，总代价为4+9+11=24；</p><p>如果第二步是先合并2，3堆，则代价为7，得到4 7，最后一次合并代价为11，总代价为4+7+11=22。</p><p>问题是：找出一种合理的方法，使总的代价最小，输出最小代价。</p><h4><span style=\"color: rgb(227, 55, 55);\">数据范围</span></h4><p><span style=\"color: rgb(227, 55, 55);\">1≤N≤300</span></p>",
           "inputDescription": "<p>第一行一个数N表示石子的堆数N。</p><p>第二行N个数，表示每堆石子的质量(均不超过1000)。</p>",
-          "outputDescription": "<p><span style=\\\"color: rgb(51, 51, 51);\\\">输出一个整数，表示最小代价。</span><br /></p>",
-          "hint": "<p><a href=\\\"https://www.acwing.com/problem/content/284/\\\" target=\\\"_blank\\\">原题链接</a></p><p><a href=\\\"https://www.acwing.com/video/943/\\\" target=\\\"_blank\\\">ACWing讲解</a></p>",
+          "outputDescription": "<p><span style=\"color: rgb(51, 51, 51);\">输出一个整数，表示最小代价。</span><br /></p>",
+          "hint": "<p><a href=\"https://www.acwing.com/problem/content/284/\" target=\"_blank\">原题链接</a></p><p><a href=\"https://www.acwing.com/video/943/\" target=\"_blank\">ACWing讲解</a></p>",
           "source": "xmu",
           "samples": [
             {
@@ -1780,7 +1780,7 @@ window.XMUOJ_SOLUTIONS_DATA = {
           "description": "<p>设一个 n 个节点的二叉树 tree 的中序遍历为（1,2,3,…,n），其中数字 1,2,3,…,n 为节点编号。</p><p>每个节点都有一个分数（均为正整数），记第 i 个节点的分数为 di，tree 及它的每个子树都有一个加分，任一棵子树 subtree（也包含 tree 本身）的加分计算方法如下：</p><p>subtree的左子树的加分 × subtree的右子树的加分 ＋ subtree的根的分数</p><p>若某个子树为空，规定其加分为 1。</p><p>叶子的加分就是叶节点本身的分数，不考虑它的空子树。</p><p>试求一棵符合中序遍历为（1,2,3,…,n）且加分最高的二叉树 tree。</p><p>要求输出：</p><p>（1）tree的最高加分</p><p>（2）tree的前序遍历</p>",
           "inputDescription": "<p>第 1 行：一个整数 n，为节点个数。n&lt;=30</p><p>第 2 行：n 个用空格隔开的整数，为每个节点的分数（0&lt;分数&lt;100）。</p>",
           "outputDescription": "<p>第 1 行：一个整数，为最高加分</p><p>第 2 行：n 个用空格隔开的整数（最后一个数后面没空格），为该树的前序遍历。如果存在多种方案，则输出字典序最小的方案。</p>",
-          "hint": "<p><a href=\\\"https://www.acwing.com/problem/content/481/\\\" target=\\\"_blank\\\">原题链接</a></p>",
+          "hint": "<p><a href=\"https://www.acwing.com/problem/content/481/\" target=\"_blank\">原题链接</a></p>",
           "source": "xmu",
           "samples": [
             {
@@ -1800,10 +1800,10 @@ window.XMUOJ_SOLUTIONS_DATA = {
           "url": "http://www.xmuoj.com/contest/362/problem/LinK80/",
           "timeLimit": 1000,
           "memoryLimit": 256,
-          "description": "<p style=\\\"margin-left: 0px;\\\">Ural大学有N名职员，编号为1~N。</p><p>他们的关系就像一棵以校长为根的树，父节点就是子节点的直接上司。</p><p>每个职员有一个快乐指数，用整数Hi给出，其中1≤i≤N。</p><p>现在要召开一场周年庆宴会，不过，没有职员愿意和直接上司一起参会。</p><p>在满足这个条件的前提下，主办方希望邀请一部分职员参会，使得所有参会职员的快乐指数总和最大，求这个最大值。</p><p><span style=\\\"color: rgb(227, 55, 55);\\\">数据范围</span></p><p><span style=\\\"color: rgb(227, 55, 55);\\\">1≤N≤6000,<br />−128≤Hi≤127</span></p>",
+          "description": "<p style=\"margin-left: 0px;\">Ural大学有N名职员，编号为1~N。</p><p>他们的关系就像一棵以校长为根的树，父节点就是子节点的直接上司。</p><p>每个职员有一个快乐指数，用整数Hi给出，其中1≤i≤N。</p><p>现在要召开一场周年庆宴会，不过，没有职员愿意和直接上司一起参会。</p><p>在满足这个条件的前提下，主办方希望邀请一部分职员参会，使得所有参会职员的快乐指数总和最大，求这个最大值。</p><p><span style=\"color: rgb(227, 55, 55);\">数据范围</span></p><p><span style=\"color: rgb(227, 55, 55);\">1≤N≤6000,<br />−128≤Hi≤127</span></p>",
           "inputDescription": "<p>第一行一个整数N。</p><p>接下来N行，第 i 行表示 i 号职员的快乐指数Hi。</p><p>接下来N-1行，每行输入一对整数L, K,表示K是L的直接上司。</p>",
-          "outputDescription": "<p><span style=\\\"color: rgb(51, 51, 51);\\\">输出最大的快乐指数。</span><br /></p>",
-          "hint": "<p><a href=\\\"https://www.acwing.com/video/471/\\\" target=\\\"_blank\\\">acwing讲解</a><br /></p><p><a href=\\\"https://www.acwing.com/problem/content/287/\\\" target=\\\"_blank\\\">原题链接</a><br /></p><p><a href=\\\"https://www.acwing.com/solution/content/3502/\\\" target=\\\"_blank\\\">题解参考</a></p>",
+          "outputDescription": "<p><span style=\"color: rgb(51, 51, 51);\">输出最大的快乐指数。</span><br /></p>",
+          "hint": "<p><a href=\"https://www.acwing.com/video/471/\" target=\"_blank\">acwing讲解</a><br /></p><p><a href=\"https://www.acwing.com/problem/content/287/\" target=\"_blank\">原题链接</a><br /></p><p><a href=\"https://www.acwing.com/solution/content/3502/\" target=\"_blank\">题解参考</a></p>",
           "source": "xmu",
           "samples": [
             {

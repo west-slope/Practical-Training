@@ -95,6 +95,50 @@ function Convert-Html {
   return [string]$Value
 }
 
+
+function Localize-ProblemImages {
+  param([string]$Html, [string]$ContestId, [string]$ProblemId)
+  if ([string]::IsNullOrWhiteSpace($Html)) { return "" }
+  $Html = $Html.Replace('\\"', '"')
+  $imageDir = Join-Path $SiteRoot "assets\problem-images"
+  New-Item -ItemType Directory -Force -Path $imageDir | Out-Null
+  $pattern = '<img\b[^>]*?\bsrc\s*=\s*(["''])(?<src>.*?)\1'
+  return [regex]::Replace($Html, $pattern, {
+    param($match)
+    $src = $match.Groups["src"].Value.Trim()
+    if (-not $src -or $src -match '^(data:|blob:)' -or $src -match '^\.?/?assets/problem-images/') { return $match.Value }
+    try {
+      if ([uri]::IsWellFormedUriString($src, [UriKind]::Absolute)) { $uri = [uri]$src }
+      else { $uri = [uri]::new([uri]($BaseUrl.TrimEnd("/") + "/"), $src.TrimStart("/")) }
+      $options = @{ Uri = $uri.AbsoluteUri; WebSession = $Session; Method = "Get" }
+      if ($Cookie) { $options["Headers"] = @{ Cookie = $Cookie; Referer = $BaseUrl.TrimEnd("/") + "/" } }
+      $response = Invoke-WebRequest @options
+      $bytes = $response.Content
+      if ($bytes -is [string]) { $bytes = [Text.Encoding]::UTF8.GetBytes($bytes) }
+      if (-not $bytes -or $bytes.Length -eq 0) { throw "empty response" }
+      $sha = [Security.Cryptography.SHA256]::Create()
+      try { $hash = ([BitConverter]::ToString($sha.ComputeHash($bytes))).Replace("-", "").Substring(0, 12).ToLowerInvariant() }
+      finally { $sha.Dispose() }
+      $contentType = [string]$response.Headers["Content-Type"]
+      $extension = switch -Regex ($contentType) {
+        'image/jpeg' { '.jpg'; break }
+        'image/gif' { '.gif'; break }
+        'image/webp' { '.webp'; break }
+        'image/svg\+xml' { '.svg'; break }
+        default { $candidate = [IO.Path]::GetExtension($uri.AbsolutePath).ToLowerInvariant(); if ($candidate -in @('.png','.jpg','.jpeg','.gif','.webp','.svg')) { $candidate } else { '.png' } }
+      }
+      $safeId = ($ProblemId -replace '[^A-Za-z0-9._-]', '_')
+      $name = "$safeId-$hash$extension"
+      $target = Join-Path $imageDir $name
+      if (-not (Test-Path -LiteralPath $target)) { [IO.File]::WriteAllBytes($target, $bytes) }
+      return $match.Value.Replace($match.Groups["src"].Value, "assets/problem-images/$name")
+    } catch {
+      Write-Warning "    image download failed for $ProblemId ($src): $($_.Exception.Message)"
+      return $match.Value
+    }
+  })
+}
+
 function Find-Solution {
   param([string]$ContestId, [string]$ProblemId)
 
@@ -177,10 +221,10 @@ foreach ($cid in $ContestId) {
       url = "$($BaseUrl.TrimEnd('/'))/contest/$cid/problem/$displayId/"
       timeLimit = $detail.time_limit
       memoryLimit = $detail.memory_limit
-      description = Convert-Html $detail.description
-      inputDescription = Convert-Html $detail.input_description
-      outputDescription = Convert-Html $detail.output_description
-      hint = Convert-Html $detail.hint
+      description = Localize-ProblemImages -Html (Convert-Html $detail.description) -ContestId $cid -ProblemId $displayId
+      inputDescription = Localize-ProblemImages -Html (Convert-Html $detail.input_description) -ContestId $cid -ProblemId $displayId
+      outputDescription = Localize-ProblemImages -Html (Convert-Html $detail.output_description) -ContestId $cid -ProblemId $displayId
+      hint = Localize-ProblemImages -Html (Convert-Html $detail.hint) -ContestId $cid -ProblemId $displayId
       source = [string]$detail.source
       samples = @(Normalize-Samples $detail)
       solution = $solution

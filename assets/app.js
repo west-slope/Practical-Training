@@ -310,7 +310,8 @@
   }
 
   function setHtml(el, html) {
-    el.innerHTML = html || '<span class="missing">暂无内容</span>';
+    const normalizedHtml = String(html || "").replace(/\\"/g, '"');
+    el.innerHTML = normalizedHtml || '<span class="missing">暂无内容</span>';
     el.querySelectorAll("img").forEach((image) => {
       image.loading = "lazy";
       image.decoding = "async";
