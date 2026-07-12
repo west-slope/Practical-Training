@@ -178,6 +178,47 @@
     return [];
   }
 
+
+  function renderSolutions(solutions) {
+    if (!els.solutionList) return;
+    els.solutionList.innerHTML = "";
+    if (!solutions.length) {
+      const pre = document.createElement("pre");
+      pre.className = "code-block missing-code";
+      pre.textContent = "还没有参考代码,欢迎投稿!";
+      els.solutionList.appendChild(pre);
+      return;
+    }
+
+    solutions.forEach((solution, index) => {
+      const panel = document.createElement("div");
+      panel.className = "solution-item";
+      const head = document.createElement("div");
+      head.className = "solution-item-head";
+      const title = document.createElement("h4");
+      title.textContent = solutions.length === 1 ? "参考代码" : "参考代码 " + (index + 1);
+      const meta = document.createElement("span");
+      meta.textContent = displaySolutionExt(solution);
+      const copy = document.createElement("button");
+      copy.type = "button";
+      copy.className = "copy-solution";
+      copy.textContent = "复制代码";
+      copy.addEventListener("click", async () => {
+        await navigator.clipboard.writeText(solution.code);
+        copy.textContent = "已复制";
+        window.setTimeout(() => { copy.textContent = "复制代码"; }, 1200);
+      });
+      head.append(title, meta, copy);
+      const pre = document.createElement("pre");
+      pre.className = "code-block";
+      const code = document.createElement("code");
+      code.innerHTML = highlightCode(solution.code, solution.language);
+      pre.appendChild(code);
+      panel.append(head, pre);
+      els.solutionList.appendChild(panel);
+    });
+  }
+
   function hasKnownSolution(problem) {
     return Boolean(problem.solution && hasUsableCode(problem.solution.code));
   }
