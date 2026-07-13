@@ -1,5 +1,5 @@
 window.XMUOJ_SOLUTIONS_CODE = {
-  "generatedAt": "2026/7/12 23:18:11",
+  "generatedAt": "2026/7/13 21:43:15",
   "solutions": {
     "359": {
       "100": [
@@ -39,7 +39,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/104.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\nusing namespace std;\r\n\r\nint a[1000];\r\nint quick_sort(int arr[],int l,int r,int k)\r\n{\r\n    if(l>=r)return arr[l];\r\n    int i=l-1,j=r+1,x=arr[(l+r)>>1];\r\n    while(i<j)\r\n    {\r\n        do i++;while(x>arr[i]);\r\n        do j--;while(x<arr[j]);\r\n        if(i<j)swap(arr[i],arr[j]);\r\n    }\r\n    int s1=j-l+1;\r\n    if(k<=s1)return quick_sort(arr,l,j,k);\r\n    else return quick_sort(arr,j+1,r,k-s1);\r\n}\r\n\r\nint main()\r\n{\r\n    int n,k;\r\n    cin>>n>>k;\r\n    for(int i=0;i<n;i++)\r\n    {\r\n        scanf(\"%d\",&a[i]);\r\n    }\r\n    cout<<quick_sort(a,0,n-1,k)<<endl;\r\n    \r\n}"
+          "code": "#include<iostream>\r\nusing namespace std;\r\n\r\nint a[100010];//数组太小过不了 \r\nint quick_sort(int arr[],int l,int r,int k)\r\n{\r\n    if(l>=r)return arr[l];\r\n    int i=l-1,j=r+1,x=arr[(l+r)>>1];\r\n    while(i<j)\r\n    {\r\n        do i++;while(x>arr[i]);\r\n        do j--;while(x<arr[j]);\r\n        if(i<j)swap(arr[i],arr[j]);\r\n    }\r\n    int s1=j-l+1;\r\n    if(k<=s1)return quick_sort(arr,l,j,k);\r\n    else return quick_sort(arr,j+1,r,k-s1);\r\n}\r\n\r\nint main()\r\n{\r\n    int n,k;\r\n    cin>>n>>k;\r\n    for(int i=0;i<n;i++)\r\n    {\r\n        scanf(\"%d\",&a[i]);\r\n    }\r\n    cout<<quick_sort(a,0,n-1,k)<<endl;\r\n    \r\n}"
         }
       ],
       "105": [
@@ -87,7 +87,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/110.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\n#include<string>\r\n#include<cstring>\r\n#include<algorithm>\r\n#include<vector>\r\nusing namespace std;\r\ntypedef long long LL;\r\n\r\nvector<int>add(vector<int> &A,vector<int>&B)\r\n{\r\n    vector<int>C;\r\n    for(int i=0,t=0;i<A.size()||i<B.size()||t;i++)\r\n    {\r\n        if(i<A.size())t+=A[i];\r\n        if(i<B.size())t+=B[i];\r\n        C.push_back(t%10);\r\n        t/=10;\r\n    }\r\n    return C;\r\n}\r\n\r\nvoid print(vector<int>A)\r\n{\r\n    for(int i=A.size()-1;i>=0;i--)\r\n        cout<<A[i];\r\n    cout<<endl;\r\n}\r\n\r\nint main()\r\n{\r\n    string a,b;\r\n    cin>>a>>b;\r\n    vector<int>A,B;\r\n\r\n    for(int i=a.size()-1;i>=0;i--)\r\n    {\r\n        A.push_back(a[i]-'0');\r\n    }\r\n    for(int i=b.size()-1;i>=0;i--)\r\n    {\r\n        B.push_back(b[i]-'0');\r\n    }\r\n\r\n    print(add(A,B));\r\n\r\n}\r\n\r\n\r\n\r\n\r\n// int main()\r\n// {\r\n//     string arr[3];\r\n//     int a[3][100001]={0};\r\n//     cin>>arr[0];\r\n//     cin>>arr[1];\r\n//     int a0=arr[0].length(),a1=arr[1].length();\r\n//     int m=max(a0,a1);\r\n//     for(int i=0;i<a0;i++)\r\n//     {\r\n//         a[0][i]=arr[0][a0-i-1]-'0';\r\n//     }\r\n//     for(int i=0;i<a1;i++)\r\n//     {\r\n//         a[1][i]=arr[1][a1-i-1]-'0';\r\n//     }\r\n//     for(int i=0;i<m;i++)\r\n//     {\r\n//         a[2][i]+=a[0][i]+a[1][i];\r\n//         if(a[2][i]>=10)\r\n//         {\r\n//             a[2][i]-=10;\r\n//             a[2][i+1]++;\r\n//         }\r\n//     }\r\n//     for(int i=m;i>=0;i--)\r\n//     {\r\n//         if(i==m&&a[2][m]==0)continue;\r\n//         cout<<a[2][i];\r\n//     }\r\n\r\n\r\n\r\n\r\n\r\n// }"
+          "code": "#include<iostream>\r\n#include<string>\r\n#include<cstring>\r\n#include<algorithm>\r\n#include<vector>\r\nusing namespace std;\r\ntypedef long long LL;\r\n\r\nvector<int>add(vector<int> &A,vector<int>&B)\r\n{\r\n    vector<int>C;\r\n    for(int i=0,t=0;i<A.size()||i<B.size()||t;i++)\r\n    {\r\n        if(i<A.size())t+=A[i];\r\n        if(i<B.size())t+=B[i];\r\n        C.push_back(t%10);\r\n        t/=10;\r\n    }\r\n    return C;\r\n}\r\n\r\nvoid print(vector<int>A)\r\n{\r\n    for(int i=A.size()-1;i>=0;i--)\r\n        cout<<A[i];\r\n    cout<<endl;\r\n}\r\n\r\nint main()\r\n{\r\n    string a,b;\r\n    cin>>a>>b;\r\n    vector<int>A,B;\r\n\r\n    for(int i=a.size()-1;i>=0;i--)\r\n    {\r\n        A.push_back(a[i]-'0');\r\n    }\r\n    for(int i=b.size()-1;i>=0;i--)\r\n    {\r\n        B.push_back(b[i]-'0');\r\n    }\r\n\r\n    print(add(A,B));\r\n\r\n}\r\n"
         },
         {
           "variant": 2,
@@ -1403,7 +1403,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/362/LinK01.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\nusing namespace std;\r\nint main()\r\n{\r\n  long long A,B;\r\n  cin>>A>>B;\r\n  cout<<A+B;\r\n  return 0;\r\n}"
+          "code": "#include<iostream>\r\nusing namespace std;\r\nint main()\r\n{\r\n  long long A,B;//用long long\r\n  cin>>A>>B;\r\n  cout<<A+B;\r\n  return 0;\r\n}"
         }
       ],
       "LinK02": [
@@ -1411,7 +1411,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/362/LinK02.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\nusing namespace std;\r\n\r\nint main()\r\n{\r\n\tint a, b, c, d, N;\r\n\tcin >> N;\r\n\tfor (int i = 2; i <= N; i++)\r\n\t{\r\n\t\tfor (int j = 2; j < N; j++)\r\n\t\t{\r\n\t\t\tfor (int k = j; k < N; k++)\r\n\t\t\t{\r\n\t\t\t\tfor (int l = k; l < N; l++)\r\n\t\t\t\t{\r\n\t\t\t\t\tif (i * i * i == j * j * j + k * k * k + l * l * l)\r\n\t\t\t\t\t{\r\n\t\t\t\t\t\tcout << \"Cube = \" << i << \", Triple = (\" << j <<\",\"<< k <<\",\" << l << \")\" << endl;\r\n\t\t\t\t\t}\r\n\t\t\t\t}\r\n\t\t\t}\r\n\t\t}\r\n\t}\r\n\r\n\treturn 0;\r\n}"
+          "code": "#include<iostream>\r\nusing namespace std;\r\n\r\nint main()\r\n{\r\n\tint a, b, c, d, N;\r\n\tcin >> N;\r\n\tfor (int i = 2; i <= N; i++)\r\n\t\tfor (int j = 2; j < N; j++)\r\n\t\t\tfor (int k = j; k < N; k++)\r\n\t\t\t\tfor (int l = k; l < N; l++)\r\n\t\t\t\t\tif (i * i * i == j * j * j + k * k * k + l * l * l)\r\n\t\t\t\t\t\tcout << \"Cube = \" << i << \", Triple = (\" << j <<\",\"<< k <<\",\" << l << \")\" << endl;\r\n\r\n\treturn 0;\r\n}"
         }
       ],
       "LinK03": [
@@ -1714,6 +1714,22 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "path": "solutions/362/LinK58.cpp",
           "language": "cpp",
           "code": "#include<iostream>\r\n#include<cstring>\r\n#include<algorithm>\r\n#include<queue>\r\n\r\nusing namespace std;\r\n\r\ntypedef pair<int,int> PII;\r\n\r\nconst int N =1e6+10;\r\n\r\nint m,n;//行、列\r\nint h[N],w[N],e[N],ne[N],idx;//数组模拟链表\r\nint dist[N];//距离\r\nbool st[N];//状态\r\n\r\nvoid add(int a,int b,int c)\r\n{\r\n    e[idx]=b,w[idx]=c,ne[idx]=h[a],h[a]=idx++;\r\n}\r\n\r\nint dijkstra()\r\n{\r\n    memset(dist,0x3f,sizeof dist);\r\n    dist[1]=0;\r\n    priority_queue<PII,vector<PII>,greater<PII>>heap;\r\n\r\n    heap.push({0,1});\r\n    while(heap.size())\r\n    {\r\n        auto t=heap.top();\r\n        heap.pop();\r\n    \r\n        int ver=t.second,distance=t.first;\r\n\r\n        if(st[ver])continue;\r\n        st[ver]=true;\r\n        for(int i=h[ver];i!=-1;i=ne[i])\r\n        {\r\n            int j=e[i];\r\n            if(dist[j]>dist[ver]+w[i])\r\n            {\r\n                dist[j]=dist[ver]+w[i];\r\n                heap.push({dist[j],j});\r\n            }\r\n        }\r\n    }\r\n    if(dist[n]==0x3f3f3f3f)return -1;\r\n    return dist[n];\r\n}\r\n\r\nint main()\r\n{\r\n    scanf(\"%d%d\",&n,&m);\r\n    memset(h,-1,sizeof h);\r\n    while(m--)\r\n    {\r\n        int a,b,c;\r\n        scanf(\"%d%d%d\",&a,&b,&c);\r\n        add(a,b,c);\r\n\r\n    }\r\n    cout<<dijkstra()<<endl;\r\n    return 0;\r\n\r\n\r\n}"
+        }
+      ],
+      "Link63": [
+        {
+          "variant": 2,
+          "path": "solutions/362/Link63-2.cpp",
+          "language": "cpp",
+          "code": "#include<iostream>\r\nusing namespace std;\r\nint n,m;\r\nconst int N=1007;\r\nint v[N],w[N];\r\nint f[N][N];\r\n\r\nint main()\r\n{\r\n    cin>>n>>m;\r\n    for(int i=1;i<=n;i++)cin>>v[i]>>w[i];//读取\r\n    for(int i=1;i<=n;i++)//枚举物品数\r\n        for(int j=0;j<=m;j++)//枚举体积\r\n        {\r\n            f[j]=f[j];//左半边（如果不选）\r\n            if(j>=v[i])//剩余体积比第i个大，包含第i个的选法（如果可以选）\r\n                f[j]=max(f[j],f[j-v[i]]+w[i]);\r\n            //f[i][j]=max(f[i][j],f[i-1][j-v[i]]+w[i]);\r\n        }\r\n    cout<<f[n][m]<<endl;\r\n}"
+        }
+      ],
+      "Link64": [
+        {
+          "variant": 2,
+          "path": "solutions/362/Link64-2.cpp",
+          "language": "cpp",
+          "code": "#include<iostream>\r\n\r\nusing namespace std;\r\nconst int N=1010;\r\nint f[N];\r\nint v[N],w[N];//V为体积，W为价格\r\n\r\nint main()\r\n{\r\n    int n,m;\r\n    cin>>n>>m;\r\n    for(int i=1;i<=n;i++)\r\n        cin>>v[i]>>w[i];//存储数据\r\n    for(int i=1;i<=n;i++)//枚举物品数\r\n    {\r\n        for(int j=v[i];j<=m;j++)//枚举体积数\r\n        {\r\n            f[j]=max(f[j],f[j-v[i]]+w[i]);\r\n        }\r\n    }\r\n\r\n    cout<<f[m]<<endl;\r\n}"
         }
       ]
     }
