@@ -1,3 +1,4 @@
+// 思路：同时遍历两个有序链表，每次取较小节点值接入新链表，最后连接剩余部分。
 #include<iostream>
 using namespace std;
 
@@ -38,7 +39,7 @@ int main()
         p1=head1,p2=head2;
         while(p1!=NULL&&p2!=NULL)
         {
-            if(p1->num>=p2->num)
+            if(p1->num>=p2->num) // 比较两个当前节点，优先复制数值较小的一方。
             {
                 p0=new node;
                 p0->num=p2->num;
@@ -84,3 +85,4 @@ int main()
 
 
 }
+// 总结：归并有序链表的关键是双指针推进，并在一方结束后直接接上另一方。

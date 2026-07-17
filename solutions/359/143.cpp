@@ -1,3 +1,4 @@
+// 思路：从左上角开始广度优先搜索，每次扩展四个方向并记录首次到达的最短距离。
 #include <iostream>
 #include <queue>
 using namespace std;
@@ -28,7 +29,7 @@ int bfs() {
             int ny = y + dy[i];
             
             if (nx >= 0 && nx < n && ny >= 0 && ny < m && g[nx][ny] == 0 && dist[nx][ny] == -1) {
-                dist[nx][ny] = dist[x][y] + 1;
+                dist[nx][ny] = dist[x][y] + 1; // 相邻可走位置的距离等于当前距离加一。
                 q.push({nx, ny});
             }
         }
@@ -51,3 +52,4 @@ int main() {
     
     return 0;
 }
+// 总结：无权网格最短路使用 BFS，首次访问即得到最短距离。

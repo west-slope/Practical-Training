@@ -1,3 +1,4 @@
+// 思路：按行列顺序读入二维数组，再保持相同布局逐行输出。
 #include<iostream>
 using namespace std;
 int main()
@@ -16,7 +17,7 @@ int main()
         for(int j=0;j<col;j++)
         {
             if(j!=0)cout<<" ";
-            cout<<a[i][j];
+            cout<<a[i][j]; // 双层循环按照行优先顺序访问每个矩阵元素。
         }
         cout<<endl;
     }
@@ -24,3 +25,4 @@ int main()
  
  
 }
+// 总结：矩阵格式输出应控制行内空格，并在每一行结束后换行。

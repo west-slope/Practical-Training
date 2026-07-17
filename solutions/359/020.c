@@ -1,9 +1,10 @@
+// 思路：按从小到大的顺序判断数值所在区间，并准确处理每个端点的开闭。
 #include <stdio.h>
 int main()
 {
     float power; 
     scanf("%f", &power);
-    if (power >= 0 && power <= 25) 
+    if (power >= 0 && power <= 25)  // 第一个区间同时包含零和二十五两个端点。
     {
         printf("Interval [0,25]\n");
     } 
@@ -26,3 +27,4 @@ int main()
 
     return 0;
 }
+// 总结：连续区间判断最容易出错的是边界，需逐个确认大于或大于等于。

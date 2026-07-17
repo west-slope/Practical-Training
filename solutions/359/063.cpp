@@ -1,3 +1,4 @@
+// 思路：每个位置取到四条边距离的最小值，从而生成由外向内递增的同心方阵。
 #include <iostream>
 #include<iomanip>
 using namespace std;
@@ -17,7 +18,7 @@ void handle(int N)
     {
         for(int j=0;j<N;j++)
         {
-            a[i][j]=min(i+1,j+1,N-i,N-j);
+            a[i][j]=min(i+1,j+1,N-i,N-j); // 四个方向边界距离的最小值决定当前位置所在的层数。
         }
     }
 }
@@ -40,3 +41,4 @@ int main() {
     }
     return 0;
 }
+// 总结：同心矩阵可以转化为点到四条边的最短距离问题。

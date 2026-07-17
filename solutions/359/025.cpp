@@ -1,10 +1,11 @@
+// 思路：根据输入的电话区号逐项匹配城市，未匹配时输出未登记提示。
 #include<iostream>
 using namespace std;
 int main()
 {
     int a;
     cin>>a;
-    if(a==61)
+    if(a==61) // 从已知区号开始逐项判断对应城市。
     {
         cout<<"Brasilia"<<endl;
     }
@@ -41,3 +42,4 @@ int main()
         cout<<"DDD nao cadastrado"<<endl;
     }
 }
+// 总结：固定且数量较少的映射可以使用条件链，但必须保留默认分支。

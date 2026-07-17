@@ -1,3 +1,4 @@
+// 思路：按照脊椎、类别和食性三层特征建立决策树，逐级确定动物名称。
 #include<iostream>
 #include<string>
 using namespace std;
@@ -5,7 +6,7 @@ int main()
 {
     string first,second,third;
     cin>>first>>second>>third;
-    if(first=="vertebrate")
+    if(first=="vertebrate") // 先用最高层特征把动物分为脊椎和无脊椎两大类。
     {
         if(second=="bird")
         {
@@ -56,3 +57,4 @@ int main()
         }
     }
 }
+// 总结：多级分类题应按题目给出的层次逐步缩小范围，避免条件交叉。

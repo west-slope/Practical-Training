@@ -1,3 +1,4 @@
+// 思路：累计武器总数及三种武器的分类数量，再分别计算它们所占百分比。
 #include<iostream>
 #include<iomanip>
 using namespace std;
@@ -14,7 +15,7 @@ int main()
         int count;
         char type;
         cin >> count >> type;  
-        total += count;
+        total += count; // 每组数量先计入总数，之后再按类型加入对应分类。
         if(type == 'C')
         {
             swords += count;
@@ -41,3 +42,4 @@ int main()
     cout << "Percentage of spears: " << percentF << " %" << endl;
     return 0;
 }
+// 总结：百分比计算前需要转换为浮点数，避免整数除法丢失小数。

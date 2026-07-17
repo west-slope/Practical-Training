@@ -1,3 +1,4 @@
+// 思路：统计每个节点入度，把所有零入度节点入队并依次删除其出边得到拓扑序。
 #include <iostream>
 #include <vector>
 #include <queue>
@@ -34,7 +35,7 @@ int main() {
         for (int i = 0; i < g[u].size(); i++) {
             int v = g[u][i];
             d[v]--;
-            if (d[v] == 0) {
+            if (d[v] == 0) { // 邻接点入度减到零时，说明它的所有前驱都已处理，可以入队。
                 q.push(v);
             }
         }
@@ -50,3 +51,4 @@ int main() {
     
     return 0;
 }
+// 总结：拓扑序长度不足节点总数说明图中存在有向环。

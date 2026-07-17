@@ -1,3 +1,4 @@
+// 思路：按区间右端点升序排序，每次遇到未被当前点覆盖的区间就选择它的右端点。
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -14,7 +15,7 @@ int main(){
     sort(segs.begin(),segs.end());
     int res=0, ed=-2e9;
     for(auto seg:segs){
-        if(seg.second>ed){
+        if(seg.second>ed){ // 区间左端点超过已选点时，必须新增一个点并放在当前右端点。
             res++;
             ed=seg.first;
         }
@@ -22,3 +23,4 @@ int main(){
     cout<<res<<"\n";
 }
 
+// 总结：区间贪心选择最靠右的可行点，可以尽量覆盖后续更多区间。

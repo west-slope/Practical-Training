@@ -1,3 +1,4 @@
+// 思路：使用 Floyd 动态规划枚举中间点，预处理任意两点间的最短距离。
 #include <iostream>
 #include <cstring>
 using namespace std;
@@ -27,7 +28,7 @@ int main() {
         for (int i = 1; i <= n; i++) {
             for (int j = 1; j <= n; j++) {
                 if (d[i][k] != INF && d[k][j] != INF) {
-                    d[i][j] = min(d[i][j], d[i][k] + d[k][j]);
+                    d[i][j] = min(d[i][j], d[i][k] + d[k][j]); // 比较原路径与经过 k 的路径，保留距离更小者。
                 }
             }
         }
@@ -42,3 +43,4 @@ int main() {
     
     return 0;
 }
+// 总结：Floyd 的中间点必须放在最外层循环，才能保证状态含义正确。

@@ -1,3 +1,4 @@
+// 思路：使用带模三关系距离的并查集维护同类与捕食关系，并统计与已有关系冲突的陈述。
 #include<iostream>
 #include<string>
 
@@ -10,7 +11,7 @@ int find(int x)
     if(parent[x] == x) return x;
     int t = parent[x];
     int root = find(t);
-    dist[x] = (dist[x] + dist[t]) % 3;
+    dist[x] = (dist[x] + dist[t]) % 3; // 路径压缩时累加到根节点的关系距离并对三取模。
     parent[x] = root;
     return root;
 }
@@ -72,3 +73,4 @@ int main()
     
     return 0;
 }
+// 总结：带权并查集的关键是统一关系方向，并在合并根节点时推导新的距离。

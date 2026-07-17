@@ -1,3 +1,4 @@
+// 思路：在主串中寻找子串 b 的首次结束位置和子串 c 的最后开始位置，计算两者间距。
 #include<iostream>
 #include<string>
 #include<cstring>
@@ -41,7 +42,7 @@ int main()
         if(found)
         {
             flag=true;
-            m=i+strlen(b);
+            m=i+strlen(b); // 找到第一个 b 后记录它末尾后一位，作为中间区间起点。
             break;
         }
     }
@@ -72,3 +73,4 @@ int main()
     }
 
 }
+// 总结：双子串定位要明确使用首次还是末次出现，任一不存在都应输出负一。

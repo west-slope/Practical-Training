@@ -1,5 +1,5 @@
 window.XMUOJ_SOLUTIONS_CODE = {
-  "generatedAt": "2026/7/17 15:18:24",
+  "generatedAt": "2026/7/17 16:03:06",
   "solutions": {
     "359": {
       "100": [
@@ -7,7 +7,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/100.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\nusing namespace std;\r\n\r\nstruct node\r\n{\r\n    int m;\r\n    node *Next;\r\n};\r\n\r\nint main()\r\n{\r\n    int n,num=0;\r\n    node *p0,*head,*p1;\r\n    cin>>n;\r\n    while(n!=-1)\r\n    {\r\n\r\n        p0=new node;\r\n        p0->m=n;p0->Next=NULL;\r\n        if(num==0)\r\n            p1=head=p0;\r\n        else {p1->Next=p0;p1=p0;}\r\n        num++;\r\n        cin>>n;\r\n    }\r\n    node *pre,*cur,*next;\r\n    pre=head;\r\n    if(head->Next!=NULL){cur=next=head->Next;pre->Next=NULL;}\r\n    else {cout<<head->m;return 0;}\r\n    while(next->Next!=NULL)\r\n    {\r\n        next=next->Next;\r\n        cur->Next=pre;\r\n        pre=cur;\r\n        cur=next;\r\n    }\r\n    next->Next=pre;\r\n    p1=head=next;\r\n    while(p1!=NULL)\r\n    {\r\n        cout<<p1->m<<\" \";\r\n        p1=p1->Next;\r\n    }\r\n\r\n}"
+          "code": "// 思路：建立单链表后用三个指针逐步反转每条指针方向，再从新头节点输出。\r\n#include<iostream>\r\nusing namespace std;\r\n\r\nstruct node\r\n{\r\n    int m;\r\n    node *Next;\r\n};\r\n\r\nint main()\r\n{\r\n    int n,num=0;\r\n    node *p0,*head,*p1;\r\n    cin>>n;\r\n    while(n!=-1)\r\n    {\r\n\r\n        p0=new node;\r\n        p0->m=n;p0->Next=NULL;\r\n        if(num==0)\r\n            p1=head=p0;\r\n        else {p1->Next=p0;p1=p0;}\r\n        num++;\r\n        cin>>n;\r\n    }\r\n    node *pre,*cur,*next;\r\n    pre=head;\r\n    if(head->Next!=NULL){cur=next=head->Next;pre->Next=NULL;}\r\n    else {cout<<head->m;return 0;}\r\n    while(next->Next!=NULL)\r\n    {\r\n        next=next->Next;\r\n        cur->Next=pre; // 让当前节点指向前驱节点，完成一条链的反转。\r\n        pre=cur;\r\n        cur=next;\r\n    }\r\n    next->Next=pre;\r\n    p1=head=next;\r\n    while(p1!=NULL)\r\n    {\r\n        cout<<p1->m<<\" \";\r\n        p1=p1->Next;\r\n    }\r\n\r\n}\r\n// 总结：链表反转前必须保存后继节点，否则修改指针后会丢失剩余链表。"
         }
       ],
       "101": [
@@ -15,7 +15,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/101.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\nusing namespace std;\r\n\r\nstruct node\r\n{\r\n    int num;\r\n    node *next;\r\n};\r\nint main()\r\n{\r\n    node *head0=NULL,*head1=NULL,*head2=NULL,*p0,*p1,*p2,*p;\r\n    int m,n;\r\n    cin>>m;\r\n    while(m!=-1)\r\n    {\r\n        p0=new node;p0->num=m;p0->next=NULL;\r\n        if(head1==NULL)head1=p1=p0;\r\n        else {\r\n            p1->next=p0;\r\n            p1=p0;\r\n        }\r\n        cin>>m;\r\n    }\r\n        cin>>n;\r\n        while(n!=-1)\r\n    {\r\n        p0=new node;p0->num=n;p0->next=NULL;\r\n        if(head2==NULL)head2=p2=p0;\r\n        else {\r\n            p2->next=p0;\r\n            p2=p0;\r\n        }\r\n        cin>>n;\r\n    }\r\n    if(head1==NULL)head0=head2;\r\n    else if(head2==NULL)head0=head1;\r\n    else {\r\n        p1=head1,p2=head2;\r\n        while(p1!=NULL&&p2!=NULL)\r\n        {\r\n            if(p1->num>=p2->num)\r\n            {\r\n                p0=new node;\r\n                p0->num=p2->num;\r\n                p0->next=NULL;\r\n                if(head0==NULL)\r\n                {\r\n                    head0=p=p0;\r\n                }\r\n                else {\r\n                    p->next=p0;\r\n                    p=p0;\r\n                }\r\n                p2=p2->next;\r\n            }\r\n            else if(p1->num<p2->num)\r\n            {\r\n                p0=new node;\r\n                p0->num=p1->num;\r\n                p0->next=NULL;\r\n                if(head0==NULL)\r\n                {\r\n                    head0=p=p0;\r\n                }   \r\n                else {\r\n                    p->next=p0;\r\n                    p=p0;\r\n                }\r\n                p1=p1->next;\r\n            }\r\n        }\r\n    \r\n        if(p1==NULL)\r\n            p->next=p2;\r\n        else if(p2==NULL)\r\n            p->next=p1;\r\n    }\r\n    p=head0;\r\n    while(p!=NULL)\r\n    {\r\n        cout<<p->num<<\" \";\r\n        p=p->next;\r\n    }\r\n\r\n\r\n}"
+          "code": "// 思路：同时遍历两个有序链表，每次取较小节点值接入新链表，最后连接剩余部分。\r\n#include<iostream>\r\nusing namespace std;\r\n\r\nstruct node\r\n{\r\n    int num;\r\n    node *next;\r\n};\r\nint main()\r\n{\r\n    node *head0=NULL,*head1=NULL,*head2=NULL,*p0,*p1,*p2,*p;\r\n    int m,n;\r\n    cin>>m;\r\n    while(m!=-1)\r\n    {\r\n        p0=new node;p0->num=m;p0->next=NULL;\r\n        if(head1==NULL)head1=p1=p0;\r\n        else {\r\n            p1->next=p0;\r\n            p1=p0;\r\n        }\r\n        cin>>m;\r\n    }\r\n        cin>>n;\r\n        while(n!=-1)\r\n    {\r\n        p0=new node;p0->num=n;p0->next=NULL;\r\n        if(head2==NULL)head2=p2=p0;\r\n        else {\r\n            p2->next=p0;\r\n            p2=p0;\r\n        }\r\n        cin>>n;\r\n    }\r\n    if(head1==NULL)head0=head2;\r\n    else if(head2==NULL)head0=head1;\r\n    else {\r\n        p1=head1,p2=head2;\r\n        while(p1!=NULL&&p2!=NULL)\r\n        {\r\n            if(p1->num>=p2->num) // 比较两个当前节点，优先复制数值较小的一方。\r\n            {\r\n                p0=new node;\r\n                p0->num=p2->num;\r\n                p0->next=NULL;\r\n                if(head0==NULL)\r\n                {\r\n                    head0=p=p0;\r\n                }\r\n                else {\r\n                    p->next=p0;\r\n                    p=p0;\r\n                }\r\n                p2=p2->next;\r\n            }\r\n            else if(p1->num<p2->num)\r\n            {\r\n                p0=new node;\r\n                p0->num=p1->num;\r\n                p0->next=NULL;\r\n                if(head0==NULL)\r\n                {\r\n                    head0=p=p0;\r\n                }   \r\n                else {\r\n                    p->next=p0;\r\n                    p=p0;\r\n                }\r\n                p1=p1->next;\r\n            }\r\n        }\r\n    \r\n        if(p1==NULL)\r\n            p->next=p2;\r\n        else if(p2==NULL)\r\n            p->next=p1;\r\n    }\r\n    p=head0;\r\n    while(p!=NULL)\r\n    {\r\n        cout<<p->num<<\" \";\r\n        p=p->next;\r\n    }\r\n\r\n\r\n}\r\n// 总结：归并有序链表的关键是双指针推进，并在一方结束后直接接上另一方。"
         }
       ],
       "102": [
@@ -23,7 +23,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/102.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\n#include<string>\r\n#include<algorithm>\r\n#include<iomanip>\r\nusing namespace std;\r\nstruct sanyuan\r\n{\r\n    int num;\r\n    double m;\r\n    string str;\r\n};\r\n\r\nint main()\r\n{\r\n    int N;\r\n    cin>>N;\r\n    sanyuan s[200]; \r\n    for(int i=0;i<N;i++)\r\n    {\r\n        cin>>s[i].num>>s[i].m>>s[i].str;\r\n    }\r\n    for(int i=0;i<N-1;i++)\r\n    {\r\n        for(int j=0;j<N-i-1;j++)\r\n        {\r\n            if(s[j].num>s[j+1].num||(s[j].num==s[j+1].num&&s[j].m>s[j+1].m))\r\n            {\r\n                sanyuan temp=s[j];\r\n                s[j]=s[j+1];\r\n                s[j+1]=temp;\r\n            }\r\n        }\r\n    }\r\n    for(int i=0;i<N;i++)\r\n    {\r\n        cout<<s[i].num<<\" \"<<fixed<<setprecision(2)<<s[i].m<<\" \"<<s[i].str<<endl;\r\n    }\r\n}"
+          "code": "// 思路：使用冒泡排序按整数成员升序排列，整数相同时再按浮点成员升序。\r\n#include<iostream>\r\n#include<string>\r\n#include<algorithm>\r\n#include<iomanip>\r\nusing namespace std;\r\nstruct sanyuan\r\n{\r\n    int num;\r\n    double m;\r\n    string str;\r\n};\r\n\r\nint main()\r\n{\r\n    int N;\r\n    cin>>N;\r\n    sanyuan s[200]; \r\n    for(int i=0;i<N;i++)\r\n    {\r\n        cin>>s[i].num>>s[i].m>>s[i].str;\r\n    }\r\n    for(int i=0;i<N-1;i++)\r\n    {\r\n        for(int j=0;j<N-i-1;j++)\r\n        {\r\n            if(s[j].num>s[j+1].num||(s[j].num==s[j+1].num&&s[j].m>s[j+1].m)) // 复合条件实现第一关键字和第二关键字的排序规则。\r\n            {\r\n                sanyuan temp=s[j];\r\n                s[j]=s[j+1];\r\n                s[j+1]=temp;\r\n            }\r\n        }\r\n    }\r\n    for(int i=0;i<N;i++)\r\n    {\r\n        cout<<s[i].num<<\" \"<<fixed<<setprecision(2)<<s[i].m<<\" \"<<s[i].str<<endl;\r\n    }\r\n}\r\n// 总结：多关键字排序应先比较高优先级字段，只有相等时才比较下一字段。"
         }
       ],
       "103": [
@@ -63,7 +63,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/107.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\nusing namespace std;\r\nint a[20000],n,q,j;\r\n\r\nvoid search(int m)\r\n{\r\n    for(int i=0;i<n;i++)\r\n    {\r\n        if(a[i]==m)\r\n        {\r\n            j=i;\r\n            cout<<i<<\" \";\r\n            while(a[j]==m)\r\n            {\r\n                j++;\r\n            }\r\n            if(j==i)cout<<i;\r\n            else cout<<j-1<<endl;\r\n            break;\r\n        }\r\n        else if(i==n-1)\r\n        {\r\n            cout<<-1<<\" \"<<-1<<endl;\r\n        }\r\n    }\r\n\r\n}\r\n\r\nint main()\r\n{\r\n    int m;\r\n    cin>>n>>q;\r\n    for(int i=0;i<n;i++)\r\n    {\r\n        cin>>a[i];\r\n    }\r\n    for(int i=0;i<q;i++)\r\n    {\r\n        cin>>m;\r\n        search(m);\r\n    }\r\n\r\n}"
+          "code": "// 思路：对每个查询在线性数组中找到目标值的首次位置，并继续扫描得到末次位置。\r\n#include<iostream>\r\nusing namespace std;\r\nint a[20000],n,q,j;\r\n\r\nvoid search(int m)\r\n{\r\n    for(int i=0;i<n;i++)\r\n    {\r\n        if(a[i]==m)\r\n        {\r\n            j=i;\r\n            cout<<i<<\" \";\r\n            while(a[j]==m) // 从首次命中位置向后移动，直到离开连续的目标区间。\r\n            {\r\n                j++;\r\n            }\r\n            if(j==i)cout<<i;\r\n            else cout<<j-1<<endl;\r\n            break;\r\n        }\r\n        else if(i==n-1)\r\n        {\r\n            cout<<-1<<\" \"<<-1<<endl;\r\n        }\r\n    }\r\n\r\n}\r\n\r\nint main()\r\n{\r\n    int m;\r\n    cin>>n>>q;\r\n    for(int i=0;i<n;i++)\r\n    {\r\n        cin>>a[i];\r\n    }\r\n    for(int i=0;i<q;i++)\r\n    {\r\n        cin>>m;\r\n        search(m);\r\n    }\r\n\r\n}\r\n// 总结：查找重复区间要分别记录左右边界，未找到时输出两个负一。"
         }
       ],
       "108": [
@@ -71,7 +71,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/108.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\n#include<cmath>\r\n#include<iomanip>\r\nusing namespace std;\r\n\r\n\r\nint main(){\r\n    double n;\r\n    double mid;\r\n    cin>>n;\r\n    double left=-10000,right=10000;\r\n    while(right-left>1e-8)\r\n    {\r\n        mid=(left+right)/2;\r\n        if(pow(mid,3)>=n)\r\n            right=mid;\r\n        else left=mid;\r\n    }\r\n    cout<<fixed<<setprecision(6)<<mid<<endl;\r\n}"
+          "code": "// 思路：在足够大的实数区间内二分，依据中点立方与目标值的关系逼近立方根。\r\n#include<iostream>\r\n#include<cmath>\r\n#include<iomanip>\r\nusing namespace std;\r\n\r\n\r\nint main(){\r\n    double n;\r\n    double mid;\r\n    cin>>n;\r\n    double left=-10000,right=10000;\r\n    while(right-left>1e-8)\r\n    {\r\n        mid=(left+right)/2;\r\n        if(pow(mid,3)>=n) // 中点立方偏大时收缩右边界，否则提高左边界。\r\n            right=mid;\r\n        else left=mid;\r\n    }\r\n    cout<<fixed<<setprecision(6)<<mid<<endl;\r\n}\r\n// 总结：浮点二分使用误差作为终止条件，并保留足够迭代精度。"
         }
       ],
       "109": [
@@ -79,7 +79,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/109.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\nusing namespace std;\r\n\r\nint main()\r\n{\r\n    int m,n;\r\n    cin>>m;\r\n    while(m--){\r\n        cin>>n;\r\n        int count=0;\r\n        while(n>0)\r\n        {\r\n            count+=n&1;\r\n            n>>=1;\r\n        }\r\n        cout<<count<<\" \";\r\n    }\r\n}"
+          "code": "// 思路：逐位检查每个整数的二进制最低位，并右移直到所有位处理完毕。\r\n#include<iostream>\r\nusing namespace std;\r\n\r\nint main()\r\n{\r\n    int m,n;\r\n    cin>>m;\r\n    while(m--){\r\n        cin>>n;\r\n        int count=0;\r\n        while(n>0)\r\n        {\r\n            count+=n&1; // 最低位为一时计数增加，按位与可直接取出该位。\r\n            n>>=1;\r\n        }\r\n        cout<<count<<\" \";\r\n    }\r\n}\r\n// 总结：统计二进制一的数量时，右移可以依次访问每一位。"
         }
       ],
       "110": [
@@ -87,13 +87,13 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/110.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\n#include<string>\r\n#include<cstring>\r\n#include<algorithm>\r\n#include<vector>\r\nusing namespace std;\r\ntypedef long long LL;\r\n\r\nvector<int>add(vector<int> &A,vector<int>&B)\r\n{\r\n    vector<int>C;\r\n    for(int i=0,t=0;i<A.size()||i<B.size()||t;i++)\r\n    {\r\n        if(i<A.size())t+=A[i];\r\n        if(i<B.size())t+=B[i];\r\n        C.push_back(t%10);\r\n        t/=10;\r\n    }\r\n    return C;\r\n}\r\n\r\nvoid print(vector<int>A)\r\n{\r\n    for(int i=A.size()-1;i>=0;i--)\r\n        cout<<A[i];\r\n    cout<<endl;\r\n}\r\n\r\nint main()\r\n{\r\n    string a,b;\r\n    cin>>a>>b;\r\n    vector<int>A,B;\r\n\r\n    for(int i=a.size()-1;i>=0;i--)\r\n    {\r\n        A.push_back(a[i]-'0');\r\n    }\r\n    for(int i=b.size()-1;i>=0;i--)\r\n    {\r\n        B.push_back(b[i]-'0');\r\n    }\r\n\r\n    print(add(A,B));\r\n\r\n}\r\n"
+          "code": "// 思路：把大整数反向存入 vector，按位相加并持续传递进位直到结束。\r\n#include<iostream>\r\n#include<string>\r\n#include<cstring>\r\n#include<algorithm>\r\n#include<vector>\r\nusing namespace std;\r\ntypedef long long LL;\r\n\r\nvector<int>add(vector<int> &A,vector<int>&B)\r\n{\r\n    vector<int>C;\r\n    for(int i=0,t=0;i<A.size()||i<B.size()||t;i++)\r\n    {\r\n        if(i<A.size())t+=A[i];\r\n        if(i<B.size())t+=B[i];\r\n        C.push_back(t%10); // 当前总和的个位写入结果，剩余部分作为下一位进位。\r\n        t/=10;\r\n    }\r\n    return C;\r\n}\r\n\r\nvoid print(vector<int>A)\r\n{\r\n    for(int i=A.size()-1;i>=0;i--)\r\n        cout<<A[i];\r\n    cout<<endl;\r\n}\r\n\r\nint main()\r\n{\r\n    string a,b;\r\n    cin>>a>>b;\r\n    vector<int>A,B;\r\n\r\n    for(int i=a.size()-1;i>=0;i--)\r\n    {\r\n        A.push_back(a[i]-'0');\r\n    }\r\n    for(int i=b.size()-1;i>=0;i--)\r\n    {\r\n        B.push_back(b[i]-'0');\r\n    }\r\n\r\n    print(add(A,B));\r\n\r\n}\r\n// 总结：循环条件要包含最终进位，避免最高位进位被遗漏。\r\n"
         },
         {
           "variant": 2,
           "path": "solutions/359/110-2.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\n#include<string>\r\n#include<cstring>\r\n#include<algorithm>\r\n#include<vector>\r\nusing namespace std;\r\n\r\n\r\nint main()\r\n{\r\n    string arr[3];\r\n    int a[3][100001]={0};\r\n    cin>>arr[0];\r\n    cin>>arr[1];\r\n    int a0=arr[0].length(),a1=arr[1].length();\r\n    int m=max(a0,a1);\r\n    for(int i=0;i<a0;i++)\r\n    {\r\n        a[0][i]=arr[0][a0-i-1]-'0';\r\n    }\r\n    for(int i=0;i<a1;i++)\r\n    {\r\n        a[1][i]=arr[1][a1-i-1]-'0';\r\n    }\r\n    for(int i=0;i<m;i++)\r\n    {\r\n        a[2][i]+=a[0][i]+a[1][i];\r\n        if(a[2][i]>=10)\r\n        {\r\n            a[2][i]-=10;\r\n            a[2][i+1]++;\r\n        }\r\n    }\r\n    for(int i=m;i>=0;i--)\r\n    {\r\n        if(i==m&&a[2][m]==0)continue;\r\n        cout<<a[2][i];\r\n    }\r\n}"
+          "code": "// 思路：把两个大整数按低位在前存入数组，逐位相加并处理十进制进位。\r\n#include<iostream>\r\n#include<string>\r\n#include<cstring>\r\n#include<algorithm>\r\n#include<vector>\r\nusing namespace std;\r\n\r\n\r\nint main()\r\n{\r\n    string arr[3];\r\n    int a[3][100001]={0};\r\n    cin>>arr[0];\r\n    cin>>arr[1];\r\n    int a0=arr[0].length(),a1=arr[1].length();\r\n    int m=max(a0,a1);\r\n    for(int i=0;i<a0;i++)\r\n    {\r\n        a[0][i]=arr[0][a0-i-1]-'0';\r\n    }\r\n    for(int i=0;i<a1;i++)\r\n    {\r\n        a[1][i]=arr[1][a1-i-1]-'0';\r\n    }\r\n    for(int i=0;i<m;i++)\r\n    {\r\n        a[2][i]+=a[0][i]+a[1][i]; // 同一数位相加后写入结果数组，再统一处理是否进位。\r\n        if(a[2][i]>=10)\r\n        {\r\n            a[2][i]-=10;\r\n            a[2][i+1]++;\r\n        }\r\n    }\r\n    for(int i=m;i>=0;i--)\r\n    {\r\n        if(i==m&&a[2][m]==0)continue;\r\n        cout<<a[2][i];\r\n    }\r\n}\r\n// 总结：高精度加法需要反向存储数位，并在最高位输出时去掉多余前导零。"
         }
       ],
       "111": [
@@ -101,7 +101,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/111.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\n#include<cstring>\r\n#include<string>\r\n#include<algorithm>\r\n#include<vector>\r\nusing namespace std;\r\n\r\nstring a,b;\r\n\r\nvoid compare(vector<int>&A,vector<int>&B)\r\n{\r\n    if(A.size()<B.size())swap(A,B);\r\n    else if(A.size()==B.size())\r\n    {\r\n        int i=A.size()-1;\r\n        while(i>=0&&A[i]==B[i])i--;\r\n        if(A[i]<B[i])swap(A,B);\r\n    }\r\n}\r\n\r\nvector<int> sub(vector<int>&A,vector<int>&B)\r\n{\r\n    vector<int>C;\r\n    int t=0;\r\n    for(int i=0;i<A.size();i++)\r\n    {\r\n        t+=A[i];\r\n        if(i<B.size())t-=B[i];\r\n        C.push_back((t+10)%10);\r\n        if(t<0)t=-1;\r\n        else t=0;\r\n    }\r\n    while(!C.back())C.pop_back();\r\n    return C;\r\n}\r\n\r\nvoid print(vector<int> A)\r\n{\r\n    for(int i=A.size()-1;i>=0;i--)\r\n    {\r\n        cout<<A[i];\r\n    }\r\n}\r\nint main()\r\n{\r\n    cin>>a>>b;\r\n    vector<int>A,B;\r\n    int len1=a.length(),len2=b.length();\r\n    for(int i=len1-1;i>=0;i--)\r\n    {\r\n        A.push_back(a[i]-'0');\r\n    }\r\n    for(int i=len2-1;i>=0;i--)\r\n    {\r\n        B.push_back(b[i]-'0');\r\n    }\r\n\r\n    compare(A,B);\r\n    print(sub(A,B));\r\n    cout<<endl;\r\n    return 0;\r\n}"
+          "code": "// 思路：先保证被减数不小于减数，再按低位到高位逐位完成高精度减法。\r\n#include<iostream>\r\n#include<cstring>\r\n#include<string>\r\n#include<algorithm>\r\n#include<vector>\r\nusing namespace std;\r\n\r\nstring a,b;\r\n\r\nvoid compare(vector<int>&A,vector<int>&B)\r\n{\r\n    if(A.size()<B.size())swap(A,B);\r\n    else if(A.size()==B.size())\r\n    {\r\n        int i=A.size()-1;\r\n        while(i>=0&&A[i]==B[i])i--;\r\n        if(A[i]<B[i])swap(A,B);\r\n    }\r\n}\r\n\r\nvector<int> sub(vector<int>&A,vector<int>&B)\r\n{\r\n    vector<int>C;\r\n    int t=0;\r\n    for(int i=0;i<A.size();i++)\r\n    {\r\n        t+=A[i];\r\n        if(i<B.size())t-=B[i];\r\n        C.push_back((t+10)%10); // 加十后取个位可同时处理当前位借位的情况。\r\n        if(t<0)t=-1;\r\n        else t=0;\r\n    }\r\n    while(!C.back())C.pop_back();\r\n    return C;\r\n}\r\n\r\nvoid print(vector<int> A)\r\n{\r\n    for(int i=A.size()-1;i>=0;i--)\r\n    {\r\n        cout<<A[i];\r\n    }\r\n}\r\nint main()\r\n{\r\n    cin>>a>>b;\r\n    vector<int>A,B;\r\n    int len1=a.length(),len2=b.length();\r\n    for(int i=len1-1;i>=0;i--)\r\n    {\r\n        A.push_back(a[i]-'0');\r\n    }\r\n    for(int i=len2-1;i>=0;i--)\r\n    {\r\n        B.push_back(b[i]-'0');\r\n    }\r\n\r\n    compare(A,B);\r\n    print(sub(A,B));\r\n    cout<<endl;\r\n    return 0;\r\n}\r\n// 总结：高精度减法要正确传递借位，并删除结果最高位多余的零。"
         }
       ],
       "112": [
@@ -109,7 +109,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/112.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\n#include<algorithm>\r\n#include<string>\r\n#include<vector>\r\n\r\nusing namespace std;\r\n\r\nstring a,b;\r\n\r\nvector<int> mul(vector<int>&A,vector<int>&B)\r\n{\r\n    vector<int>C(A.size()+B.size());\r\n    for(int i=0;i<A.size();i++)\r\n    {\r\n        for(int j=0;j<B.size();j++)\r\n        {\r\n            C[i+j]+=A[i]*B[j];\r\n        }\r\n    }\r\n    for(int i=0,t=0;i<C.size();i++)\r\n    {\r\n        t+=C[i];\r\n        C[i]=t%10;\r\n        t/=10;\r\n    }\r\n    while(C.back()==0&&C.size()>1)C.pop_back();\r\n    return C;\r\n}\r\n\r\nvoid print(vector<int>A)\r\n{\r\n    for(int i=A.size()-1;i>=0;i--)\r\n        cout<<A[i];\r\n}\r\n\r\nint main()\r\n{\r\n    cin>>a>>b;\r\n    vector<int>A,B;\r\n    for(int i=a.size()-1;i>=0;i--)\r\n    {\r\n        A.push_back(a[i]-'0');\r\n    }\r\n    for(int i=b.size()-1;i>=0;i--)\r\n    {\r\n        B.push_back(b[i]-'0');\r\n    }\r\n\r\n    print(mul(A,B));\r\n\r\n    return 0;\r\n}"
+          "code": "// 思路：把大整数按低位在前存储，先累加所有数位乘积，再统一处理进位。\r\n#include<iostream>\r\n#include<algorithm>\r\n#include<string>\r\n#include<vector>\r\n\r\nusing namespace std;\r\n\r\nstring a,b;\r\n\r\nvector<int> mul(vector<int>&A,vector<int>&B)\r\n{\r\n    vector<int>C(A.size()+B.size());\r\n    for(int i=0;i<A.size();i++)\r\n    {\r\n        for(int j=0;j<B.size();j++)\r\n        {\r\n            C[i+j]+=A[i]*B[j]; // 两个数位的乘积应累加到下标 i+j 对应的结果位。\r\n        }\r\n    }\r\n    for(int i=0,t=0;i<C.size();i++)\r\n    {\r\n        t+=C[i];\r\n        C[i]=t%10;\r\n        t/=10;\r\n    }\r\n    while(C.back()==0&&C.size()>1)C.pop_back();\r\n    return C;\r\n}\r\n\r\nvoid print(vector<int>A)\r\n{\r\n    for(int i=A.size()-1;i>=0;i--)\r\n        cout<<A[i];\r\n}\r\n\r\nint main()\r\n{\r\n    cin>>a>>b;\r\n    vector<int>A,B;\r\n    for(int i=a.size()-1;i>=0;i--)\r\n    {\r\n        A.push_back(a[i]-'0');\r\n    }\r\n    for(int i=b.size()-1;i>=0;i--)\r\n    {\r\n        B.push_back(b[i]-'0');\r\n    }\r\n\r\n    print(mul(A,B));\r\n\r\n    return 0;\r\n}\r\n// 总结：高精度乘法需要先累计卷积结果，再从低位到高位归一化进位。"
         }
       ],
       "113": [
@@ -117,7 +117,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/113.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\n#include<string>\r\n#include<algorithm>\r\n#include<vector>\r\n\r\nusing namespace std;\r\n\r\nstring a;\r\nint b,m;\r\nvector<int>div(vector<int>&A,int b)\r\n{\r\n    vector<int>C(A.size()-to_string(b).length());\r\n    int t=0;\r\n    for(int i=0;i<A.size();i++)\r\n    {\r\n        t*=10;\r\n        t+=A[i];\r\n        C.push_back(t/b);\r\n        t%=b;\r\n    }\r\n    m=t;\r\n    while(C.front()==0&&C.size()>1)C.erase(C.begin()); \r\n    return C;\r\n}\r\n\r\nvoid print(vector<int>A)\r\n{\r\n\r\n    for(int i=0;i<A.size();i++)\r\n    {\r\n        cout<<A[i];\r\n    }\r\n    cout<<endl;\r\n    cout<<m<<endl;\r\n}\r\n\r\nint main()\r\n{\r\n    cin>>a>>b;\r\n    vector<int>A;\r\n    for(int i=0;i<a.size();i++)\r\n    {\r\n        A.push_back(a[i]-'0');\r\n    }\r\n    print(div(A,b));\r\n\r\n    return 0;\r\n}\r\n"
+          "code": "// 思路：按高位到低位模拟长除法，每次用前一余数拼接当前数位求商和新余数。\r\n#include<iostream>\r\n#include<string>\r\n#include<algorithm>\r\n#include<vector>\r\n\r\nusing namespace std;\r\n\r\nstring a;\r\nint b,m;\r\nvector<int>div(vector<int>&A,int b)\r\n{\r\n    vector<int>C(A.size()-to_string(b).length());\r\n    int t=0;\r\n    for(int i=0;i<A.size();i++)\r\n    {\r\n        t*=10; // 把上一位余数扩大十倍后再加入当前数位。\r\n        t+=A[i];\r\n        C.push_back(t/b);\r\n        t%=b;\r\n    }\r\n    m=t;\r\n    while(C.front()==0&&C.size()>1)C.erase(C.begin()); \r\n    return C;\r\n}\r\n\r\nvoid print(vector<int>A)\r\n{\r\n\r\n    for(int i=0;i<A.size();i++)\r\n    {\r\n        cout<<A[i];\r\n    }\r\n    cout<<endl;\r\n    cout<<m<<endl;\r\n}\r\n\r\nint main()\r\n{\r\n    cin>>a>>b;\r\n    vector<int>A;\r\n    for(int i=0;i<a.size();i++)\r\n    {\r\n        A.push_back(a[i]-'0');\r\n    }\r\n    print(div(A,b));\r\n\r\n    return 0;\r\n}\r\n// 总结：高精度除以整数时要同时输出去除前导零的商和最终余数。\r\n"
         }
       ],
       "114": [
@@ -125,7 +125,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/114.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\n#include<string>\r\n\r\nusing namespace std;\r\n\r\nint a[100001],b[100001];\r\nint n,m,k;\r\nint main()\r\n{\r\n    cin>>n>>m>>k;\r\n    for(int i=0;i<n;i++)cin>>a[i];\r\n    for(int i=0;i<m;i++)cin>>b[i];\r\n\r\n    int i=0,j=m-1,t=a[i]+b[j];\r\n\r\n    while(t!=k)\r\n    {\r\n        if(t<k)i++;\r\n        else if(t>k)j--;\r\n        t=a[i]+b[j];\r\n    }\r\n    cout<<i<<\" \"<<j;\r\n}"
+          "code": "// 思路：利用两个有序数组的单调性，让一个指针从前向后、另一个从后向前寻找目标和。\r\n#include<iostream>\r\n#include<string>\r\n\r\nusing namespace std;\r\n\r\nint a[100001],b[100001];\r\nint n,m,k;\r\nint main()\r\n{\r\n    cin>>n>>m>>k;\r\n    for(int i=0;i<n;i++)cin>>a[i];\r\n    for(int i=0;i<m;i++)cin>>b[i];\r\n\r\n    int i=0,j=m-1,t=a[i]+b[j];\r\n\r\n    while(t!=k)\r\n    {\r\n        if(t<k)i++; // 当前和偏小时移动第一个数组指针以增大总和。\r\n        else if(t>k)j--;\r\n        t=a[i]+b[j];\r\n    }\r\n    cout<<i<<\" \"<<j;\r\n}\r\n// 总结：双指针依赖有序性，每次移动都能排除一批不可能的组合。"
         }
       ],
       "115": [
@@ -133,7 +133,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/115.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\n#include<string>\r\n\r\nusing namespace std;\r\n\r\nint main()\r\n{\r\n    int n,m;\r\n    int a[100001],b[100001];\r\n    cin>>n>>m;\r\n    for(int i=0;i<n;i++)cin>>a[i];\r\n    for(int i=0;i<m;i++)cin>>b[i];\r\n\r\n    int i=0,j=0;\r\n\r\n    while(j<m)\r\n    {\r\n        if(a[i]==b[j])\r\n        {\r\n            i++,j++;\r\n        }\r\n        else j++;\r\n    }\r\n    if(i==n)cout<<\"Yes\"<<endl;\r\n    else cout<<\"No\"<<endl;\r\n\r\n    return 0;\r\n}"
+          "code": "// 思路：用双指针扫描两个数组，只有元素匹配时推进子序列指针。\r\n#include<iostream>\r\n#include<string>\r\n\r\nusing namespace std;\r\n\r\nint main()\r\n{\r\n    int n,m;\r\n    int a[100001],b[100001];\r\n    cin>>n>>m;\r\n    for(int i=0;i<n;i++)cin>>a[i];\r\n    for(int i=0;i<m;i++)cin>>b[i];\r\n\r\n    int i=0,j=0;\r\n\r\n    while(j<m)\r\n    {\r\n        if(a[i]==b[j])\r\n        {\r\n            i++,j++; // 匹配成功说明子序列的当前元素已在主序列中找到。\r\n        }\r\n        else j++;\r\n    }\r\n    if(i==n)cout<<\"Yes\"<<endl;\r\n    else cout<<\"No\"<<endl;\r\n\r\n    return 0;\r\n}\r\n// 总结：判断子序列无需回退主序列，只需保持目标元素出现顺序。"
         }
       ],
       "116": [
@@ -149,7 +149,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/117.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\n#include<vector>\r\n#include<algorithm>\r\nusing namespace std;\r\n\r\nint main()\r\n{\r\n    int n;\r\n    cin>>n;\r\n    int a[100001];\r\n    vector<int>b;\r\n    for(int i=0;i<n;i++)\r\n    {\r\n        cin>>a[i];\r\n        if(find(b.begin(),b.end(),a[i])==b.end())b.push_back(a[i]);\r\n        else b.erase(find(b.begin(),b.end(),a[i]));\r\n    }\r\n\r\n    for(int i=0;i<b.size();i++)\r\n        if(b[i]!=0){\r\n            cout<<b[i];break;\r\n        }\r\n}"
+          "code": "// 思路：用容器切换元素的存在状态，成对出现的数会相互抵消，留下未配对元素。\r\n#include<iostream>\r\n#include<vector>\r\n#include<algorithm>\r\nusing namespace std;\r\n\r\nint main()\r\n{\r\n    int n;\r\n    cin>>n;\r\n    int a[100001];\r\n    vector<int>b;\r\n    for(int i=0;i<n;i++)\r\n    {\r\n        cin>>a[i];\r\n        if(find(b.begin(),b.end(),a[i])==b.end())b.push_back(a[i]); // 首次遇到元素就加入，再次遇到时将它删除。\r\n        else b.erase(find(b.begin(),b.end(),a[i]));\r\n    }\r\n\r\n    for(int i=0;i<b.size();i++)\r\n        if(b[i]!=0){\r\n            cout<<b[i];break;\r\n        }\r\n}\r\n// 总结：利用成对抵消可以寻找出现奇数次的元素，但线性查找适合数据规模较小时使用。"
         }
       ],
       "118": [
@@ -157,7 +157,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/118.cpp",
           "language": "cpp",
-          "code": "#include <bits/stdc++.h>\nusing namespace std;\n\nint main()\n{\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    if (!(cin >> n)) return 0;\n\n    for (int mask = 1; mask < (1 << n); mask++)\n    {\n        bool first = true;\n        for (int i = 0; i < n; i++)\n        {\n            if (mask >> i & 1)\n            {\n                if (!first) cout << ' ';\n                first = false;\n                cout << i + 1;\n            }\n        }\n        cout << \"\\n\";\n    }\n}\r\n"
+          "code": "// 思路：用二进制掩码表示元素是否被选中，枚举一到 2^n-1 的所有非空子集。\r\n#include <bits/stdc++.h>\nusing namespace std;\n\nint main()\n{\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    if (!(cin >> n)) return 0;\n\n    for (int mask = 1; mask < (1 << n); mask++)\n    {\n        bool first = true;\n        for (int i = 0; i < n; i++)\n        {\n            if (mask >> i & 1) // 掩码第 i 位为一时，把编号 i+1 加入当前子集。\n            {\n                if (!first) cout << ' ';\n                first = false;\n                cout << i + 1;\n            }\n        }\n        cout << \"\\n\";\n    }\n}\r\n// 总结：位运算枚举子集时，零掩码代表空集，可按题意决定是否跳过。\r\n"
         }
       ],
       "119": [
@@ -173,7 +173,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/120.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\n#include<string>\r\n\r\nusing namespace std;\r\n\r\nint parent[50005], dist[50005];\r\n\r\nint find(int x)\r\n{\r\n    if(parent[x] == x) return x;\r\n    int t = parent[x];\r\n    int root = find(t);\r\n    dist[x] = (dist[x] + dist[t]) % 3;\r\n    parent[x] = root;\r\n    return root;\r\n}\r\n\r\nint main()\r\n{\r\n    int n, m;\r\n    cin >> n >> m;\r\n    \r\n    for(int i = 1; i <= n; i++)\r\n    {\r\n        parent[i] = i;\r\n        dist[i] = 0;\r\n    }\r\n    \r\n    int ans = 0;\r\n    \r\n    for(int i = 0; i < m; i++)\r\n    {\r\n        int d, x, y;\r\n        cin >> d >> x >> y;\r\n        \r\n        if(x > n || y > n)\r\n        {\r\n            ans++;\r\n            continue;\r\n        }\r\n        \r\n        int rx = find(x);\r\n        int ry = find(y);\r\n        \r\n        if(d == 1)\r\n        {\r\n            if(rx == ry)\r\n            {\r\n                if(((dist[x] - dist[y]) % 3 + 3) % 3 != 0) ans++;\r\n            }\r\n            else\r\n            {\r\n                parent[rx] = ry;\r\n                dist[rx] = ((dist[y] - dist[x]) % 3 + 3) % 3;\r\n            }\r\n        }\r\n        else\r\n        {\r\n            if(rx == ry)\r\n            {\r\n                if(((dist[x] - dist[y]) % 3 + 3) % 3 != 1) ans++;\r\n            }\r\n            else\r\n            {\r\n                parent[rx] = ry;\r\n                dist[rx] = ((dist[y] - dist[x] + 1) % 3 + 3) % 3;\r\n            }\r\n        }\r\n    }\r\n    \r\n    cout << ans << endl;\r\n    \r\n    return 0;\r\n}"
+          "code": "// 思路：使用带模三关系距离的并查集维护同类与捕食关系，并统计与已有关系冲突的陈述。\r\n#include<iostream>\r\n#include<string>\r\n\r\nusing namespace std;\r\n\r\nint parent[50005], dist[50005];\r\n\r\nint find(int x)\r\n{\r\n    if(parent[x] == x) return x;\r\n    int t = parent[x];\r\n    int root = find(t);\r\n    dist[x] = (dist[x] + dist[t]) % 3; // 路径压缩时累加到根节点的关系距离并对三取模。\r\n    parent[x] = root;\r\n    return root;\r\n}\r\n\r\nint main()\r\n{\r\n    int n, m;\r\n    cin >> n >> m;\r\n    \r\n    for(int i = 1; i <= n; i++)\r\n    {\r\n        parent[i] = i;\r\n        dist[i] = 0;\r\n    }\r\n    \r\n    int ans = 0;\r\n    \r\n    for(int i = 0; i < m; i++)\r\n    {\r\n        int d, x, y;\r\n        cin >> d >> x >> y;\r\n        \r\n        if(x > n || y > n)\r\n        {\r\n            ans++;\r\n            continue;\r\n        }\r\n        \r\n        int rx = find(x);\r\n        int ry = find(y);\r\n        \r\n        if(d == 1)\r\n        {\r\n            if(rx == ry)\r\n            {\r\n                if(((dist[x] - dist[y]) % 3 + 3) % 3 != 0) ans++;\r\n            }\r\n            else\r\n            {\r\n                parent[rx] = ry;\r\n                dist[rx] = ((dist[y] - dist[x]) % 3 + 3) % 3;\r\n            }\r\n        }\r\n        else\r\n        {\r\n            if(rx == ry)\r\n            {\r\n                if(((dist[x] - dist[y]) % 3 + 3) % 3 != 1) ans++;\r\n            }\r\n            else\r\n            {\r\n                parent[rx] = ry;\r\n                dist[rx] = ((dist[y] - dist[x] + 1) % 3 + 3) % 3;\r\n            }\r\n        }\r\n    }\r\n    \r\n    cout << ans << endl;\r\n    \r\n    return 0;\r\n}\r\n// 总结：带权并查集的关键是统一关系方向，并在合并根节点时推导新的距离。"
         }
       ],
       "121": [
@@ -181,7 +181,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/121.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\nusing namespace std;\r\n\r\nint n,m,ss=0;\r\nint l,r;\r\nint a[100001],s[100001];\r\nint main()\r\n{\r\n    cin>>n>>m;\r\n    for(int i=1;i<=n;i++){\r\n        cin>>a[i];\r\n        ss+=a[i];\r\n        s[i]=ss;\r\n    }\r\n    while(cin>>l&&cin>>r)\r\n    {\r\n        cout<<s[r]-s[l-1];\r\n        cout<<endl;\r\n    }\r\n\r\n}\r\n"
+          "code": "// 思路：预处理前缀和，使每次区间查询都能用两个前缀值之差快速回答。\r\n#include<iostream>\r\nusing namespace std;\r\n\r\nint n,m,ss=0;\r\nint l,r;\r\nint a[100001],s[100001];\r\nint main()\r\n{\r\n    cin>>n>>m;\r\n    for(int i=1;i<=n;i++){\r\n        cin>>a[i];\r\n        ss+=a[i];\r\n        s[i]=ss; // s[i] 保存从第一项到第 i 项的累计和。\r\n    }\r\n    while(cin>>l&&cin>>r)\r\n    {\r\n        cout<<s[r]-s[l-1];\r\n        cout<<endl;\r\n    }\r\n\r\n}\r\n// 总结：区间 l 到 r 的和等于 s[r]-s[l-1]，预处理后每次查询只需常数时间。\r\n"
         }
       ],
       "122": [
@@ -229,7 +229,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/127.cpp",
           "language": "cpp",
-          "code": "\r\n#include <bits/stdc++.h>\r\nusing namespace std;\r\ntypedef pair<int,int> PII;\r\nint main(){\r\n    ios::sync_with_stdio(false);\r\n    cin.tie(nullptr);\r\n    int n; if(!(cin>>n)) return 0;\r\n    vector<PII> segs;\r\n    for(int i=0;i<n;i++){\r\n        int l,r; cin>>l>>r;\r\n        segs.push_back({r,l});\r\n    }\r\n    sort(segs.begin(),segs.end());\r\n    int res=0, ed=-2e9;\r\n    for(auto seg:segs){\r\n        if(seg.second>ed){\r\n            res++;\r\n            ed=seg.first;\r\n        }\r\n    }\r\n    cout<<res<<\"\\n\";\r\n}\r\n\r\n"
+          "code": "// 思路：按区间右端点升序排序，每次遇到未被当前点覆盖的区间就选择它的右端点。\r\n\r\n#include <bits/stdc++.h>\r\nusing namespace std;\r\ntypedef pair<int,int> PII;\r\nint main(){\r\n    ios::sync_with_stdio(false);\r\n    cin.tie(nullptr);\r\n    int n; if(!(cin>>n)) return 0;\r\n    vector<PII> segs;\r\n    for(int i=0;i<n;i++){\r\n        int l,r; cin>>l>>r;\r\n        segs.push_back({r,l});\r\n    }\r\n    sort(segs.begin(),segs.end());\r\n    int res=0, ed=-2e9;\r\n    for(auto seg:segs){\r\n        if(seg.second>ed){ // 区间左端点超过已选点时，必须新增一个点并放在当前右端点。\r\n            res++;\r\n            ed=seg.first;\r\n        }\r\n    }\r\n    cout<<res<<\"\\n\";\r\n}\r\n\r\n// 总结：区间贪心选择最靠右的可行点，可以尽量覆盖后续更多区间。\r\n"
         }
       ],
       "128": [
@@ -253,7 +253,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/130.cpp",
           "language": "cpp",
-          "code": "#include <bits/stdc++.h>\nusing namespace std;\n\nint main()\n{\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int m;\n    if (!(cin >> m)) return 0;\n\n    vector<int> e(m + 5), ne(m + 5);\n    int head = -1, idx = 0;\n\n    auto add_head = [&](int x) {\n        e[idx] = x;\n        ne[idx] = head;\n        head = idx++;\n    };\n\n    auto add = [&](int k, int x) {\n        e[idx] = x;\n        ne[idx] = ne[k];\n        ne[k] = idx++;\n    };\n\n    auto del = [&](int k) {\n        if (k == -1) head = ne[head];\n        else ne[k] = ne[ne[k]];\n    };\n\n    while (m--)\n    {\n        char op;\n        cin >> op;\n        if (op == 'H')\n        {\n            int x;\n            cin >> x;\n            add_head(x);\n        }\n        else if (op == 'I')\n        {\n            int k, x;\n            cin >> k >> x;\n            add(k - 1, x);\n        }\n        else\n        {\n            int k;\n            cin >> k;\n            if (k == 0) del(-1);\n            else del(k - 1);\n        }\n    }\n\n    for (int i = head; i != -1; i = ne[i]) cout << e[i] << ' ';\n    cout << \"\\n\";\n}\r\n"
+          "code": "// 思路：用数组保存节点值和下一节点下标，模拟单链表的头插、指定位置插入和删除。\r\n#include <bits/stdc++.h>\nusing namespace std;\n\nint main()\n{\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int m;\n    if (!(cin >> m)) return 0;\n\n    vector<int> e(m + 5), ne(m + 5);\n    int head = -1, idx = 0;\n\n    auto add_head = [&](int x) {\n        e[idx] = x;\n        ne[idx] = head;\n        head = idx++;\n    };\n\n    auto add = [&](int k, int x) {\n        e[idx] = x;\n        ne[idx] = ne[k];\n        ne[k] = idx++; // 新节点接到第 k 个节点之后，再更新该节点的后继下标。\n    };\n\n    auto del = [&](int k) {\n        if (k == -1) head = ne[head];\n        else ne[k] = ne[ne[k]];\n    };\n\n    while (m--)\n    {\n        char op;\n        cin >> op;\n        if (op == 'H')\n        {\n            int x;\n            cin >> x;\n            add_head(x);\n        }\n        else if (op == 'I')\n        {\n            int k, x;\n            cin >> k >> x;\n            add(k - 1, x);\n        }\n        else\n        {\n            int k;\n            cin >> k;\n            if (k == 0) del(-1);\n            else del(k - 1);\n        }\n    }\n\n    for (int i = head; i != -1; i = ne[i]) cout << e[i] << ' ';\n    cout << \"\\n\";\n}\r\n// 总结：数组模拟链表时输入编号通常与数组下标相差一，需要统一转换。\r\n"
         }
       ],
       "131": [
@@ -291,7 +291,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/134.cpp",
           "language": "cpp",
-          "code": "#include <bits/stdc++.h>\nusing namespace std;\n\nint main()\n{\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    if (!(cin >> n)) return 0;\n\n    vector<int> st;\n    for (int i = 0; i < n; i++)\n    {\n        int x;\n        cin >> x;\n        while (!st.empty() && st.back() >= x) st.pop_back();\n        if (i) cout << ' ';\n        cout << (st.empty() ? -1 : st.back());\n        st.push_back(x);\n    }\n    cout << \"\\n\";\n}\r\n"
+          "code": "// 思路：维护严格递增的单调栈，为每个元素找到左侧最近且更小的值。\r\n#include <bits/stdc++.h>\nusing namespace std;\n\nint main()\n{\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    if (!(cin >> n)) return 0;\n\n    vector<int> st;\n    for (int i = 0; i < n; i++)\n    {\n        int x;\n        cin >> x;\n        while (!st.empty() && st.back() >= x) st.pop_back(); // 弹出所有不小于当前值的元素后，栈顶才可能是最近较小值。\n        if (i) cout << ' ';\n        cout << (st.empty() ? -1 : st.back());\n        st.push_back(x);\n    }\n    cout << \"\\n\";\n}\r\n// 总结：单调栈通过及时删除不可能成为答案的元素，把整体复杂度降为线性。\r\n"
         }
       ],
       "135": [
@@ -299,7 +299,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/135.cpp",
           "language": "cpp",
-          "code": "#include <bits/stdc++.h>\r\nusing namespace std;\r\nconst int N=1000010;\r\nint a[N],q[N];\r\nint main(){\r\n    ios::sync_with_stdio(false); cin.tie(nullptr);\r\n    int n,k; if(!(cin>>n>>k)) return 0;\r\n    for(int i=0;i<n;i++) cin>>a[i];\r\n    int hh=0,tt=-1;\r\n    for(int i=0;i<n;i++){\r\n        if(hh<=tt && i-k+1>q[hh]) hh++;\r\n        while(hh<=tt && a[q[tt]]>=a[i]) tt--;\r\n        q[++tt]=i;\r\n        if(i>=k-1) cout<<a[q[hh]]<<' ';\r\n    }\r\n    cout<<\"\\n\";\r\n    hh=0,tt=-1;\r\n    for(int i=0;i<n;i++){\r\n        if(hh<=tt && i-k+1>q[hh]) hh++;\r\n        while(hh<=tt && a[q[tt]]<=a[i]) tt--;\r\n        q[++tt]=i;\r\n        if(i>=k-1) cout<<a[q[hh]]<<' ';\r\n    }\r\n    cout<<\"\\n\";\r\n}"
+          "code": "// 思路：用单调队列分别维护滑动窗口中的最小值和最大值。\r\n#include <bits/stdc++.h>\r\nusing namespace std;\r\nconst int N=1000010;\r\nint a[N],q[N];\r\nint main(){\r\n    ios::sync_with_stdio(false); cin.tie(nullptr);\r\n    int n,k; if(!(cin>>n>>k)) return 0;\r\n    for(int i=0;i<n;i++) cin>>a[i];\r\n    int hh=0,tt=-1;\r\n    for(int i=0;i<n;i++){\r\n        if(hh<=tt && i-k+1>q[hh]) hh++;\r\n        while(hh<=tt && a[q[tt]]>=a[i]) tt--; // 求最小值时删除队尾所有不小于当前值的下标，保持队列递增。\r\n        q[++tt]=i;\r\n        if(i>=k-1) cout<<a[q[hh]]<<' ';\r\n    }\r\n    cout<<\"\\n\";\r\n    hh=0,tt=-1;\r\n    for(int i=0;i<n;i++){\r\n        if(hh<=tt && i-k+1>q[hh]) hh++;\r\n        while(hh<=tt && a[q[tt]]<=a[i]) tt--;\r\n        q[++tt]=i;\r\n        if(i>=k-1) cout<<a[q[hh]]<<' ';\r\n    }\r\n    cout<<\"\\n\";\r\n}\r\n// 总结：单调队列既要清理过期下标，也要维持值的单调性。"
         }
       ],
       "136": [
@@ -323,7 +323,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/138.cpp",
           "language": "cpp",
-          "code": "#include <iostream>\r\n#include <vector>\r\nusing namespace std;\r\n\r\nconst int N = 100010;\r\nint p[N];\r\n\r\nint find(int x) {\r\n    if (p[x] != x) p[x] = find(p[x]);\r\n    return p[x];\r\n}\r\n\r\nint main() {\r\n    int n, m;\r\n    cin >> n >> m;\r\n    \r\n    for (int i = 1; i <= n; i++) p[i] = i;\r\n    \r\n    while (m--) {\r\n        char op;\r\n        int a, b;\r\n        cin >> op >> a >> b;\r\n        \r\n        if (op == 'M') {\r\n            int pa = find(a), pb = find(b);\r\n            if (pa != pb) p[pa] = pb;\r\n        } else if (op == 'Q') {\r\n            if (find(a) == find(b)) cout << \"Yes\" << endl;\r\n            else cout << \"No\" << endl;\r\n        }\r\n    }\r\n    \r\n    return 0;\r\n}"
+          "code": "// 思路：用并查集合并连通集合，并通过根节点是否相同回答连通性查询。\r\n#include <iostream>\r\n#include <vector>\r\nusing namespace std;\r\n\r\nconst int N = 100010;\r\nint p[N];\r\n\r\nint find(int x) {\r\n    if (p[x] != x) p[x] = find(p[x]); // 递归寻找根节点的同时压缩路径，缩短后续查询链路。\r\n    return p[x];\r\n}\r\n\r\nint main() {\r\n    int n, m;\r\n    cin >> n >> m;\r\n    \r\n    for (int i = 1; i <= n; i++) p[i] = i;\r\n    \r\n    while (m--) {\r\n        char op;\r\n        int a, b;\r\n        cin >> op >> a >> b;\r\n        \r\n        if (op == 'M') {\r\n            int pa = find(a), pb = find(b);\r\n            if (pa != pb) p[pa] = pb;\r\n        } else if (op == 'Q') {\r\n            if (find(a) == find(b)) cout << \"Yes\" << endl;\r\n            else cout << \"No\" << endl;\r\n        }\r\n    }\r\n    \r\n    return 0;\r\n}\r\n// 总结：并查集适合处理只增加连接、不删除连接的动态连通问题。"
         }
       ],
       "139": [
@@ -331,7 +331,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/139.cpp",
           "language": "cpp",
-          "code": "#include <bits/stdc++.h>\r\nusing namespace std;\r\nint p[100010], sz[100010];\r\nint findp(int x){ return p[x]==x?x:p[x]=findp(p[x]); }\r\nint main(){\r\n    ios::sync_with_stdio(false);\r\n    cin.tie(nullptr);\r\n    int n,m;\r\n    if(!(cin>>n>>m)) return 0;\r\n    for(int i=1;i<=n;i++) p[i]=i, sz[i]=1;\r\n    while(m--){\r\n        string op; int a,b;\r\n        cin >> op;\r\n        if(op==\"C\"){\r\n            cin >> a >> b;\r\n            int ra=findp(a), rb=findp(b);\r\n            if(ra!=rb){ p[ra]=rb; sz[rb]+=sz[ra]; }\r\n        }else if(op==\"Q1\"){\r\n            cin >> a >> b;\r\n            cout << (findp(a)==findp(b) ? \"Yes\" : \"No\") << \"\\n\";\r\n        }else{\r\n            cin >> a;\r\n            cout << sz[findp(a)] << \"\\n\";\r\n        }\r\n    }\r\n}"
+          "code": "// 思路：在并查集连通性基础上维护每个根节点代表集合的元素数量。\r\n#include <bits/stdc++.h>\r\nusing namespace std;\r\nint p[100010], sz[100010];\r\nint findp(int x){ return p[x]==x?x:p[x]=findp(p[x]); }\r\nint main(){\r\n    ios::sync_with_stdio(false);\r\n    cin.tie(nullptr);\r\n    int n,m;\r\n    if(!(cin>>n>>m)) return 0;\r\n    for(int i=1;i<=n;i++) p[i]=i, sz[i]=1;\r\n    while(m--){\r\n        string op; int a,b;\r\n        cin >> op;\r\n        if(op==\"C\"){\r\n            cin >> a >> b;\r\n            int ra=findp(a), rb=findp(b);\r\n            if(ra!=rb){ p[ra]=rb; sz[rb]+=sz[ra]; } // 合并两个不同集合时，把被合并集合的大小累加到新根节点。\r\n        }else if(op==\"Q1\"){\r\n            cin >> a >> b;\r\n            cout << (findp(a)==findp(b) ? \"Yes\" : \"No\") << \"\\n\";\r\n        }else{\r\n            cin >> a;\r\n            cout << sz[findp(a)] << \"\\n\";\r\n        }\r\n    }\r\n}\r\n// 总结：集合大小必须存放在根节点上，查询前先找到当前根。"
         }
       ],
       "140": [
@@ -363,7 +363,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/143.cpp",
           "language": "cpp",
-          "code": "#include <iostream>\r\n#include <queue>\r\nusing namespace std;\r\n\r\nconst int N = 1010;\r\nint g[N][N], dist[N][N];\r\nint n, m;\r\nint dx[4] = {-1, 0, 1, 0};\r\nint dy[4] = {0, 1, 0, -1};\r\n\r\nint bfs() {\r\n    queue<pair<int, int>> q;\r\n    q.push({0, 0});\r\n    dist[0][0] = 0;\r\n    \r\n    while (!q.empty()) {\r\n        auto t = q.front();\r\n        q.pop();\r\n        \r\n        int x = t.first, y = t.second;\r\n        \r\n        if (x == n - 1 && y == m - 1) {\r\n            return dist[x][y];\r\n        }\r\n        \r\n        for (int i = 0; i < 4; i++) {\r\n            int nx = x + dx[i];\r\n            int ny = y + dy[i];\r\n            \r\n            if (nx >= 0 && nx < n && ny >= 0 && ny < m && g[nx][ny] == 0 && dist[nx][ny] == -1) {\r\n                dist[nx][ny] = dist[x][y] + 1;\r\n                q.push({nx, ny});\r\n            }\r\n        }\r\n    }\r\n    \r\n    return -1;\r\n}\r\n\r\nint main() {\r\n    cin >> n >> m;\r\n    \r\n    for (int i = 0; i < n; i++) {\r\n        for (int j = 0; j < m; j++) {\r\n            cin >> g[i][j];\r\n            dist[i][j] = -1;\r\n        }\r\n    }\r\n    \r\n    cout << bfs() << endl;\r\n    \r\n    return 0;\r\n}"
+          "code": "// 思路：从左上角开始广度优先搜索，每次扩展四个方向并记录首次到达的最短距离。\r\n#include <iostream>\r\n#include <queue>\r\nusing namespace std;\r\n\r\nconst int N = 1010;\r\nint g[N][N], dist[N][N];\r\nint n, m;\r\nint dx[4] = {-1, 0, 1, 0};\r\nint dy[4] = {0, 1, 0, -1};\r\n\r\nint bfs() {\r\n    queue<pair<int, int>> q;\r\n    q.push({0, 0});\r\n    dist[0][0] = 0;\r\n    \r\n    while (!q.empty()) {\r\n        auto t = q.front();\r\n        q.pop();\r\n        \r\n        int x = t.first, y = t.second;\r\n        \r\n        if (x == n - 1 && y == m - 1) {\r\n            return dist[x][y];\r\n        }\r\n        \r\n        for (int i = 0; i < 4; i++) {\r\n            int nx = x + dx[i];\r\n            int ny = y + dy[i];\r\n            \r\n            if (nx >= 0 && nx < n && ny >= 0 && ny < m && g[nx][ny] == 0 && dist[nx][ny] == -1) {\r\n                dist[nx][ny] = dist[x][y] + 1; // 相邻可走位置的距离等于当前距离加一。\r\n                q.push({nx, ny});\r\n            }\r\n        }\r\n    }\r\n    \r\n    return -1;\r\n}\r\n\r\nint main() {\r\n    cin >> n >> m;\r\n    \r\n    for (int i = 0; i < n; i++) {\r\n        for (int j = 0; j < m; j++) {\r\n            cin >> g[i][j];\r\n            dist[i][j] = -1;\r\n        }\r\n    }\r\n    \r\n    cout << bfs() << endl;\r\n    \r\n    return 0;\r\n}\r\n// 总结：无权网格最短路使用 BFS，首次访问即得到最短距离。"
         }
       ],
       "144": [
@@ -395,7 +395,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/147.cpp",
           "language": "cpp",
-          "code": "#include <iostream>\r\n#include <vector>\r\n#include <queue>\r\nusing namespace std;\r\n\r\nconst int N = 100010;\r\nvector<int> g[N];\r\nint d[N];\r\nint n, m;\r\n\r\nint main() {\r\n    cin >> n >> m;\r\n    \r\n    for (int i = 0; i < m; i++) {\r\n        int a, b;\r\n        cin >> a >> b;\r\n        g[a].push_back(b);\r\n        d[b]++;\r\n    }\r\n    \r\n    queue<int> q;\r\n    for (int i = 1; i <= n; i++) {\r\n        if (d[i] == 0) {\r\n            q.push(i);\r\n        }\r\n    }\r\n    \r\n    vector<int> ans;\r\n    while (!q.empty()) {\r\n        int u = q.front();\r\n        q.pop();\r\n        ans.push_back(u);\r\n        \r\n        for (int i = 0; i < g[u].size(); i++) {\r\n            int v = g[u][i];\r\n            d[v]--;\r\n            if (d[v] == 0) {\r\n                q.push(v);\r\n            }\r\n        }\r\n    }\r\n    \r\n    if (ans.size() != n) {\r\n        cout << -1 << endl;\r\n    } else {\r\n        for (int i = 0; i < ans.size(); i++) {\r\n            cout << ans[i] << (i == ans.size() - 1 ? '\\n' : ' ');\r\n        }\r\n    }\r\n    \r\n    return 0;\r\n}"
+          "code": "// 思路：统计每个节点入度，把所有零入度节点入队并依次删除其出边得到拓扑序。\r\n#include <iostream>\r\n#include <vector>\r\n#include <queue>\r\nusing namespace std;\r\n\r\nconst int N = 100010;\r\nvector<int> g[N];\r\nint d[N];\r\nint n, m;\r\n\r\nint main() {\r\n    cin >> n >> m;\r\n    \r\n    for (int i = 0; i < m; i++) {\r\n        int a, b;\r\n        cin >> a >> b;\r\n        g[a].push_back(b);\r\n        d[b]++;\r\n    }\r\n    \r\n    queue<int> q;\r\n    for (int i = 1; i <= n; i++) {\r\n        if (d[i] == 0) {\r\n            q.push(i);\r\n        }\r\n    }\r\n    \r\n    vector<int> ans;\r\n    while (!q.empty()) {\r\n        int u = q.front();\r\n        q.pop();\r\n        ans.push_back(u);\r\n        \r\n        for (int i = 0; i < g[u].size(); i++) {\r\n            int v = g[u][i];\r\n            d[v]--;\r\n            if (d[v] == 0) { // 邻接点入度减到零时，说明它的所有前驱都已处理，可以入队。\r\n                q.push(v);\r\n            }\r\n        }\r\n    }\r\n    \r\n    if (ans.size() != n) {\r\n        cout << -1 << endl;\r\n    } else {\r\n        for (int i = 0; i < ans.size(); i++) {\r\n            cout << ans[i] << (i == ans.size() - 1 ? '\\n' : ' ');\r\n        }\r\n    }\r\n    \r\n    return 0;\r\n}\r\n// 总结：拓扑序长度不足节点总数说明图中存在有向环。"
         }
       ],
       "148": [
@@ -427,7 +427,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/151.cpp",
           "language": "cpp",
-          "code": "#include <iostream>\r\n#include <cstring>\r\nusing namespace std;\r\n\r\nconst int N = 210;\r\nconst int INF = 0x3f3f3f3f;\r\nint d[N][N];\r\nint n, m, q;\r\n\r\nint main() {\r\n    cin >> n >> m >> q;\r\n    \r\n    for (int i = 1; i <= n; i++) {\r\n        for (int j = 1; j <= n; j++) {\r\n            if (i == j) d[i][j] = 0;\r\n            else d[i][j] = INF;\r\n        }\r\n    }\r\n    \r\n    for (int i = 0; i < m; i++) {\r\n        int a, b, w;\r\n        cin >> a >> b >> w;\r\n        d[a][b] = min(d[a][b], w);\r\n    }\r\n    \r\n    for (int k = 1; k <= n; k++) {\r\n        for (int i = 1; i <= n; i++) {\r\n            for (int j = 1; j <= n; j++) {\r\n                if (d[i][k] != INF && d[k][j] != INF) {\r\n                    d[i][j] = min(d[i][j], d[i][k] + d[k][j]);\r\n                }\r\n            }\r\n        }\r\n    }\r\n    \r\n    while (q--) {\r\n        int a, b;\r\n        cin >> a >> b;\r\n        if (d[a][b] == INF) cout << \"impossible\" << endl;\r\n        else cout << d[a][b] << endl;\r\n    }\r\n    \r\n    return 0;\r\n}"
+          "code": "// 思路：使用 Floyd 动态规划枚举中间点，预处理任意两点间的最短距离。\r\n#include <iostream>\r\n#include <cstring>\r\nusing namespace std;\r\n\r\nconst int N = 210;\r\nconst int INF = 0x3f3f3f3f;\r\nint d[N][N];\r\nint n, m, q;\r\n\r\nint main() {\r\n    cin >> n >> m >> q;\r\n    \r\n    for (int i = 1; i <= n; i++) {\r\n        for (int j = 1; j <= n; j++) {\r\n            if (i == j) d[i][j] = 0;\r\n            else d[i][j] = INF;\r\n        }\r\n    }\r\n    \r\n    for (int i = 0; i < m; i++) {\r\n        int a, b, w;\r\n        cin >> a >> b >> w;\r\n        d[a][b] = min(d[a][b], w);\r\n    }\r\n    \r\n    for (int k = 1; k <= n; k++) {\r\n        for (int i = 1; i <= n; i++) {\r\n            for (int j = 1; j <= n; j++) {\r\n                if (d[i][k] != INF && d[k][j] != INF) {\r\n                    d[i][j] = min(d[i][j], d[i][k] + d[k][j]); // 比较原路径与经过 k 的路径，保留距离更小者。\r\n                }\r\n            }\r\n        }\r\n    }\r\n    \r\n    while (q--) {\r\n        int a, b;\r\n        cin >> a >> b;\r\n        if (d[a][b] == INF) cout << \"impossible\" << endl;\r\n        else cout << d[a][b] << endl;\r\n    }\r\n    \r\n    return 0;\r\n}\r\n// 总结：Floyd 的中间点必须放在最外层循环，才能保证状态含义正确。"
         }
       ],
       "152": [
@@ -435,7 +435,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/152.cpp",
           "language": "cpp",
-          "code": "#include <iostream>\r\n#include <cstring>\r\nusing namespace std;\r\n\r\nconst int N = 510;\r\nconst int INF = 0x3f3f3f3f;\r\nint g[N][N];\r\nint dist[N];\r\nbool st[N];\r\nint n, m;\r\n\r\nint prim() {\r\n    memset(dist, 0x3f, sizeof(dist));\r\n    int res = 0;\r\n    \r\n    for (int i = 0; i < n; i++) {\r\n        int t = -1;\r\n        for (int j = 1; j <= n; j++) {\r\n            if (!st[j] && (t == -1 || dist[t] > dist[j])) {\r\n                t = j;\r\n            }\r\n        }\r\n        \r\n        if (i && dist[t] == INF) return -1;\r\n        \r\n        if (i) res += dist[t];\r\n        st[t] = true;\r\n        \r\n        for (int j = 1; j <= n; j++) {\r\n            if (dist[j] > g[t][j]) {\r\n                dist[j] = g[t][j];\r\n            }\r\n        }\r\n    }\r\n    \r\n    return res;\r\n}\r\n\r\nint main() {\r\n    cin >> n >> m;\r\n    \r\n    memset(g, 0x3f, sizeof(g));\r\n    \r\n    for (int i = 0; i < m; i++) {\r\n        int a, b, w;\r\n        cin >> a >> b >> w;\r\n        g[a][b] = g[b][a] = min(g[a][b], w);\r\n    }\r\n    \r\n    int ans = prim();\r\n    \r\n    if (ans == -1) cout << \"impossible\" << endl;\r\n    else cout << ans << endl;\r\n    \r\n    return 0;\r\n}"
+          "code": "// 思路：Prim 算法每轮选择距当前生成树最近的未选节点，并用它更新其他节点距离。\r\n#include <iostream>\r\n#include <cstring>\r\nusing namespace std;\r\n\r\nconst int N = 510;\r\nconst int INF = 0x3f3f3f3f;\r\nint g[N][N];\r\nint dist[N];\r\nbool st[N];\r\nint n, m;\r\n\r\nint prim() {\r\n    memset(dist, 0x3f, sizeof(dist));\r\n    int res = 0;\r\n    \r\n    for (int i = 0; i < n; i++) {\r\n        int t = -1;\r\n        for (int j = 1; j <= n; j++) {\r\n            if (!st[j] && (t == -1 || dist[t] > dist[j])) {\r\n                t = j;\r\n            }\r\n        }\r\n        \r\n        if (i && dist[t] == INF) return -1;\r\n        \r\n        if (i) res += dist[t]; // 除起点外，每次选中节点时把连接它的最小边权加入答案。\r\n        st[t] = true;\r\n        \r\n        for (int j = 1; j <= n; j++) {\r\n            if (dist[j] > g[t][j]) {\r\n                dist[j] = g[t][j];\r\n            }\r\n        }\r\n    }\r\n    \r\n    return res;\r\n}\r\n\r\nint main() {\r\n    cin >> n >> m;\r\n    \r\n    memset(g, 0x3f, sizeof(g));\r\n    \r\n    for (int i = 0; i < m; i++) {\r\n        int a, b, w;\r\n        cin >> a >> b >> w;\r\n        g[a][b] = g[b][a] = min(g[a][b], w);\r\n    }\r\n    \r\n    int ans = prim();\r\n    \r\n    if (ans == -1) cout << \"impossible\" << endl;\r\n    else cout << ans << endl;\r\n    \r\n    return 0;\r\n}\r\n// 总结：若某轮最小距离仍为无穷大，说明图不连通，无法形成生成树。"
         }
       ],
       "153": [
@@ -443,7 +443,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/153.cpp",
           "language": "cpp",
-          "code": "#include <iostream>\r\n#include <algorithm>\r\nusing namespace std;\r\n\r\nconst int N = 100010;\r\nconst int M = 200010;\r\nint p[N];\r\nint n, m;\r\n\r\nstruct Edge {\r\n    int a, b, w;\r\n    bool operator< (const Edge &W) const {\r\n        return w < W.w;\r\n    }\r\n} edges[M];\r\n\r\nint find(int x) {\r\n    if (p[x] != x) p[x] = find(p[x]);\r\n    return p[x];\r\n}\r\n\r\nint main() {\r\n    cin >> n >> m;\r\n    \r\n    for (int i = 1; i <= n; i++) p[i] = i;\r\n    \r\n    for (int i = 0; i < m; i++) {\r\n        int a, b, w;\r\n        cin >> a >> b >> w;\r\n        edges[i] = {a, b, w};\r\n    }\r\n    \r\n    sort(edges, edges + m);\r\n    \r\n    int res = 0, cnt = 0;\r\n    \r\n    for (int i = 0; i < m; i++) {\r\n        int a = edges[i].a, b = edges[i].b, w = edges[i].w;\r\n        int pa = find(a), pb = find(b);\r\n        \r\n        if (pa != pb) {\r\n            p[pa] = pb;\r\n            res += w;\r\n            cnt++;\r\n        }\r\n    }\r\n    \r\n    if (cnt < n - 1) cout << \"impossible\" << endl;\r\n    else cout << res << endl;\r\n    \r\n    return 0;\r\n}"
+          "code": "// 思路：Kruskal 算法按边权升序扫描，用并查集选择不会形成环的边。\r\n#include <iostream>\r\n#include <algorithm>\r\nusing namespace std;\r\n\r\nconst int N = 100010;\r\nconst int M = 200010;\r\nint p[N];\r\nint n, m;\r\n\r\nstruct Edge {\r\n    int a, b, w;\r\n    bool operator< (const Edge &W) const {\r\n        return w < W.w;\r\n    }\r\n} edges[M];\r\n\r\nint find(int x) {\r\n    if (p[x] != x) p[x] = find(p[x]);\r\n    return p[x];\r\n}\r\n\r\nint main() {\r\n    cin >> n >> m;\r\n    \r\n    for (int i = 1; i <= n; i++) p[i] = i;\r\n    \r\n    for (int i = 0; i < m; i++) {\r\n        int a, b, w;\r\n        cin >> a >> b >> w;\r\n        edges[i] = {a, b, w};\r\n    }\r\n    \r\n    sort(edges, edges + m);\r\n    \r\n    int res = 0, cnt = 0;\r\n    \r\n    for (int i = 0; i < m; i++) {\r\n        int a = edges[i].a, b = edges[i].b, w = edges[i].w;\r\n        int pa = find(a), pb = find(b);\r\n        \r\n        if (pa != pb) { // 两个端点属于不同集合时才能安全加入当前生成树。\r\n            p[pa] = pb;\r\n            res += w;\r\n            cnt++;\r\n        }\r\n    }\r\n    \r\n    if (cnt < n - 1) cout << \"impossible\" << endl;\r\n    else cout << res << endl;\r\n    \r\n    return 0;\r\n}\r\n// 总结：最小生成树最终应恰好选中 n-1 条边，否则原图不连通。"
         }
       ],
       "154": [
@@ -451,7 +451,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/154.cpp",
           "language": "cpp",
-          "code": "#include <iostream>\r\n#include <vector>\r\n#include <cstring>\r\nusing namespace std;\r\n\r\nconst int N = 100010;\r\nvector<int> g[N];\r\nint color[N];\r\nint n, m;\r\n\r\nbool dfs(int u, int c) {\r\n    color[u] = c;\r\n    \r\n    for (int i = 0; i < g[u].size(); i++) {\r\n        int v = g[u][i];\r\n        if (!color[v]) {\r\n            if (!dfs(v, 3 - c)) return false;\r\n        } else if (color[v] == c) {\r\n            return false;\r\n        }\r\n    }\r\n    \r\n    return true;\r\n}\r\n\r\nint main() {\r\n    cin >> n >> m;\r\n    \r\n    for (int i = 0; i < m; i++) {\r\n        int a, b;\r\n        cin >> a >> b;\r\n        g[a].push_back(b);\r\n        g[b].push_back(a);\r\n    }\r\n    \r\n    bool flag = true;\r\n    for (int i = 1; i <= n; i++) {\r\n        if (!color[i]) {\r\n            if (!dfs(i, 1)) {\r\n                flag = false;\r\n                break;\r\n            }\r\n        }\r\n    }\r\n    \r\n    if (flag) cout << \"Yes\" << endl;\r\n    else cout << \"No\" << endl;\r\n    \r\n    return 0;\r\n}"
+          "code": "// 思路：对每个连通块进行双色 DFS，相邻节点染相反颜色并检查冲突。\r\n#include <iostream>\r\n#include <vector>\r\n#include <cstring>\r\nusing namespace std;\r\n\r\nconst int N = 100010;\r\nvector<int> g[N];\r\nint color[N];\r\nint n, m;\r\n\r\nbool dfs(int u, int c) {\r\n    color[u] = c;\r\n    \r\n    for (int i = 0; i < g[u].size(); i++) {\r\n        int v = g[u][i];\r\n        if (!color[v]) {\r\n            if (!dfs(v, 3 - c)) return false; // 未染色邻点递归使用另一种颜色，出现冲突则立即失败。\r\n        } else if (color[v] == c) {\r\n            return false;\r\n        }\r\n    }\r\n    \r\n    return true;\r\n}\r\n\r\nint main() {\r\n    cin >> n >> m;\r\n    \r\n    for (int i = 0; i < m; i++) {\r\n        int a, b;\r\n        cin >> a >> b;\r\n        g[a].push_back(b);\r\n        g[b].push_back(a);\r\n    }\r\n    \r\n    bool flag = true;\r\n    for (int i = 1; i <= n; i++) {\r\n        if (!color[i]) {\r\n            if (!dfs(i, 1)) {\r\n                flag = false;\r\n                break;\r\n            }\r\n        }\r\n    }\r\n    \r\n    if (flag) cout << \"Yes\" << endl;\r\n    else cout << \"No\" << endl;\r\n    \r\n    return 0;\r\n}\r\n// 总结：图是二分图当且仅当每条边连接的两个节点颜色不同。"
         }
       ],
       "155": [
@@ -459,7 +459,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/155.cpp",
           "language": "cpp",
-          "code": "#include <iostream>\r\n#include <cstring>\r\nusing namespace std;\r\n\r\nconst int N = 1010;\r\nint f[N];\r\nint n, m;\r\n\r\nint main() {\r\n    cin >> n >> m;\r\n    \r\n    for (int i = 0; i < n; i++) {\r\n        int v, w;\r\n        cin >> v >> w;\r\n        for (int j = m; j >= v; j--) {\r\n            f[j] = max(f[j], f[j - v] + w);\r\n        }\r\n    }\r\n    \r\n    cout << f[m] << endl;\r\n    \r\n    return 0;\r\n}"
+          "code": "// 思路：使用一维动态规划解决零一背包，容量从大到小枚举以保证每件物品只选一次。\r\n#include <iostream>\r\n#include <cstring>\r\nusing namespace std;\r\n\r\nconst int N = 1010;\r\nint f[N];\r\nint n, m;\r\n\r\nint main() {\r\n    cin >> n >> m;\r\n    \r\n    for (int i = 0; i < n; i++) {\r\n        int v, w;\r\n        cin >> v >> w;\r\n        for (int j = m; j >= v; j--) {\r\n            f[j] = max(f[j], f[j - v] + w); // 比较不选当前物品与选入当前物品后的最大价值。\r\n        }\r\n    }\r\n    \r\n    cout << f[m] << endl;\r\n    \r\n    return 0;\r\n}\r\n// 总结：零一背包必须倒序枚举容量，防止同一轮重复使用当前物品。"
         }
       ],
       "156": [
@@ -467,7 +467,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/156.cpp",
           "language": "cpp",
-          "code": "#include <iostream>\r\n#include <cstring>\r\nusing namespace std;\r\n\r\nconst int N = 1010;\r\nint f[N];\r\nint n, m;\r\n\r\nint main() {\r\n    cin >> n >> m;\r\n    \r\n    for (int i = 0; i < n; i++) {\r\n        int v, w;\r\n        cin >> v >> w;\r\n        for (int j = v; j <= m; j++) {\r\n            f[j] = max(f[j], f[j - v] + w);\r\n        }\r\n    }\r\n    \r\n    cout << f[m] << endl;\r\n    \r\n    return 0;\r\n}"
+          "code": "// 思路：使用一维动态规划解决完全背包，容量从小到大枚举以允许物品重复选择。\r\n#include <iostream>\r\n#include <cstring>\r\nusing namespace std;\r\n\r\nconst int N = 1010;\r\nint f[N];\r\nint n, m;\r\n\r\nint main() {\r\n    cin >> n >> m;\r\n    \r\n    for (int i = 0; i < n; i++) {\r\n        int v, w;\r\n        cin >> v >> w;\r\n        for (int j = v; j <= m; j++) {\r\n            f[j] = max(f[j], f[j - v] + w); // 当前状态可以继续使用本轮物品更新后的较小容量状态。\r\n        }\r\n    }\r\n    \r\n    cout << f[m] << endl;\r\n    \r\n    return 0;\r\n}\r\n// 总结：完全背包与零一背包转移相同，区别在于容量枚举方向。"
         }
       ],
       "157": [
@@ -475,7 +475,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/157.cpp",
           "language": "cpp",
-          "code": "#include <iostream>\r\n#include <cstring>\r\nusing namespace std;\r\n\r\nconst int N = 510;\r\nint f[N][N];\r\nint n;\r\n\r\nint main() {\r\n    cin >> n;\r\n    \r\n    for (int i = 1; i <= n; i++) {\r\n        for (int j = 1; j <= i; j++) {\r\n            cin >> f[i][j];\r\n        }\r\n    }\r\n    \r\n    for (int i = n - 1; i >= 1; i--) {\r\n        for (int j = 1; j <= i; j++) {\r\n            f[i][j] += max(f[i + 1][j], f[i + 1][j + 1]);\r\n        }\r\n    }\r\n    \r\n    cout << f[1][1] << endl;\r\n    \r\n    return 0;\r\n}"
+          "code": "// 思路：从数字三角形倒数第二层向上合并，每个位置选择下方两个方向中的较大值。\r\n#include <iostream>\r\n#include <cstring>\r\nusing namespace std;\r\n\r\nconst int N = 510;\r\nint f[N][N];\r\nint n;\r\n\r\nint main() {\r\n    cin >> n;\r\n    \r\n    for (int i = 1; i <= n; i++) {\r\n        for (int j = 1; j <= i; j++) {\r\n            cin >> f[i][j];\r\n        }\r\n    }\r\n    \r\n    for (int i = n - 1; i >= 1; i--) {\r\n        for (int j = 1; j <= i; j++) {\r\n            f[i][j] += max(f[i + 1][j], f[i + 1][j + 1]); // 当前位置累加下一层两条可选路径中的最大路径和。\r\n        }\r\n    }\r\n    \r\n    cout << f[1][1] << endl;\r\n    \r\n    return 0;\r\n}\r\n// 总结：自底向上原地 DP 可以把最终答案汇总到三角形顶点。"
         }
       ],
       "158": [
@@ -483,7 +483,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/158.cpp",
           "language": "cpp",
-          "code": "#include <iostream>\r\n#include <vector>\r\n#include <algorithm>\r\nusing namespace std;\r\n\r\nconst int N = 100010;\r\nint a[N];\r\nint n;\r\n\r\nint main() {\r\n    cin >> n;\r\n    \r\n    for (int i = 0; i < n; i++) {\r\n        cin >> a[i];\r\n    }\r\n    \r\n    vector<int> tails;\r\n    \r\n    for (int i = 0; i < n; i++) {\r\n        auto it = lower_bound(tails.begin(), tails.end(), a[i]);\r\n        if (it == tails.end()) {\r\n            tails.push_back(a[i]);\r\n        } else {\r\n            *it = a[i];\r\n        }\r\n    }\r\n    \r\n    cout << tails.size() << endl;\r\n    \r\n    return 0;\r\n}"
+          "code": "// 思路：维护不同长度递增子序列的最小末尾值，用二分查找更新当前位置。\r\n#include <iostream>\r\n#include <vector>\r\n#include <algorithm>\r\nusing namespace std;\r\n\r\nconst int N = 100010;\r\nint a[N];\r\nint n;\r\n\r\nint main() {\r\n    cin >> n;\r\n    \r\n    for (int i = 0; i < n; i++) {\r\n        cin >> a[i];\r\n    }\r\n    \r\n    vector<int> tails;\r\n    \r\n    for (int i = 0; i < n; i++) {\r\n        auto it = lower_bound(tails.begin(), tails.end(), a[i]); // 找到第一个不小于当前数的位置，用更小末尾值替换它。\r\n        if (it == tails.end()) {\r\n            tails.push_back(a[i]);\r\n        } else {\r\n            *it = a[i];\r\n        }\r\n    }\r\n    \r\n    cout << tails.size() << endl;\r\n    \r\n    return 0;\r\n}\r\n// 总结：tails 的长度等于最长严格递增子序列长度，但其中元素不一定构成原序列答案。"
         }
       ],
       "159": [
@@ -491,7 +491,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/159.cpp",
           "language": "cpp",
-          "code": "#include <iostream>\r\n#include <cstring>\r\nusing namespace std;\r\n\r\nconst int N = 1010;\r\nint f[N][N];\r\nchar a[N], b[N];\r\nint n, m;\r\n\r\nint main() {\r\n    cin >> n >> m;\r\n    cin >> a + 1;\r\n    cin >> b + 1;\r\n    \r\n    for (int i = 1; i <= n; i++) {\r\n        for (int j = 1; j <= m; j++) {\r\n            if (a[i] == b[j]) {\r\n                f[i][j] = f[i - 1][j - 1] + 1;\r\n            } else {\r\n                f[i][j] = max(f[i - 1][j], f[i][j - 1]);\r\n            }\r\n        }\r\n    }\r\n    \r\n    cout << f[n][m] << endl;\r\n    \r\n    return 0;\r\n}"
+          "code": "// 思路：用二维动态规划比较两个字符串前缀，求最长公共子序列长度。\r\n#include <iostream>\r\n#include <cstring>\r\nusing namespace std;\r\n\r\nconst int N = 1010;\r\nint f[N][N];\r\nchar a[N], b[N];\r\nint n, m;\r\n\r\nint main() {\r\n    cin >> n >> m;\r\n    cin >> a + 1;\r\n    cin >> b + 1;\r\n    \r\n    for (int i = 1; i <= n; i++) {\r\n        for (int j = 1; j <= m; j++) {\r\n            if (a[i] == b[j]) {\r\n                f[i][j] = f[i - 1][j - 1] + 1; // 当前字符相同时，答案由两个前缀都去掉末字符后再加一。\r\n            } else {\r\n                f[i][j] = max(f[i - 1][j], f[i][j - 1]);\r\n            }\r\n        }\r\n    }\r\n    \r\n    cout << f[n][m] << endl;\r\n    \r\n    return 0;\r\n}\r\n// 总结：字符不同时需要比较舍弃任一字符串末字符的两种状态。"
         }
       ],
       "160": [
@@ -499,7 +499,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/160.cpp",
           "language": "cpp",
-          "code": "#include <iostream>\r\n#include <cstring>\r\nusing namespace std;\r\n\r\nconst int N = 310;\r\nint a[N], s[N];\r\nint f[N][N];\r\nint n;\r\n\r\nint main() {\r\n    cin >> n;\r\n    \r\n    for (int i = 1; i <= n; i++) {\r\n        cin >> a[i];\r\n        s[i] = s[i - 1] + a[i];\r\n    }\r\n    \r\n    memset(f, 0x3f, sizeof(f));\r\n    for (int i = 1; i <= n; i++) f[i][i] = 0;\r\n    \r\n    for (int len = 2; len <= n; len++) {\r\n        for (int i = 1; i + len - 1 <= n; i++) {\r\n            int j = i + len - 1;\r\n            for (int k = i; k < j; k++) {\r\n                f[i][j] = min(f[i][j], f[i][k] + f[k + 1][j] + s[j] - s[i - 1]);\r\n            }\r\n        }\r\n    }\r\n    \r\n    cout << f[1][n] << endl;\r\n    \r\n    return 0;\r\n}"
+          "code": "// 思路：按区间长度枚举石子段，并尝试每个分割点计算合并该区间的最小代价。\r\n#include <iostream>\r\n#include <cstring>\r\nusing namespace std;\r\n\r\nconst int N = 310;\r\nint a[N], s[N];\r\nint f[N][N];\r\nint n;\r\n\r\nint main() {\r\n    cin >> n;\r\n    \r\n    for (int i = 1; i <= n; i++) {\r\n        cin >> a[i];\r\n        s[i] = s[i - 1] + a[i];\r\n    }\r\n    \r\n    memset(f, 0x3f, sizeof(f));\r\n    for (int i = 1; i <= n; i++) f[i][i] = 0;\r\n    \r\n    for (int len = 2; len <= n; len++) {\r\n        for (int i = 1; i + len - 1 <= n; i++) {\r\n            int j = i + len - 1;\r\n            for (int k = i; k < j; k++) {\r\n                f[i][j] = min(f[i][j], f[i][k] + f[k + 1][j] + s[j] - s[i - 1]); // 左右子区间代价加上当前区间总重量得到一次完整转移。\r\n            }\r\n        }\r\n    }\r\n    \r\n    cout << f[1][n] << endl;\r\n    \r\n    return 0;\r\n}\r\n// 总结：区间 DP 通常先枚举长度，再枚举左端点和分割点。"
         }
       ],
       "161": [
@@ -515,7 +515,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/162.cpp",
           "language": "cpp",
-          "code": "#include <iostream>\r\n#include <cstring>\r\nusing namespace std;\r\n\r\nconst int N = 310;\r\nint g[N][N];\r\nint f[N][N];\r\nint r, c;\r\nint dx[4] = {-1, 0, 1, 0};\r\nint dy[4] = {0, 1, 0, -1};\r\n\r\nint dfs(int x, int y) {\r\n    if (f[x][y] != -1) return f[x][y];\r\n    \r\n    f[x][y] = 1;\r\n    for (int i = 0; i < 4; i++) {\r\n        int nx = x + dx[i];\r\n        int ny = y + dy[i];\r\n        if (nx >= 1 && nx <= r && ny >= 1 && ny <= c && g[nx][ny] < g[x][y]) {\r\n            f[x][y] = max(f[x][y], dfs(nx, ny) + 1);\r\n        }\r\n    }\r\n    \r\n    return f[x][y];\r\n}\r\n\r\nint main() {\r\n    cin >> r >> c;\r\n    \r\n    for (int i = 1; i <= r; i++) {\r\n        for (int j = 1; j <= c; j++) {\r\n            cin >> g[i][j];\r\n        }\r\n    }\r\n    \r\n    memset(f, -1, sizeof(f));\r\n    \r\n    int ans = 0;\r\n    for (int i = 1; i <= r; i++) {\r\n        for (int j = 1; j <= c; j++) {\r\n            ans = max(ans, dfs(i, j));\r\n        }\r\n    }\r\n    \r\n    cout << ans << endl;\r\n    \r\n    return 0;\r\n}"
+          "code": "// 思路：从每个格子记忆化搜索所有更低的相邻格，求最长下降路径。\r\n#include <iostream>\r\n#include <cstring>\r\nusing namespace std;\r\n\r\nconst int N = 310;\r\nint g[N][N];\r\nint f[N][N];\r\nint r, c;\r\nint dx[4] = {-1, 0, 1, 0};\r\nint dy[4] = {0, 1, 0, -1};\r\n\r\nint dfs(int x, int y) {\r\n    if (f[x][y] != -1) return f[x][y];\r\n    \r\n    f[x][y] = 1;\r\n    for (int i = 0; i < 4; i++) {\r\n        int nx = x + dx[i];\r\n        int ny = y + dy[i];\r\n        if (nx >= 1 && nx <= r && ny >= 1 && ny <= c && g[nx][ny] < g[x][y]) {\r\n            f[x][y] = max(f[x][y], dfs(nx, ny) + 1); // 移动到更低位置后，把后续最长路径加一更新当前答案。\r\n        }\r\n    }\r\n    \r\n    return f[x][y];\r\n}\r\n\r\nint main() {\r\n    cin >> r >> c;\r\n    \r\n    for (int i = 1; i <= r; i++) {\r\n        for (int j = 1; j <= c; j++) {\r\n            cin >> g[i][j];\r\n        }\r\n    }\r\n    \r\n    memset(f, -1, sizeof(f));\r\n    \r\n    int ans = 0;\r\n    for (int i = 1; i <= r; i++) {\r\n        for (int j = 1; j <= c; j++) {\r\n            ans = max(ans, dfs(i, j));\r\n        }\r\n    }\r\n    \r\n    cout << ans << endl;\r\n    \r\n    return 0;\r\n}\r\n// 总结：记忆化搜索可避免同一格子的最长路径被重复计算。"
         }
       ],
       "163": [
@@ -523,7 +523,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/163.cpp",
           "language": "cpp",
-          "code": "#include <iostream>\r\n#include <vector>\r\n#include <cstring>\r\nusing namespace std;\r\n\r\nconst int N = 20010;\r\nint f[N];\r\nint n, m;\r\n\r\nstruct Item {\r\n    int v, w;\r\n};\r\n\r\nint main() {\r\n    cin >> n >> m;\r\n    \r\n    vector<Item> items;\r\n    \r\n    for (int i = 0; i < n; i++) {\r\n        int v, w, s;\r\n        cin >> v >> w >> s;\r\n        \r\n        for (int k = 1; k <= s; k *= 2) {\r\n            s -= k;\r\n            items.push_back({v * k, w * k});\r\n        }\r\n        if (s > 0) {\r\n            items.push_back({v * s, w * s});\r\n        }\r\n    }\r\n    \r\n    for (int i = 0; i < items.size(); i++) {\r\n        for (int j = m; j >= items[i].v; j--) {\r\n            f[j] = max(f[j], f[j - items[i].v] + items[i].w);\r\n        }\r\n    }\r\n    \r\n    cout << f[m] << endl;\r\n    \r\n    return 0;\r\n}"
+          "code": "// 思路：把每种限量物品按二进制拆成若干组，再转化为零一背包求解。\r\n#include <iostream>\r\n#include <vector>\r\n#include <cstring>\r\nusing namespace std;\r\n\r\nconst int N = 20010;\r\nint f[N];\r\nint n, m;\r\n\r\nstruct Item {\r\n    int v, w;\r\n};\r\n\r\nint main() {\r\n    cin >> n >> m;\r\n    \r\n    vector<Item> items;\r\n    \r\n    for (int i = 0; i < n; i++) {\r\n        int v, w, s;\r\n        cin >> v >> w >> s;\r\n        \r\n        for (int k = 1; k <= s; k *= 2) {\r\n            s -= k;\r\n            items.push_back({v * k, w * k}); // 数量为 k 的一组物品被视为体积和价值同时放大的单件物品。\r\n        }\r\n        if (s > 0) {\r\n            items.push_back({v * s, w * s});\r\n        }\r\n    }\r\n    \r\n    for (int i = 0; i < items.size(); i++) {\r\n        for (int j = m; j >= items[i].v; j--) {\r\n            f[j] = max(f[j], f[j - items[i].v] + items[i].w);\r\n        }\r\n    }\r\n    \r\n    cout << f[m] << endl;\r\n    \r\n    return 0;\r\n}\r\n// 总结：二进制拆分能用对数个组表示任意选取数量，显著减少多重背包转移次数。"
         }
       ],
       "164": [
@@ -531,7 +531,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/164.cpp",
           "language": "cpp",
-          "code": "#include <iostream>\r\n#include <cstring>\r\nusing namespace std;\r\n\r\nconst int N = 20010;\r\nint f[N];\r\nint n, m;\r\n\r\nint main() {\r\n    cin >> n >> m;\r\n    \r\n    for (int i = 0; i < n; i++) {\r\n        int v, w, s;\r\n        cin >> v >> w >> s;\r\n        \r\n        int k = 1;\r\n        while (k <= s) {\r\n            for (int j = m; j >= k * v; j--) {\r\n                f[j] = max(f[j], f[j - k * v] + k * w);\r\n            }\r\n            s -= k;\r\n            k *= 2;\r\n        }\r\n        if (s > 0) {\r\n            for (int j = m; j >= s * v; j--) {\r\n                f[j] = max(f[j], f[j - s * v] + s * w);\r\n            }\r\n        }\r\n    }\r\n    \r\n    cout << f[m] << endl;\r\n    \r\n    return 0;\r\n}"
+          "code": "// 思路：把每种物品数量按一、二、四等组拆分，并逐组执行零一背包更新。\r\n#include <iostream>\r\n#include <cstring>\r\nusing namespace std;\r\n\r\nconst int N = 20010;\r\nint f[N];\r\nint n, m;\r\n\r\nint main() {\r\n    cin >> n >> m;\r\n    \r\n    for (int i = 0; i < n; i++) {\r\n        int v, w, s;\r\n        cin >> v >> w >> s;\r\n        \r\n        int k = 1;\r\n        while (k <= s) {\r\n            for (int j = m; j >= k * v; j--) {\r\n                f[j] = max(f[j], f[j - k * v] + k * w); // 当前二进制组作为一件物品倒序更新容量。\r\n            }\r\n            s -= k;\r\n            k *= 2;\r\n        }\r\n        if (s > 0) {\r\n            for (int j = m; j >= s * v; j--) {\r\n                f[j] = max(f[j], f[j - s * v] + s * w);\r\n            }\r\n        }\r\n    }\r\n    \r\n    cout << f[m] << endl;\r\n    \r\n    return 0;\r\n}\r\n// 总结：拆分后的每组只能选一次，因此容量仍需从大到小枚举。"
         }
       ],
       "165": [
@@ -539,7 +539,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/165.cpp",
           "language": "cpp",
-          "code": "#include <iostream>\r\n#include <cstring>\r\nusing namespace std;\r\n\r\nconst int N = 110;\r\nint f[N];\r\nint v[N], w[N];\r\nint n, m;\r\n\r\nint main() {\r\n    cin >> n >> m;\r\n    \r\n    for (int i = 0; i < n; i++) {\r\n        int s;\r\n        cin >> s;\r\n        for (int j = 0; j < s; j++) {\r\n            cin >> v[j] >> w[j];\r\n        }\r\n        for (int j = m; j >= 0; j--) {\r\n            for (int k = 0; k < s; k++) {\r\n                if (j >= v[k]) {\r\n                    f[j] = max(f[j], f[j - v[k]] + w[k]);\r\n                }\r\n            }\r\n        }\r\n    }\r\n    \r\n    cout << f[m] << endl;\r\n    \r\n    return 0;\r\n}"
+          "code": "// 思路：按组处理物品，每组只能选择其中一件，并用倒序容量避免同组重复选择。\r\n#include <iostream>\r\n#include <cstring>\r\nusing namespace std;\r\n\r\nconst int N = 110;\r\nint f[N];\r\nint v[N], w[N];\r\nint n, m;\r\n\r\nint main() {\r\n    cin >> n >> m;\r\n    \r\n    for (int i = 0; i < n; i++) {\r\n        int s;\r\n        cin >> s;\r\n        for (int j = 0; j < s; j++) {\r\n            cin >> v[j] >> w[j];\r\n        }\r\n        for (int j = m; j >= 0; j--) {\r\n            for (int k = 0; k < s; k++) {\r\n                if (j >= v[k]) {\r\n                    f[j] = max(f[j], f[j - v[k]] + w[k]); // 对当前组的每个候选物品尝试更新容量 j 的最大价值。\r\n                }\r\n            }\r\n        }\r\n    }\r\n    \r\n    cout << f[m] << endl;\r\n    \r\n    return 0;\r\n}\r\n// 总结：分组背包必须先固定容量再枚举组内物品，保证每组至多选一件。"
         }
       ],
       "166": [
@@ -547,7 +547,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/166.cpp",
           "language": "cpp",
-          "code": "#include <iostream>\r\n#include <vector>\r\n#include <algorithm>\r\nusing namespace std;\r\n\r\nconst int N = 100010;\r\nint a[N];\r\nint n;\r\n\r\nint main() {\r\n    cin >> n;\r\n    \r\n    for (int i = 0; i < n; i++) {\r\n        cin >> a[i];\r\n    }\r\n    \r\n    vector<int> tails;\r\n    \r\n    for (int i = 0; i < n; i++) {\r\n        auto it = lower_bound(tails.begin(), tails.end(), a[i]);\r\n        if (it == tails.end()) {\r\n            tails.push_back(a[i]);\r\n        } else {\r\n            *it = a[i];\r\n        }\r\n    }\r\n    \r\n    cout << tails.size() << endl;\r\n    \r\n    return 0;\r\n}"
+          "code": "// 思路：用二分维护各长度递增子序列的最小末尾值，求最长递增子序列长度。\r\n#include <iostream>\r\n#include <vector>\r\n#include <algorithm>\r\nusing namespace std;\r\n\r\nconst int N = 100010;\r\nint a[N];\r\nint n;\r\n\r\nint main() {\r\n    cin >> n;\r\n    \r\n    for (int i = 0; i < n; i++) {\r\n        cin >> a[i];\r\n    }\r\n    \r\n    vector<int> tails;\r\n    \r\n    for (int i = 0; i < n; i++) {\r\n        auto it = lower_bound(tails.begin(), tails.end(), a[i]); // 定位第一个不小于当前值的位置进行替换或扩展。\r\n        if (it == tails.end()) {\r\n            tails.push_back(a[i]);\r\n        } else {\r\n            *it = a[i];\r\n        }\r\n    }\r\n    \r\n    cout << tails.size() << endl;\r\n    \r\n    return 0;\r\n}\r\n// 总结：较小的序列末尾为后续元素留下更多增长空间。"
         }
       ],
       "167": [
@@ -555,7 +555,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/167.cpp",
           "language": "cpp",
-          "code": "#include <iostream>\r\nusing namespace std;\r\n\r\nconst int N = 1010;\r\nconst int MOD = 1e9 + 7;\r\nint f[N];\r\nint n;\r\n\r\nint main() {\r\n    cin >> n;\r\n    \r\n    f[0] = 1;\r\n    \r\n    for (int i = 1; i <= n; i++) {\r\n        for (int j = i; j <= n; j++) {\r\n            f[j] = (f[j] + f[j - i]) % MOD;\r\n        }\r\n    }\r\n    \r\n    cout << f[n] << endl;\r\n    \r\n    return 0;\r\n}"
+          "code": "// 思路：把每个正整数看作可无限使用的物品，用完全背包统计和为 n 的划分方案数。\r\n#include <iostream>\r\nusing namespace std;\r\n\r\nconst int N = 1010;\r\nconst int MOD = 1e9 + 7;\r\nint f[N];\r\nint n;\r\n\r\nint main() {\r\n    cin >> n;\r\n    \r\n    f[0] = 1;\r\n    \r\n    for (int i = 1; i <= n; i++) {\r\n        for (int j = i; j <= n; j++) {\r\n            f[j] = (f[j] + f[j - i]) % MOD; // 加入整数 i 后，原来和为 j-i 的方案都会转化为和为 j 的方案。\r\n        }\r\n    }\r\n    \r\n    cout << f[n] << endl;\r\n    \r\n    return 0;\r\n}\r\n// 总结：先枚举可用整数再正序枚举总和，可以避免同一组合因顺序不同被重复计数。"
         }
       ],
       "168": [
@@ -579,7 +579,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/170.cpp",
           "language": "cpp",
-          "code": "#include <iostream>\r\n#include <cstring>\r\nusing namespace std;\r\n\r\nconst int N = 20;\r\nconst int M = 1 << N;\r\nint g[N][N];\r\nint f[M][N];\r\nint n;\r\n\r\nint main() {\r\n    cin >> n;\r\n    \r\n    for (int i = 0; i < n; i++) {\r\n        for (int j = 0; j < n; j++) {\r\n            cin >> g[i][j];\r\n        }\r\n    }\r\n    \r\n    memset(f, 0x3f, sizeof(f));\r\n    f[1][0] = 0;\r\n    \r\n    for (int mask = 1; mask < (1 << n); mask++) {\r\n        for (int i = 0; i < n; i++) {\r\n            if (!(mask & (1 << i))) continue;\r\n            for (int j = 0; j < n; j++) {\r\n                if (i == j) continue;\r\n                if (!(mask & (1 << j))) continue;\r\n                f[mask][i] = min(f[mask][i], f[mask ^ (1 << i)][j] + g[j][i]);\r\n            }\r\n        }\r\n    }\r\n    \r\n    cout << f[(1 << n) - 1][n - 1] << endl;\r\n    \r\n    return 0;\r\n}"
+          "code": "// 思路：用位掩码表示已访问节点集合，动态规划求从零出发到 n-1 的最短哈密顿路径。\r\n#include <iostream>\r\n#include <cstring>\r\nusing namespace std;\r\n\r\nconst int N = 20;\r\nconst int M = 1 << N;\r\nint g[N][N];\r\nint f[M][N];\r\nint n;\r\n\r\nint main() {\r\n    cin >> n;\r\n    \r\n    for (int i = 0; i < n; i++) {\r\n        for (int j = 0; j < n; j++) {\r\n            cin >> g[i][j];\r\n        }\r\n    }\r\n    \r\n    memset(f, 0x3f, sizeof(f));\r\n    f[1][0] = 0;\r\n    \r\n    for (int mask = 1; mask < (1 << n); mask++) {\r\n        for (int i = 0; i < n; i++) {\r\n            if (!(mask & (1 << i))) continue;\r\n            for (int j = 0; j < n; j++) {\r\n                if (i == j) continue;\r\n                if (!(mask & (1 << j))) continue;\r\n                f[mask][i] = min(f[mask][i], f[mask ^ (1 << i)][j] + g[j][i]); // 去掉终点 i 后，从前驱 j 的状态转移并加上边权。\r\n            }\r\n        }\r\n    }\r\n    \r\n    cout << f[(1 << n) - 1][n - 1] << endl;\r\n    \r\n    return 0;\r\n}\r\n// 总结：状态压缩 DP 适合节点较少但需要记录访问集合的路径问题。"
         }
       ],
       "171": [
@@ -587,7 +587,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/171.cpp",
           "language": "cpp",
-          "code": "#include <iostream>\r\n#include <cstring>\r\n#include <string>\r\nusing namespace std;\r\n\r\nconst int N = 1010;\r\nint dp[N][N];\r\nstring dict[N];\r\nint n, m;\r\n\r\nint edit_distance(string a, string b) {\r\n    int len1 = a.length(), len2 = b.length();\r\n    \r\n    for (int i = 0; i <= len1; i++) dp[i][0] = i;\r\n    for (int j = 0; j <= len2; j++) dp[0][j] = j;\r\n    \r\n    for (int i = 1; i <= len1; i++) {\r\n        for (int j = 1; j <= len2; j++) {\r\n            if (a[i - 1] == b[j - 1]) {\r\n                dp[i][j] = dp[i - 1][j - 1];\r\n            } else {\r\n                dp[i][j] = min(dp[i - 1][j], min(dp[i][j - 1], dp[i - 1][j - 1])) + 1;\r\n            }\r\n        }\r\n    }\r\n    \r\n    return dp[len1][len2];\r\n}\r\n\r\nint main() {\r\n    cin >> n >> m;\r\n    \r\n    for (int i = 0; i < n; i++) {\r\n        cin >> dict[i];\r\n    }\r\n    \r\n    while (m--) {\r\n        string s;\r\n        int k;\r\n        cin >> s >> k;\r\n        \r\n        int cnt = 0;\r\n        for (int i = 0; i < n; i++) {\r\n            if (edit_distance(dict[i], s) <= k) {\r\n                cnt++;\r\n            }\r\n        }\r\n        \r\n        cout << cnt << endl;\r\n    }\r\n    \r\n    return 0;\r\n}"
+          "code": "// 思路：先用动态规划计算两个字符串的编辑距离，再统计距离不超过限制的字典字符串。\r\n#include <iostream>\r\n#include <cstring>\r\n#include <string>\r\nusing namespace std;\r\n\r\nconst int N = 1010;\r\nint dp[N][N];\r\nstring dict[N];\r\nint n, m;\r\n\r\nint edit_distance(string a, string b) {\r\n    int len1 = a.length(), len2 = b.length();\r\n    \r\n    for (int i = 0; i <= len1; i++) dp[i][0] = i;\r\n    for (int j = 0; j <= len2; j++) dp[0][j] = j;\r\n    \r\n    for (int i = 1; i <= len1; i++) {\r\n        for (int j = 1; j <= len2; j++) {\r\n            if (a[i - 1] == b[j - 1]) {\r\n                dp[i][j] = dp[i - 1][j - 1];\r\n            } else {\r\n                dp[i][j] = min(dp[i - 1][j], min(dp[i][j - 1], dp[i - 1][j - 1])) + 1; // 字符不同时在删除、插入和替换三种操作中选择代价最小者。\r\n            }\r\n        }\r\n    }\r\n    \r\n    return dp[len1][len2];\r\n}\r\n\r\nint main() {\r\n    cin >> n >> m;\r\n    \r\n    for (int i = 0; i < n; i++) {\r\n        cin >> dict[i];\r\n    }\r\n    \r\n    while (m--) {\r\n        string s;\r\n        int k;\r\n        cin >> s >> k;\r\n        \r\n        int cnt = 0;\r\n        for (int i = 0; i < n; i++) {\r\n            if (edit_distance(dict[i], s) <= k) {\r\n                cnt++;\r\n            }\r\n        }\r\n        \r\n        cout << cnt << endl;\r\n    }\r\n    \r\n    return 0;\r\n}\r\n// 总结：编辑距离边界应初始化为空串到前缀所需的插入或删除次数。"
         }
       ],
       "172": [
@@ -595,7 +595,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/172.cpp",
           "language": "cpp",
-          "code": "#include <iostream>\r\n#include <vector>\r\n#include <cstring>\r\nusing namespace std;\r\n\r\nconst int N = 6010;\r\nvector<int> g[N];\r\nint happy[N];\r\nint dp[N][2];\r\nbool has_parent[N];\r\nint n;\r\n\r\nvoid dfs(int u) {\r\n    dp[u][0] = 0;\r\n    dp[u][1] = happy[u];\r\n    \r\n    for (int i = 0; i < g[u].size(); i++) {\r\n        int v = g[u][i];\r\n        dfs(v);\r\n        dp[u][0] += max(dp[v][0], dp[v][1]);\r\n        dp[u][1] += dp[v][0];\r\n    }\r\n}\r\n\r\nint main() {\r\n    cin >> n;\r\n    \r\n    for (int i = 1; i <= n; i++) {\r\n        cin >> happy[i];\r\n    }\r\n    \r\n    for (int i = 0; i < n - 1; i++) {\r\n        int l, k;\r\n        cin >> l >> k;\r\n        g[k].push_back(l);\r\n        has_parent[l] = true;\r\n    }\r\n    \r\n    int root = 1;\r\n    while (has_parent[root]) root++;\r\n    \r\n    dfs(root);\r\n    \r\n    cout << max(dp[root][0], dp[root][1]) << endl;\r\n    \r\n    return 0;\r\n}"
+          "code": "// 思路：在上下级关系树上做动态规划，分别计算每个职员参加和不参加时的最大快乐值。\r\n#include <iostream>\r\n#include <vector>\r\n#include <cstring>\r\nusing namespace std;\r\n\r\nconst int N = 6010;\r\nvector<int> g[N];\r\nint happy[N];\r\nint dp[N][2];\r\nbool has_parent[N];\r\nint n;\r\n\r\nvoid dfs(int u) {\r\n    dp[u][0] = 0;\r\n    dp[u][1] = happy[u];\r\n    \r\n    for (int i = 0; i < g[u].size(); i++) {\r\n        int v = g[u][i];\r\n        dfs(v);\r\n        dp[u][0] += max(dp[v][0], dp[v][1]);\r\n        dp[u][1] += dp[v][0]; // 上司参加时直属下属不能参加，只能累加下属不参加的状态。\r\n    }\r\n}\r\n\r\nint main() {\r\n    cin >> n;\r\n    \r\n    for (int i = 1; i <= n; i++) {\r\n        cin >> happy[i];\r\n    }\r\n    \r\n    for (int i = 0; i < n - 1; i++) {\r\n        int l, k;\r\n        cin >> l >> k;\r\n        g[k].push_back(l);\r\n        has_parent[l] = true;\r\n    }\r\n    \r\n    int root = 1;\r\n    while (has_parent[root]) root++;\r\n    \r\n    dfs(root);\r\n    \r\n    cout << max(dp[root][0], dp[root][1]) << endl;\r\n    \r\n    return 0;\r\n}\r\n// 总结：树形 DP 要先找到没有上司的根节点，再自底向上合并子树状态。"
         }
       ],
       "001": [
@@ -691,7 +691,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/012.c",
           "language": "c",
-          "code": "#include <stdio.h>\r\nint main()\r\n{\r\n    double a, b, c;\r\n    scanf(\"%lf%lf%lf\", &a, &b, &c);\r\n    printf(\"TRIANGULO: %.3lf\\n\", (a * c) / 2.0);\r\n    printf(\"CIRCULO: %.3lf\\n\", 3.14159 * c * c);\r\n    printf(\"TRAPEZIO: %.3lf\\n\", (a + b) * c / 2.0);\r\n    printf(\"QUADRADO: %.3lf\\n\", b * b);\r\n    printf(\"RETANGULO: %.3lf\\n\", a * b);\r\n    return 0;\r\n}\r\n"
+          "code": "// 思路：分别套用三角形、圆、梯形、正方形和矩形的面积公式完成计算。\r\n#include <stdio.h>\r\nint main()\r\n{\r\n    double a, b, c;\r\n    scanf(\"%lf%lf%lf\", &a, &b, &c);\r\n    printf(\"TRIANGULO: %.3lf\\n\", (a * c) / 2.0); // 三角形面积使用底乘高再除以二。\r\n    printf(\"CIRCULO: %.3lf\\n\", 3.14159 * c * c);\r\n    printf(\"TRAPEZIO: %.3lf\\n\", (a + b) * c / 2.0);\r\n    printf(\"QUADRADO: %.3lf\\n\", b * b);\r\n    printf(\"RETANGULO: %.3lf\\n\", a * b);\r\n    return 0;\r\n}\r\n// 总结：几何公式题需要对应好各变量含义，并统一保留三位小数。\r\n"
         }
       ],
       "013": [
@@ -699,7 +699,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/013.c",
           "language": "c",
-          "code": "#include <stdio.h>\r\nint main()\r\n{\r\n    int t, h = 0, m = 0, s = 0;\r\n    scanf(\"%d\", &t);\r\n    h = t / 3600;\r\n    m = (t - 3600 * h) / 60;\r\n    s = t - 3600 * h - 60 * m;\r\n    printf(\"%d:%d:%d\", h, m, s);\r\n    return 0;\r\n}"
+          "code": "// 思路：用整除和余数把总秒数依次拆分为小时、分钟和秒。\r\n#include <stdio.h>\r\nint main()\r\n{\r\n    int t, h = 0, m = 0, s = 0;\r\n    scanf(\"%d\", &t);\r\n    h = t / 3600; // 整除 3600 得到完整的小时数。\r\n    m = (t - 3600 * h) / 60;\r\n    s = t - 3600 * h - 60 * m;\r\n    printf(\"%d:%d:%d\", h, m, s);\r\n    return 0;\r\n}\r\n// 总结：时间换算可以逐级取整，再从剩余量中继续分解。"
         }
       ],
       "014": [
@@ -707,7 +707,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/014.c",
           "language": "c",
-          "code": "#include <stdio.h>\r\nint main()\r\n{\r\n    int money, m100 = 0, m50 = 0, m20 = 0, m10 = 0, m5 = 0, m2 = 0, m1 = 0;\r\n    scanf(\"%d\", &money);\r\n    m100 = money / 100;\r\n    m50 = (money - 100 * m100) / 50;\r\n    m20 = (money - 100 * m100 - 50 * m50) / 20;\r\n    m10 = (money - 100 * m100 - 50 * m50 - 20 * m20) / 10;\r\n    m5 = (money - 100 * m100 - 50 * m50 - 20 * m20 - 10 * m10) / 5;\r\n    m2 = (money - 100 * m100 - 50 * m50 - 20 * m20 - 10 * m10 - 5 * m5) / 2;\r\n    m1 = money - 100 * m100 - 50 * m50 - 20 * m20 - 10 * m10 - 5 * m5 - 2 * m2;\r\n    printf(\"%d\\n\", money);\r\n    printf(\"%d nota(s) de R$ 100,00\\n\", m100);\r\n    printf(\"%d nota(s) de R$ 50,00\\n\", m50);\r\n    printf(\"%d nota(s) de R$ 20,00\\n\", m20);\r\n    printf(\"%d nota(s) de R$ 10,00\\n\", m10);\r\n    printf(\"%d nota(s) de R$ 5,00\\n\", m5);\r\n    printf(\"%d nota(s) de R$ 2,00\\n\", m2);\r\n    printf(\"%d nota(s) de R$ 1,00\\n\", m1);\r\n    return 0;\r\n}\r\n"
+          "code": "// 思路：按照面额从大到小依次计算张数，并扣除已经分配的金额。\r\n#include <stdio.h>\r\nint main()\r\n{\r\n    int money, m100 = 0, m50 = 0, m20 = 0, m10 = 0, m5 = 0, m2 = 0, m1 = 0;\r\n    scanf(\"%d\", &money);\r\n    m100 = money / 100; // 先尽可能使用最大面额，确定百元钞票数量。\r\n    m50 = (money - 100 * m100) / 50;\r\n    m20 = (money - 100 * m100 - 50 * m50) / 20;\r\n    m10 = (money - 100 * m100 - 50 * m50 - 20 * m20) / 10;\r\n    m5 = (money - 100 * m100 - 50 * m50 - 20 * m20 - 10 * m10) / 5;\r\n    m2 = (money - 100 * m100 - 50 * m50 - 20 * m20 - 10 * m10 - 5 * m5) / 2;\r\n    m1 = money - 100 * m100 - 50 * m50 - 20 * m20 - 10 * m10 - 5 * m5 - 2 * m2;\r\n    printf(\"%d\\n\", money);\r\n    printf(\"%d nota(s) de R$ 100,00\\n\", m100);\r\n    printf(\"%d nota(s) de R$ 50,00\\n\", m50);\r\n    printf(\"%d nota(s) de R$ 20,00\\n\", m20);\r\n    printf(\"%d nota(s) de R$ 10,00\\n\", m10);\r\n    printf(\"%d nota(s) de R$ 5,00\\n\", m5);\r\n    printf(\"%d nota(s) de R$ 2,00\\n\", m2);\r\n    printf(\"%d nota(s) de R$ 1,00\\n\", m1);\r\n    return 0;\r\n}\r\n// 总结：固定面额拆分应从大到小处理，避免小面额提前占用金额。\r\n"
         }
       ],
       "015": [
@@ -715,7 +715,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/015.c",
           "language": "c",
-          "code": "#include <stdio.h>\r\nint main()\r\n{\r\n    int A, B;\r\n    scanf(\"%d%d\", &A, &B);\r\n    if (A % B == 0 || B % A == 0)printf(\"Yes\");\r\n    else printf(\"No\");\r\n    return 0;\r\n}"
+          "code": "// 思路：分别检查两个整数能否整除对方，从而判断它们是否存在倍数关系。\r\n#include <stdio.h>\r\nint main()\r\n{\r\n    int A, B;\r\n    scanf(\"%d%d\", &A, &B);\r\n    if (A % B == 0 || B % A == 0)printf(\"Yes\"); // 任意一个取模结果为零即可说明两数互为倍数。\r\n    else printf(\"No\");\r\n    return 0;\r\n}\r\n// 总结：倍数关系具有方向性，因此需要同时检查 A%B 和 B%A。"
         }
       ],
       "016": [
@@ -723,7 +723,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/016.c",
           "language": "c",
-          "code": "#include <stdio.h>\r\n#include <math.h>\r\nint main()\r\n{\r\n    double A, B, C;\r\n    scanf(\"%lf%lf%lf\", &A, &B, &C);\r\n    if (A + B > C && B + C > A && A + C > B)printf(\"Perimeter = %.1lf\", A + B + C);\r\n    else printf(\"Area = %.1lf\", (A + B) * C / 2);\r\n    return 0;\r\n}"
+          "code": "// 思路：先用三角形不等式判断三边能否成三角形，否则按梯形公式计算面积。\r\n#include <stdio.h>\r\n#include <math.h>\r\nint main()\r\n{\r\n    double A, B, C;\r\n    scanf(\"%lf%lf%lf\", &A, &B, &C);\r\n    if (A + B > C && B + C > A && A + C > B)printf(\"Perimeter = %.1lf\", A + B + C); // 三组两边之和都大于第三边时输出三角形周长。\r\n    else printf(\"Area = %.1lf\", (A + B) * C / 2);\r\n    return 0;\r\n}\r\n// 总结：判断三角形必须同时满足三条不等式，不能只比较其中一组边。"
         }
       ],
       "017": [
@@ -731,7 +731,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/017.c",
           "language": "c",
-          "code": "#include <stdio.h>\r\nint main()\r\n{\r\n    int A, B;\r\n    scanf(\"%d%d\", &A, &B);\r\n    if (B > A)printf(\"%d\", B - A);\r\n    else if (A == B)printf(\"%d\", 24);\r\n    else if (A > B)printf(\"%d\", 24 - A + B);\r\n    return 0;\r\n}"
+          "code": "// 思路：根据开始和结束时刻的先后关系计算经过小时数，并处理跨越午夜的情况。\r\n#include <stdio.h>\r\nint main()\r\n{\r\n    int A, B;\r\n    scanf(\"%d%d\", &A, &B);\r\n    if (B > A)printf(\"%d\", B - A);\r\n    else if (A == B)printf(\"%d\", 24); // 起止时刻相同时表示经过完整的二十四小时。\r\n    else if (A > B)printf(\"%d\", 24 - A + B);\r\n    return 0;\r\n}\r\n// 总结：周期时间差需要区分同日、跨日以及整周期三种情况。"
         }
       ],
       "018": [
@@ -739,7 +739,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/018.c",
           "language": "c",
-          "code": "#include <stdio.h>\r\nint main()\r\n{\r\n    int a, b, c,temp = 0;\r\n    scanf(\"%d%d%d\", &a, &b, &c);\r\n    if (a < b)\r\n    {\r\n        temp = a;\r\n        a = b;\r\n        b = temp;\r\n    }\r\n    if (a < c)\r\n    {\r\n        temp = a;\r\n        a = c;\r\n        c = temp;\r\n    }\r\n    if (b < c)\r\n    {\r\n        temp = b;\r\n        b = c;\r\n        c = temp;\r\n    }\r\n    printf(\"%d %d %d\",c,b,a);\r\n    return 0;\r\n}"
+          "code": "// 思路：通过三次两两比较交换，把三个整数整理为降序后再反向输出。\r\n#include <stdio.h>\r\nint main()\r\n{\r\n    int a, b, c,temp = 0;\r\n    scanf(\"%d%d%d\", &a, &b, &c);\r\n    if (a < b) // 当前面的数更小时交换，使较大的数逐步移动到前面。\r\n    {\r\n        temp = a;\r\n        a = b;\r\n        b = temp;\r\n    }\r\n    if (a < c)\r\n    {\r\n        temp = a;\r\n        a = c;\r\n        c = temp;\r\n    }\r\n    if (b < c)\r\n    {\r\n        temp = b;\r\n        b = c;\r\n        c = temp;\r\n    }\r\n    printf(\"%d %d %d\",c,b,a);\r\n    return 0;\r\n}\r\n// 总结：少量数据可以直接比较交换，但输出顺序要与内部排序方向对应。"
         }
       ],
       "019": [
@@ -747,7 +747,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/019.c",
           "language": "c",
-          "code": "#include <stdio.h>\r\nint main()\r\n{\r\n    int name, num;\r\n    double price[] = { 4.00,4.50,5.00,2.00,1.50 };\r\n    scanf(\"%d%d\", &name, &num);\r\n    printf(\"Total: R$ %.2lf\", price[name - 1] * num);\r\n    return 0;\r\n}"
+          "code": "// 思路：用价格数组保存五种商品单价，再通过商品编号找到对应价格。\r\n#include <stdio.h>\r\nint main()\r\n{\r\n    int name, num;\r\n    double price[] = { 4.00,4.50,5.00,2.00,1.50 };\r\n    scanf(\"%d%d\", &name, &num);\r\n    printf(\"Total: R$ %.2lf\", price[name - 1] * num); // 商品编号从一开始，因此访问数组时需要减一。\r\n    return 0;\r\n}\r\n// 总结：编号映射固定数据时使用数组比多分支判断更简洁。"
         }
       ],
       "020": [
@@ -755,7 +755,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/020.c",
           "language": "c",
-          "code": "#include <stdio.h>\r\nint main()\r\n{\r\n    float power; \r\n    scanf(\"%f\", &power);\r\n    if (power >= 0 && power <= 25) \r\n    {\r\n        printf(\"Interval [0,25]\\n\");\r\n    } \r\n    else if (power > 25 && power <= 50)\r\n    {\r\n        printf(\"Interval (25,50]\\n\");\r\n    } \r\n    else if (power > 50 && power <= 75) \r\n    {\r\n        printf(\"Interval (50,75]\\n\");\r\n    } \r\n    else if (power > 75 && power <= 100)\r\n    {\r\n        printf(\"Interval (75,100]\\n\");\r\n    } \r\n    else\r\n    {\r\n        printf(\"Out of interval\\n\");\r\n    }\r\n\r\n    return 0;\r\n}"
+          "code": "// 思路：按从小到大的顺序判断数值所在区间，并准确处理每个端点的开闭。\r\n#include <stdio.h>\r\nint main()\r\n{\r\n    float power; \r\n    scanf(\"%f\", &power);\r\n    if (power >= 0 && power <= 25)  // 第一个区间同时包含零和二十五两个端点。\r\n    {\r\n        printf(\"Interval [0,25]\\n\");\r\n    } \r\n    else if (power > 25 && power <= 50)\r\n    {\r\n        printf(\"Interval (25,50]\\n\");\r\n    } \r\n    else if (power > 50 && power <= 75) \r\n    {\r\n        printf(\"Interval (50,75]\\n\");\r\n    } \r\n    else if (power > 75 && power <= 100)\r\n    {\r\n        printf(\"Interval (75,100]\\n\");\r\n    } \r\n    else\r\n    {\r\n        printf(\"Out of interval\\n\");\r\n    }\r\n\r\n    return 0;\r\n}\r\n// 总结：连续区间判断最容易出错的是边界，需逐个确认大于或大于等于。"
         }
       ],
       "021": [
@@ -763,7 +763,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/021.c",
           "language": "c",
-          "code": "#include <stdio.h>\r\nint main()\r\n{\r\n    double x,y;\r\n    scanf(\"%lf%lf\", &x,&y);\r\n    if (x > 0 && y > 0)\r\n    {\r\n        printf(\"Q1\");\r\n    }\r\n    else if (x < 0 && y > 0)\r\n    {\r\n        printf(\"Q2\");\r\n    }\r\n    else if (x < 0 && y < 0)\r\n    {\r\n        printf(\"Q3\");\r\n    }\r\n    else if (x > 0 && y < 0)\r\n    {\r\n        printf(\"Q4\");\r\n    }\r\n    else if (x != 0 && y == 0)\r\n    {\r\n        printf(\"Eixo X\");\r\n    }\r\n    else if (x == 0 && y != 0)\r\n    {\r\n        printf(\"Eixo Y\");\r\n    }\r\n    else if (x == 0 && y == 0)\r\n    {\r\n        printf(\"Origem\");\r\n    }\r\n    return 0;\r\n}"
+          "code": "// 思路：根据横纵坐标的正负判断象限，再单独处理坐标轴和原点。\r\n#include <stdio.h>\r\nint main()\r\n{\r\n    double x,y;\r\n    scanf(\"%lf%lf\", &x,&y);\r\n    if (x > 0 && y > 0) // 横纵坐标都为正时点位于第一象限。\r\n    {\r\n        printf(\"Q1\");\r\n    }\r\n    else if (x < 0 && y > 0)\r\n    {\r\n        printf(\"Q2\");\r\n    }\r\n    else if (x < 0 && y < 0)\r\n    {\r\n        printf(\"Q3\");\r\n    }\r\n    else if (x > 0 && y < 0)\r\n    {\r\n        printf(\"Q4\");\r\n    }\r\n    else if (x != 0 && y == 0)\r\n    {\r\n        printf(\"Eixo X\");\r\n    }\r\n    else if (x == 0 && y != 0)\r\n    {\r\n        printf(\"Eixo Y\");\r\n    }\r\n    else if (x == 0 && y == 0)\r\n    {\r\n        printf(\"Origem\");\r\n    }\r\n    return 0;\r\n}\r\n// 总结：坐标分类除了四个象限，还要覆盖两条坐标轴和原点。"
         }
       ],
       "022": [
@@ -771,7 +771,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/022.cpp",
           "language": "cpp",
-          "code": "#include <iostream>\r\n#include<vector>\r\n#include<algorithm>\r\n#include<cstring>\r\nusing namespace std;\r\n\r\nint main()\r\n{\r\n    int A, B, C, D,temp;\r\n    cin >> A >> B >> C >> D;\r\n    int m1 = A * 60 + B;\r\n\tint m2 = C * 60 + D;\r\n    if (m1 >= m2)temp = 24 * 60 + m2 - m1;\r\n\telse temp = m2 - m1;\r\n\tcout << temp / 60 << \":\" << temp % 60 << endl;\r\n    return 0;\r\n}"
+          "code": "// 思路：把两个时刻都换算成从零点开始的分钟数，再计算包含跨日情况的时间差。\r\n#include <iostream>\r\n#include<vector>\r\n#include<algorithm>\r\n#include<cstring>\r\nusing namespace std;\r\n\r\nint main()\r\n{\r\n    int A, B, C, D,temp;\r\n    cin >> A >> B >> C >> D;\r\n    int m1 = A * 60 + B;\r\n\tint m2 = C * 60 + D;\r\n    if (m1 >= m2)temp = 24 * 60 + m2 - m1; // 结束时刻不晚于开始时刻时，需要补上一整天的分钟数。\r\n\telse temp = m2 - m1;\r\n\tcout << temp / 60 << \":\" << temp % 60 << endl;\r\n    return 0;\r\n}\r\n// 总结：统一换算成分钟后，时差计算和跨日处理都会更直接。"
         }
       ],
       "023": [
@@ -795,7 +795,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/025.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\nusing namespace std;\r\nint main()\r\n{\r\n    int a;\r\n    cin>>a;\r\n    if(a==61)\r\n    {\r\n        cout<<\"Brasilia\"<<endl;\r\n    }\r\n    else if(a==71)\r\n    {\r\n        cout<<\"Salvador\"<<endl;\r\n    }\r\n    else if(a==11)\r\n    {\r\n        cout<<\"Sao Paulo\"<<endl;\r\n    }\r\n    else if(a==21)\r\n    {\r\n        cout<<\"Rio de Janeiro\"<<endl;\r\n    }\r\n    else if(a==32)\r\n    {\r\n        cout<<\"Juiz de Fora\"<<endl;\r\n    }\r\n    else if(a==19)\r\n    {\r\n        cout<<\"Campinas\"<<endl;\r\n    }\r\n    else if(a==27)\r\n    {\r\n        cout<<\"Vitoria\"<<endl;\r\n    }\r\n    else if(a==31)\r\n    {\r\n        cout<<\"Belo Horizonte\"<<endl;\r\n    }\r\n    else\r\n    {\r\n        cout<<\"DDD nao cadastrado\"<<endl;\r\n    }\r\n}"
+          "code": "// 思路：根据输入的电话区号逐项匹配城市，未匹配时输出未登记提示。\r\n#include<iostream>\r\nusing namespace std;\r\nint main()\r\n{\r\n    int a;\r\n    cin>>a;\r\n    if(a==61) // 从已知区号开始逐项判断对应城市。\r\n    {\r\n        cout<<\"Brasilia\"<<endl;\r\n    }\r\n    else if(a==71)\r\n    {\r\n        cout<<\"Salvador\"<<endl;\r\n    }\r\n    else if(a==11)\r\n    {\r\n        cout<<\"Sao Paulo\"<<endl;\r\n    }\r\n    else if(a==21)\r\n    {\r\n        cout<<\"Rio de Janeiro\"<<endl;\r\n    }\r\n    else if(a==32)\r\n    {\r\n        cout<<\"Juiz de Fora\"<<endl;\r\n    }\r\n    else if(a==19)\r\n    {\r\n        cout<<\"Campinas\"<<endl;\r\n    }\r\n    else if(a==27)\r\n    {\r\n        cout<<\"Vitoria\"<<endl;\r\n    }\r\n    else if(a==31)\r\n    {\r\n        cout<<\"Belo Horizonte\"<<endl;\r\n    }\r\n    else\r\n    {\r\n        cout<<\"DDD nao cadastrado\"<<endl;\r\n    }\r\n}\r\n// 总结：固定且数量较少的映射可以使用条件链，但必须保留默认分支。"
         }
       ],
       "026": [
@@ -803,7 +803,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/026.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\nusing namespace std;\r\nint main()\r\n{\r\n    double a,b,c;\r\n    cin>>a>>b>>c;\r\n    if(a+b>c&&a+c>b&&b+c>a)\r\n    {\r\n        if(a*a+b*b==c*c||a*a+c*c==b*b||b*b+c*c==a*a)\r\n        {\r\n            cout<<\"Right\"<<endl;\r\n        }\r\n        else if(a*a+b*b>c*c&&a*a+c*c>b*b&&b*b+c*c>a*a)\r\n        {\r\n            cout<<\"Acute\"<<endl;\r\n        }\r\n        else\r\n        {\r\n            cout<<\"Obtuse\"<<endl;\r\n        }\r\n        if(a==b&&b==c)\r\n        {\r\n            cout<<\"Equilateral\"<<endl;\r\n        }\r\n        else if(a==b||b==c||a==c)\r\n        {\r\n            cout<<\"Isosceles\"<<endl;\r\n        }\r\n    }\r\n    else\r\n    {\r\n        cout<<\"Not a triangle\"<<endl;\r\n    }\r\n}"
+          "code": "// 思路：先判断三边能否组成三角形，再按边长平方关系和边相等情况分类。\r\n#include<iostream>\r\nusing namespace std;\r\nint main()\r\n{\r\n    double a,b,c;\r\n    cin>>a>>b>>c;\r\n    if(a+b>c&&a+c>b&&b+c>a)\r\n    {\r\n        if(a*a+b*b==c*c||a*a+c*c==b*b||b*b+c*c==a*a) // 任意两边平方和等于第三边平方时为直角三角形。\r\n        {\r\n            cout<<\"Right\"<<endl;\r\n        }\r\n        else if(a*a+b*b>c*c&&a*a+c*c>b*b&&b*b+c*c>a*a)\r\n        {\r\n            cout<<\"Acute\"<<endl;\r\n        }\r\n        else\r\n        {\r\n            cout<<\"Obtuse\"<<endl;\r\n        }\r\n        if(a==b&&b==c)\r\n        {\r\n            cout<<\"Equilateral\"<<endl;\r\n        }\r\n        else if(a==b||b==c||a==c)\r\n        {\r\n            cout<<\"Isosceles\"<<endl;\r\n        }\r\n    }\r\n    else\r\n    {\r\n        cout<<\"Not a triangle\"<<endl;\r\n    }\r\n}\r\n// 总结：三角形分类应先验证合法性，再分别判断角类型和边类型。"
         }
       ],
       "027": [
@@ -811,7 +811,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/027.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\n#include<string>\r\nusing namespace std;\r\nint main()\r\n{\r\n    string first,second,third;\r\n    cin>>first>>second>>third;\r\n    if(first==\"vertebrate\")\r\n    {\r\n        if(second==\"bird\")\r\n        {\r\n            if(third==\"carnivore\")\r\n            {\r\n                cout<<\"eagle\"<<endl;\r\n            }\r\n            else if(third==\"herbivore\")\r\n            {\r\n                cout<<\"dove\"<<endl;\r\n            }\r\n        }\r\n        else if(second==\"mammal\")\r\n        {\r\n            if(third==\"omnivore\")\r\n            {\r\n                cout<<\"man\"<<endl;\r\n            }\r\n            else if(third==\"herbivore\")\r\n            {\r\n                cout<<\"cow\"<<endl;\r\n            }\r\n        }\r\n    }\r\n    else if(first==\"invertebrate\")\r\n    {\r\n        if(second==\"insect\")\r\n        {\r\n            if(third==\"hematophagous\")\r\n            {\r\n                cout<<\"flea\"<<endl;\r\n            }\r\n            else if(third==\"herbivore\")\r\n            {\r\n                cout<<\"caterpillar\"<<endl;\r\n            }\r\n        }\r\n        else if(second==\"annelid\")\r\n        {\r\n            if(third==\"omnivore\")\r\n            {\r\n                cout<<\"earthworm\"<<endl;\r\n            }\r\n            else if(third==\"hematophagous\")\r\n            {\r\n                cout<<\"leech\"<<endl;\r\n            }\r\n        }\r\n    }\r\n}"
+          "code": "// 思路：按照脊椎、类别和食性三层特征建立决策树，逐级确定动物名称。\r\n#include<iostream>\r\n#include<string>\r\nusing namespace std;\r\nint main()\r\n{\r\n    string first,second,third;\r\n    cin>>first>>second>>third;\r\n    if(first==\"vertebrate\") // 先用最高层特征把动物分为脊椎和无脊椎两大类。\r\n    {\r\n        if(second==\"bird\")\r\n        {\r\n            if(third==\"carnivore\")\r\n            {\r\n                cout<<\"eagle\"<<endl;\r\n            }\r\n            else if(third==\"herbivore\")\r\n            {\r\n                cout<<\"dove\"<<endl;\r\n            }\r\n        }\r\n        else if(second==\"mammal\")\r\n        {\r\n            if(third==\"omnivore\")\r\n            {\r\n                cout<<\"man\"<<endl;\r\n            }\r\n            else if(third==\"herbivore\")\r\n            {\r\n                cout<<\"cow\"<<endl;\r\n            }\r\n        }\r\n    }\r\n    else if(first==\"invertebrate\")\r\n    {\r\n        if(second==\"insect\")\r\n        {\r\n            if(third==\"hematophagous\")\r\n            {\r\n                cout<<\"flea\"<<endl;\r\n            }\r\n            else if(third==\"herbivore\")\r\n            {\r\n                cout<<\"caterpillar\"<<endl;\r\n            }\r\n        }\r\n        else if(second==\"annelid\")\r\n        {\r\n            if(third==\"omnivore\")\r\n            {\r\n                cout<<\"earthworm\"<<endl;\r\n            }\r\n            else if(third==\"hematophagous\")\r\n            {\r\n                cout<<\"leech\"<<endl;\r\n            }\r\n        }\r\n    }\r\n}\r\n// 总结：多级分类题应按题目给出的层次逐步缩小范围，避免条件交叉。"
         }
       ],
       "028": [
@@ -819,7 +819,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/028.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\n#include<iomanip>\r\nusing namespace std;\r\nint main()\r\n{\r\n    double a;\r\n    cin>>a;\r\n    if(a>=0&&a<=2000)\r\n    {\r\n        cout<<\"Isento\"<<endl;\r\n    }\r\n    else if(a>2000&&a<=3000)\r\n    {\r\n        cout<<\"R$ \"<<fixed<<setprecision(2)<<(a-2000)*0.08<<endl;\r\n    }\r\n    else if(a>3000&&a<=4500)\r\n    {\r\n        cout<<\"R$ \"<<fixed<<setprecision(2)<<(1000*0.08+(a-3000)*0.18)<<endl;\r\n    }\r\n    else if(a>4500)\r\n    {\r\n        cout<<\"R$ \"<<fixed<<setprecision(2)<<(1000*0.08+1500*0.18+(a-4500)*0.28)<<endl;\r\n    }\r\n}"
+          "code": "// 思路：按收入区间分段计税，每一档只对超过该档起点的部分计算税额。\r\n#include<iostream>\r\n#include<iomanip>\r\nusing namespace std;\r\nint main()\r\n{\r\n    double a;\r\n    cin>>a;\r\n    if(a>=0&&a<=2000)\r\n    {\r\n        cout<<\"Isento\"<<endl;\r\n    }\r\n    else if(a>2000&&a<=3000)\r\n    {\r\n        cout<<\"R$ \"<<fixed<<setprecision(2)<<(a-2000)*0.08<<endl;\r\n    }\r\n    else if(a>3000&&a<=4500)\r\n    {\r\n        cout<<\"R$ \"<<fixed<<setprecision(2)<<(1000*0.08+(a-3000)*0.18)<<endl;\r\n    }\r\n    else if(a>4500)\r\n    {\r\n        cout<<\"R$ \"<<fixed<<setprecision(2)<<(1000*0.08+1500*0.18+(a-4500)*0.28)<<endl; // 最高档税额由前两档满额税款和超出部分共同组成。\r\n    }\r\n}\r\n// 总结：累进税率不能对全部收入直接乘最高税率，应逐段累加。"
         }
       ],
       "029": [
@@ -827,7 +827,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/029.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\nusing namespace std;\r\nint main()\r\n{\r\n    for(int i=2;i<=100;i+=2)\r\n    {\r\n        cout<<i<<endl;\r\n    }\r\n    return 0;\r\n}"
+          "code": "// 思路：从二开始每次增加二，直接枚举一百以内的所有正偶数。\r\n#include<iostream>\r\nusing namespace std;\r\nint main()\r\n{\r\n    for(int i=2;i<=100;i+=2) // 步长设为二可以避免循环中再次判断奇偶性。\r\n    {\r\n        cout<<i<<endl;\r\n    }\r\n    return 0;\r\n}\r\n// 总结：等差序列输出时选好起点和步长能让代码更简洁。"
         }
       ],
       "030": [
@@ -835,7 +835,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/030.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\nusing namespace std;\r\nint main(){\r\n    int X;\r\n    cin>>X;\r\n    for(int i=1;i<=X;i+=2)\r\n    {\r\n        cout<<i<<endl;\r\n    }\r\n}"
+          "code": "// 思路：从一开始以二为步长，输出不超过输入上限的所有正奇数。\r\n#include<iostream>\r\nusing namespace std;\r\nint main(){\r\n    int X;\r\n    cin>>X;\r\n    for(int i=1;i<=X;i+=2) // 从第一个正奇数开始递增二即可只访问奇数。\r\n    {\r\n        cout<<i<<endl;\r\n    }\r\n}\r\n// 总结：直接按目标数列的规律枚举比逐个判断奇偶更高效。"
         }
       ],
       "031": [
@@ -843,7 +843,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/031.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\nusing namespace std;\r\nint main(){\r\n    int n;\r\n    cin>>n;\r\n    while(n!=0)\r\n    {\r\n        for(int i=1;i<=n;i++)\r\n        {\r\n            if(i>1)cout<<\" \";\r\n            cout<<i;\r\n        }\r\n        cout<<endl;\r\n        cin>>n;\r\n    }\r\n}"
+          "code": "// 思路：反复读取 n，并输出从一到 n 的序列，读到零时结束。\r\n#include<iostream>\r\nusing namespace std;\r\nint main(){\r\n    int n;\r\n    cin>>n;\r\n    while(n!=0) // 零作为终止标记，不参与序列输出。\r\n    {\r\n        for(int i=1;i<=n;i++)\r\n        {\r\n            if(i>1)cout<<\" \";\r\n            cout<<i;\r\n        }\r\n        cout<<endl;\r\n        cin>>n;\r\n    }\r\n}\r\n// 总结：多组不定数量输入常用哨兵值控制循环，同时要处理元素间空格。"
         }
       ],
       "032": [
@@ -851,7 +851,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/032.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\nusing namespace std;\r\nint main()\r\n{\r\n    int X;\r\n    cin>>X;\r\n    if(X%2==0)X+=1;\r\n    for(int i=0;i<6;i++)\r\n    {\r\n        cout<<X<<endl;\r\n        X+=2;\r\n    }\r\n    return 0;\r\n}"
+          "code": "// 思路：先把输入调整为不小于它的奇数，再连续输出六个相邻奇数。\r\n#include<iostream>\r\nusing namespace std;\r\nint main()\r\n{\r\n    int X;\r\n    cin>>X;\r\n    if(X%2==0)X+=1; // 输入为偶数时加一，使起点变为下一个奇数。\r\n    for(int i=0;i<6;i++)\r\n    {\r\n        cout<<X<<endl;\r\n        X+=2;\r\n    }\r\n    return 0;\r\n}\r\n// 总结：先规范化起点后再按固定步长生成序列，可减少循环内判断。"
         }
       ],
       "033": [
@@ -859,7 +859,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/033.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\nusing namespace std;\r\nint main()\r\n{\r\n    double a;\r\n    int n=6,count=0;\r\n    while(n--)\r\n    {\r\n        cin>>a;\r\n        if(a>0)count++;\r\n    }\r\n    cout<<count<<\" positive numbers\"<<endl;\r\n}"
+          "code": "// 思路：读取六个实数并统计其中严格大于零的元素个数。\r\n#include<iostream>\r\nusing namespace std;\r\nint main()\r\n{\r\n    double a;\r\n    int n=6,count=0;\r\n    while(n--)\r\n    {\r\n        cin>>a;\r\n        if(a>0)count++; // 只有正数才计数，零和负数都不计入。\r\n    }\r\n    cout<<count<<\" positive numbers\"<<endl;\r\n}\r\n// 总结：计数题应明确比较是否包含边界值零。"
         }
       ],
       "034": [
@@ -867,7 +867,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/034.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\nusing namespace std;\r\nint main()\r\n{\r\n    int N;\r\n    cin>>N;\r\n    if(N>9998)return 0;\r\n    for(int i=1;i<=10000;i++)\r\n    {\r\n        if(i%N==2) cout<<i<<endl;\r\n    }\r\n    return 0;\r\n}"
+          "code": "// 思路：枚举给定范围内的整数，输出除以 N 后余数等于二的数。\r\n#include<iostream>\r\nusing namespace std;\r\nint main()\r\n{\r\n    int N;\r\n    cin>>N;\r\n    if(N>9998)return 0;\r\n    for(int i=1;i<=10000;i++)\r\n    {\r\n        if(i%N==2) cout<<i<<endl; // 用取模结果直接筛选满足指定余数的整数。\r\n    }\r\n    return 0;\r\n}\r\n// 总结：余数筛选的核心是取模条件，同时要留意除数和枚举上界。"
         }
       ],
       "035": [
@@ -875,7 +875,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/035.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\nusing namespace std;\r\nint main()\r\n{\r\n    int N, x;\r\n    cin>>N;\r\n    int count=0;\r\n    for(int i=0;i<N;i++)\r\n    {\r\n        cin>>x;\r\n        if(x>=10&&x<=20)\r\n        {\r\n            count++;\r\n        }\r\n    }\r\n    cout<<count<<\" in\"<<endl;\r\n    cout<<N-count<<\" out\"<<endl;\r\n    return 0;\r\n}"
+          "code": "// 思路：逐个读取 N 个整数，统计落在闭区间十到二十内的数量。\r\n#include<iostream>\r\nusing namespace std;\r\nint main()\r\n{\r\n    int N, x;\r\n    cin>>N;\r\n    int count=0;\r\n    for(int i=0;i<N;i++)\r\n    {\r\n        cin>>x;\r\n        if(x>=10&&x<=20) // 上下界都包含在区间内，因此同时使用大于等于和小于等于。\r\n        {\r\n            count++;\r\n        }\r\n    }\r\n    cout<<count<<\" in\"<<endl;\r\n    cout<<N-count<<\" out\"<<endl;\r\n    return 0;\r\n}\r\n// 总结：区间计数完成后，区间外数量可直接用总数减去区间内数量。"
         }
       ],
       "036": [
@@ -883,7 +883,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/036.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\nusing namespace std;\r\nint main()\r\n{\r\n    int X,Y,temp,sum=0;\r\n    cin>>X>>Y;\r\n    if(X>Y)\r\n    {\r\n        temp=X;\r\n        X=Y;\r\n        Y=temp;\r\n    }\r\n    if(X%2!=0)\r\n    {\r\n        X++;\r\n    }\r\n    for(int i=X+1;i<Y;i+=2)\r\n    {\r\n        sum+=i;\r\n    }\r\n    cout<<sum<<endl;\r\n    return 0;\r\n}"
+          "code": "// 思路：先保证两个端点有序，再从内部第一个奇数开始累加到另一端点之前。\r\n#include<iostream>\r\nusing namespace std;\r\nint main()\r\n{\r\n    int X,Y,temp,sum=0;\r\n    cin>>X>>Y;\r\n    if(X>Y)\r\n    {\r\n        temp=X;\r\n        X=Y;\r\n        Y=temp;\r\n    }\r\n    if(X%2!=0)\r\n    {\r\n        X++;\r\n    }\r\n    for(int i=X+1;i<Y;i+=2) // 从较小端点之后开始并以二递增，只累加严格位于两数之间的奇数。\r\n    {\r\n        sum+=i;\r\n    }\r\n    cout<<sum<<endl;\r\n    return 0;\r\n}\r\n// 总结：处理两端之间的数据时要先排序端点，并明确是否包含端点。"
         }
       ],
       "037": [
@@ -891,7 +891,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/037.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\nusing namespace std;\r\nint main()\r\n{\r\n    int A,sum=0;\r\n    cin>>A;\r\n    int n;\r\n    cin>>n;\r\n    while(!(n>0))\r\n    {\r\n        cin>>n;\r\n    }\r\n    for(int i=A,j=0;j<n;i++,j++)\r\n    {\r\n        sum+=i;\r\n    }\r\n    cout<<sum<<endl;\r\n    return 0;\r\n}\r\n"
+          "code": "// 思路：持续读取直到得到正整数 n，再累加从 A 开始的连续 n 个整数。\r\n#include<iostream>\r\nusing namespace std;\r\nint main()\r\n{\r\n    int A,sum=0;\r\n    cin>>A;\r\n    int n;\r\n    cin>>n;\r\n    while(!(n>0)) // 无效的非正输入会被跳过，直到读到合法的项数。\r\n    {\r\n        cin>>n;\r\n    }\r\n    for(int i=A,j=0;j<n;i++,j++)\r\n    {\r\n        sum+=i;\r\n    }\r\n    cout<<sum<<endl;\r\n    return 0;\r\n}\r\n// 总结：连续项求和时可用双变量同时控制当前值和已经累加的项数。\r\n"
         }
       ],
       "038": [
@@ -899,7 +899,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/038.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\n#include<vector>\r\nusing namespace std;\r\nint main()\r\n{\r\n    int N;\r\n    cin>>N;\r\n    vector<int>a;\r\n    for(int i=0;i<N;i++)\r\n    {\r\n        int x;\r\n        cin>>x;\r\n        a.push_back(x);\r\n    }\r\n    int num=0,max=-1000;\r\n    for(int i=0;i<N;i++)\r\n    {\r\n        if(a[i]>max)\r\n        {\r\n            max=a[i];\r\n            num=i;\r\n        }\r\n    }\r\n    cout<<max<<endl<<num+1<<endl;\r\n    return 0;\r\n}"
+          "code": "// 思路：保存输入序列并线性扫描，记录最大值及其首次出现的位置。\r\n#include<iostream>\r\n#include<vector>\r\nusing namespace std;\r\nint main()\r\n{\r\n    int N;\r\n    cin>>N;\r\n    vector<int>a;\r\n    for(int i=0;i<N;i++)\r\n    {\r\n        int x;\r\n        cin>>x;\r\n        a.push_back(x);\r\n    }\r\n    int num=0,max=-1000;\r\n    for(int i=0;i<N;i++)\r\n    {\r\n        if(a[i]>max) // 只在严格变大时更新，因此相同最大值会保留第一次出现的位置。\r\n        {\r\n            max=a[i];\r\n            num=i;\r\n        }\r\n    }\r\n    cout<<max<<endl<<num+1<<endl;\r\n    return 0;\r\n}\r\n// 总结：位置输出采用一基编号时，要在零基数组下标上加一。"
         }
       ],
       "039": [
@@ -907,7 +907,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/039.cpp",
           "language": "cpp",
-          "code": "#include <iostream>\r\nusing namespace std;\r\n\r\nint main() {\r\n    int N;\r\n    cin>>N;\r\n    for(int i=1;i<=N;i++)\r\n    {\r\n        if(N%i==0)\r\n        {\r\n            cout<<i<<endl;\r\n        }\r\n    }\r\n    return 0;\r\n}\r\n"
+          "code": "// 思路：枚举一到 N 的所有整数，用整除条件筛选 N 的约数。\r\n#include <iostream>\r\nusing namespace std;\r\n\r\nint main() {\r\n    int N;\r\n    cin>>N;\r\n    for(int i=1;i<=N;i++)\r\n    {\r\n        if(N%i==0) // 余数为零说明当前 i 可以整除 N。\r\n        {\r\n            cout<<i<<endl;\r\n        }\r\n    }\r\n    return 0;\r\n}\r\n// 总结：直接枚举约数实现简单，关键是包含一和 N 两个边界。\r\n"
         }
       ],
       "040": [
@@ -915,7 +915,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/040.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\nusing namespace std;\r\nint main()\r\n{\r\n    int N;\r\n    cin>>N;\r\n    for(int i=1;i<=10;i++)\r\n    {\r\n        cout<<i<<\" x \"<<N<<\" = \"<<i*N<<endl;\r\n    }\r\n    return 0;\r\n}"
+          "code": "// 思路：枚举一到十作为乘数，按固定格式输出输入数的乘法表。\r\n#include<iostream>\r\nusing namespace std;\r\nint main()\r\n{\r\n    int N;\r\n    cin>>N;\r\n    for(int i=1;i<=10;i++)\r\n    {\r\n        cout<<i<<\" x \"<<N<<\" = \"<<i*N<<endl; // 每一行同时输出乘法表达式和计算结果。\r\n    }\r\n    return 0;\r\n}\r\n// 总结：格式化输出题除了结果正确，还要严格匹配空格和符号。"
         }
       ],
       "041": [
@@ -923,7 +923,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/041.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\nusing namespace std;\r\nint main(){\r\n    int N,M;\r\n    cin>>N>>M;\r\n    int j=1,num=0;\r\n    for(int i=1;i<=N;i++){\r\n        num=0;\r\n        while(num<M-1)\r\n        {\r\n            cout<<j<<\" \";\r\n            num++;\r\n            j++;\r\n        }\r\n        cout<<\"SWORD\"<<endl;\r\n        j++;\r\n    }\r\n    return 0;\r\n}"
+          "code": "// 思路：连续生成整数，每行输出 M-1 个数字，并用 SWORD 占据该行最后一个位置。\r\n#include<iostream>\r\nusing namespace std;\r\nint main(){\r\n    int N,M;\r\n    cin>>N>>M;\r\n    int j=1,num=0;\r\n    for(int i=1;i<=N;i++){\r\n        num=0;\r\n        while(num<M-1) // 每行只循环输出前 M-1 个连续数字。\r\n        {\r\n            cout<<j<<\" \";\r\n            num++;\r\n            j++;\r\n        }\r\n        cout<<\"SWORD\"<<endl;\r\n        j++;\r\n    }\r\n    return 0;\r\n}\r\n// 总结：按行分组输出时应分别维护全局序号和当前行元素数量。"
         }
       ],
       "042": [
@@ -931,7 +931,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/042.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\n#include<iomanip>\r\nusing namespace std;\r\nint main()\r\n{\r\n    int N;\r\n    cin >> N; \r\n    int total = 0;\r\n    int swords = 0;\r\n    int blades = 0; \r\n    int spears = 0;    \r\n    for(int i = 0; i < N; i++)\r\n    {\r\n        int count;\r\n        char type;\r\n        cin >> count >> type;  \r\n        total += count;\r\n        if(type == 'C')\r\n        {\r\n            swords += count;\r\n        }\r\n        else if(type == 'R')\r\n        {\r\n            blades += count;\r\n        }\r\n        else if(type == 'F')\r\n        {\r\n            spears += count;\r\n        }\r\n    }\r\n    double percentC =(double)swords / total * 100;\r\n    double percentR =(double)blades / total * 100;\r\n    double percentF =(double)spears / total * 100;\r\n    cout << \"Total: \" << total << \" weapons\" << endl;\r\n    cout << \"Total swords: \" << swords << endl;\r\n    cout << \"Total blades: \" << blades << endl;\r\n    cout << \"Total spears: \" << spears << endl;\r\n    cout << fixed << setprecision(2);\r\n    cout << \"Percentage of swords: \" << percentC << \" %\" << endl;\r\n    cout << \"Percentage of blades: \" << percentR << \" %\" << endl;\r\n    cout << \"Percentage of spears: \" << percentF << \" %\" << endl;\r\n    return 0;\r\n}"
+          "code": "// 思路：累计武器总数及三种武器的分类数量，再分别计算它们所占百分比。\r\n#include<iostream>\r\n#include<iomanip>\r\nusing namespace std;\r\nint main()\r\n{\r\n    int N;\r\n    cin >> N; \r\n    int total = 0;\r\n    int swords = 0;\r\n    int blades = 0; \r\n    int spears = 0;    \r\n    for(int i = 0; i < N; i++)\r\n    {\r\n        int count;\r\n        char type;\r\n        cin >> count >> type;  \r\n        total += count; // 每组数量先计入总数，之后再按类型加入对应分类。\r\n        if(type == 'C')\r\n        {\r\n            swords += count;\r\n        }\r\n        else if(type == 'R')\r\n        {\r\n            blades += count;\r\n        }\r\n        else if(type == 'F')\r\n        {\r\n            spears += count;\r\n        }\r\n    }\r\n    double percentC =(double)swords / total * 100;\r\n    double percentR =(double)blades / total * 100;\r\n    double percentF =(double)spears / total * 100;\r\n    cout << \"Total: \" << total << \" weapons\" << endl;\r\n    cout << \"Total swords: \" << swords << endl;\r\n    cout << \"Total blades: \" << blades << endl;\r\n    cout << \"Total spears: \" << spears << endl;\r\n    cout << fixed << setprecision(2);\r\n    cout << \"Percentage of swords: \" << percentC << \" %\" << endl;\r\n    cout << \"Percentage of blades: \" << percentR << \" %\" << endl;\r\n    cout << \"Percentage of spears: \" << percentF << \" %\" << endl;\r\n    return 0;\r\n}\r\n// 总结：百分比计算前需要转换为浮点数，避免整数除法丢失小数。"
         }
       ],
       "043": [
@@ -939,7 +939,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/043.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\nusing namespace std;\r\nint main(){\r\n    int x[10];\r\n    for(int i=0;i<10;i++){\r\n        cin>>x[i];\r\n    }\r\n    for(int i=0;i<10;i++)\r\n    {\r\n            if(x[i]<=0)\r\n            {cout<<\"X[\"<<i<<\"] = \"<<1<<endl;}\r\n            else\r\n            {cout<<\"X[\"<<i<<\"] = \"<<x[i]<<endl;}\r\n    }\r\n\r\n    return 0;\r\n}"
+          "code": "// 思路：读取十个整数，输出时把非正元素替换为一并保留下标格式。\r\n#include<iostream>\r\nusing namespace std;\r\nint main(){\r\n    int x[10];\r\n    for(int i=0;i<10;i++){\r\n        cin>>x[i];\r\n    }\r\n    for(int i=0;i<10;i++)\r\n    {\r\n            if(x[i]<=0) // 小于等于零的元素统一按一输出。\r\n            {cout<<\"X[\"<<i<<\"] = \"<<1<<endl;}\r\n            else\r\n            {cout<<\"X[\"<<i<<\"] = \"<<x[i]<<endl;}\r\n    }\r\n\r\n    return 0;\r\n}\r\n// 总结：数组替换题要注意条件包含零，并按题目要求输出原下标。"
         }
       ],
       "044": [
@@ -947,7 +947,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/044.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\nusing namespace std;\r\nint main()\r\n{\r\n    int V;\r\n    cin >> V; \r\n    for(int i = 0; i < 10; i++)\r\n    {\r\n        cout << \"N[\" << i << \"] = \" << V << endl;\r\n        V = V * 2;\r\n    }\r\n    return 0;\r\n}"
+          "code": "// 思路：从初始值开始连续输出十项，每输出一项后将数值翻倍。\r\n#include<iostream>\r\nusing namespace std;\r\nint main()\r\n{\r\n    int V;\r\n    cin >> V; \r\n    for(int i = 0; i < 10; i++)\r\n    {\r\n        cout << \"N[\" << i << \"] = \" << V << endl;\r\n        V = V * 2; // 当前项乘二后得到下一项。\r\n    }\r\n    return 0;\r\n}\r\n// 总结：递推序列可以边输出边更新，不必额外保存整个数组。"
         }
       ],
       "045": [
@@ -955,7 +955,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/045.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\n#include<iomanip>\r\nusing namespace std;\r\nint main()\r\n{\r\n    double A[100];   \r\n    for(int i = 0; i < 100; i++)\r\n    {\r\n        cin >> A[i];\r\n    }  \r\n    cout << fixed << setprecision(1);\r\n    for(int i = 0; i < 100; i++)\r\n    {\r\n        if(A[i] <= 10)\r\n        {\r\n            cout << \"A[\" << i << \"] = \" << A[i] << endl;\r\n        }\r\n    }\r\n    return 0;\r\n}"
+          "code": "// 思路：读入一百个实数，只输出其中小于等于十的元素及对应下标。\r\n#include<iostream>\r\n#include<iomanip>\r\nusing namespace std;\r\nint main()\r\n{\r\n    double A[100];   \r\n    for(int i = 0; i < 100; i++)\r\n    {\r\n        cin >> A[i];\r\n    }  \r\n    cout << fixed << setprecision(1);\r\n    for(int i = 0; i < 100; i++)\r\n    {\r\n        if(A[i] <= 10) // 筛选条件包含恰好等于十的元素。\r\n        {\r\n            cout << \"A[\" << i << \"] = \" << A[i] << endl;\r\n        }\r\n    }\r\n    return 0;\r\n}\r\n// 总结：数组筛选输出时应同时保留原始位置和规定的小数精度。"
         }
       ],
       "046": [
@@ -963,7 +963,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/046.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\nusing namespace std;\r\n\r\nint main()\r\n{\r\n    int a[20];\r\n    for(int i = 0; i < 20; i++)\r\n    {\r\n        cin >> a[i];\r\n    }\r\n    int temp;\r\n    for(int i=0;i<=9;i++)\r\n    {\r\n        temp=a[i];\r\n        a[i]=a[19-i];\r\n        a[19-i]=temp;\r\n    }\r\n    for(int i = 0; i < 20; i++)\r\n    {\r\n        cout << \"N[\" << i << \"] = \" << a[i] << endl;\r\n    }\r\n    return 0;\r\n}"
+          "code": "// 思路：通过交换首尾对称位置，把二十个整数原地逆序。\r\n#include<iostream>\r\nusing namespace std;\r\n\r\nint main()\r\n{\r\n    int a[20];\r\n    for(int i = 0; i < 20; i++)\r\n    {\r\n        cin >> a[i];\r\n    }\r\n    int temp;\r\n    for(int i=0;i<=9;i++)\r\n    {\r\n        temp=a[i];\r\n        a[i]=a[19-i]; // 第 i 个元素与倒数第 i 个元素交换。\r\n        a[19-i]=temp;\r\n    }\r\n    for(int i = 0; i < 20; i++)\r\n    {\r\n        cout << \"N[\" << i << \"] = \" << a[i] << endl;\r\n    }\r\n    return 0;\r\n}\r\n// 总结：原地逆序只需处理数组前半段，否则会把已经交换的元素换回去。"
         }
       ],
       "047": [
@@ -971,7 +971,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/047.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\nusing namespace std;\r\nint main()\r\n{\r\n    int N;\r\n    cin >> N;   \r\n    int minVal;\r\n    int minPos = 0;   \r\n    for(int i = 0; i < N; i++)\r\n    {\r\n        int num;\r\n        cin >> num;\r\n        if(i == 0 || num < minVal)\r\n        {\r\n            minVal = num;\r\n            minPos = i;\r\n        }\r\n    }\r\n    cout << \"Menor valor: \" << minVal << endl;\r\n    cout << \"Posicao: \" << minPos << endl;\r\n    return 0;\r\n}"
+          "code": "// 思路：遍历 N 个整数，动态维护最小值及其零基下标。\r\n#include<iostream>\r\nusing namespace std;\r\nint main()\r\n{\r\n    int N;\r\n    cin >> N;   \r\n    int minVal;\r\n    int minPos = 0;   \r\n    for(int i = 0; i < N; i++)\r\n    {\r\n        int num;\r\n        cin >> num;\r\n        if(i == 0 || num < minVal) // 首个元素负责初始化，后续只有遇到更小值才更新。\r\n        {\r\n            minVal = num;\r\n            minPos = i;\r\n        }\r\n    }\r\n    cout << \"Menor valor: \" << minVal << endl;\r\n    cout << \"Posicao: \" << minPos << endl;\r\n    return 0;\r\n}\r\n// 总结：用首元素初始化最值可避免随意设置哨兵，并能保留最小值首次出现的位置。"
         }
       ],
       "048": [
@@ -987,7 +987,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/049.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\n#include<vector>\r\nusing namespace std;\r\nint main()\r\n{\r\n    long long N;\r\n    cin >>N;\r\n    vector<long long>a;\r\n    a.push_back(0);\r\n    a.push_back(1);\r\n    for(int i=2;i<=N;i++)\r\n    {\r\n        long long temp;\r\n        temp=a[i-1]+a[i-2];\r\n        a.push_back(temp);\r\n    }\r\n    for(int i=0;i<N;i++)\r\n    {\r\n        cout << a[i] << \" \";\r\n    }\r\n    return 0;\r\n}"
+          "code": "// 思路：从零和一开始递推斐波那契数列，并输出前 N 项。\r\n#include<iostream>\r\n#include<vector>\r\nusing namespace std;\r\nint main()\r\n{\r\n    long long N;\r\n    cin >>N;\r\n    vector<long long>a;\r\n    a.push_back(0);\r\n    a.push_back(1);\r\n    for(int i=2;i<=N;i++)\r\n    {\r\n        long long temp;\r\n        temp=a[i-1]+a[i-2]; // 每个新项由前两项相加得到。\r\n        a.push_back(temp);\r\n    }\r\n    for(int i=0;i<N;i++)\r\n    {\r\n        cout << a[i] << \" \";\r\n    }\r\n    return 0;\r\n}\r\n// 总结：递推前要先准备足够的初始项，并注意大数范围使用 long long。"
         }
       ],
       "050": [
@@ -1011,7 +1011,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/052.cpp",
           "language": "cpp",
-          "code": "#include <iostream>\r\n#include <iomanip>\r\nusing namespace std;\r\nint main() {\r\n    int C;\r\n    char mode;\r\n    cin >> C >> mode;\r\n    double sum = 0.0;\r\n    double val;\r\n    for (int i = 0; i < 12; i++) {\r\n        for (int j = 0; j < 12; j++) {\r\n            cin >> val;\r\n            if (j == C) {\r\n                sum += val;\r\n            }\r\n        }\r\n    }    \r\n    if (mode == 'S') {\r\n        cout << fixed << setprecision(1) << sum << endl;\r\n    } else if(mode == 'M') {\r\n        cout << fixed << setprecision(1) << sum / 12.0 << endl;\r\n    }\r\n       return 0;\r\n}"
+          "code": "// 思路：读取十二阶矩阵时只累计指定列，再根据模式输出该列的和或平均值。\r\n#include <iostream>\r\n#include <iomanip>\r\nusing namespace std;\r\nint main() {\r\n    int C;\r\n    char mode;\r\n    cin >> C >> mode;\r\n    double sum = 0.0;\r\n    double val;\r\n    for (int i = 0; i < 12; i++) {\r\n        for (int j = 0; j < 12; j++) {\r\n            cin >> val;\r\n            if (j == C) { // 列下标等于 C 时才把当前元素加入统计。\r\n                sum += val;\r\n            }\r\n        }\r\n    }    \r\n    if (mode == 'S') {\r\n        cout << fixed << setprecision(1) << sum << endl;\r\n    } else if(mode == 'M') {\r\n        cout << fixed << setprecision(1) << sum / 12.0 << endl;\r\n    }\r\n       return 0;\r\n}\r\n// 总结：固定十二个元素的列平均值应使用总和除以十二。"
         }
       ],
       "053": [
@@ -1033,7 +1033,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/054.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\n#include<cmath>\r\nusing namespace std;\r\ntypedef long long LL;\r\nbool isPrime(LL n)\r\n{\r\n    if(n==1)return false;\r\n    else if(n==2)return true;\r\n    else if(n%2==0&&n!=2)return false;\r\n    for(LL i=3;i*i<=n;i++)\r\n    {\r\n        if(n%i==0)return false;\r\n    }\r\n    return true;\r\n}\r\n int main()\r\n {\r\n    LL N;\r\n    cin>>N;\r\n    for(LL i=2;i<=N;i++)\r\n    {\r\n        if(isPrime(i))\r\n            cout<<i<<endl;\r\n    }\r\n }\r\n"
+          "code": "// 思路：用试除法判断每个数是否为质数，并输出二到 N 之间的全部质数。\r\n#include<iostream>\r\n#include<cmath>\r\nusing namespace std;\r\ntypedef long long LL;\r\nbool isPrime(LL n)\r\n{\r\n    if(n==1)return false;\r\n    else if(n==2)return true;\r\n    else if(n%2==0&&n!=2)return false;\r\n    for(LL i=3;i*i<=n;i++) // 只需尝试到平方根，若存在因子必有一个不超过平方根。\r\n    {\r\n        if(n%i==0)return false;\r\n    }\r\n    return true;\r\n}\r\n int main()\r\n {\r\n    LL N;\r\n    cin>>N;\r\n    for(LL i=2;i<=N;i++)\r\n    {\r\n        if(isPrime(i))\r\n            cout<<i<<endl;\r\n    }\r\n }\r\n// 总结：质数判断要单独排除一和偶数，并控制试除上界避免无效枚举。\r\n"
         }
       ],
       "055": [
@@ -1041,7 +1041,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/055.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\n#include<iomanip>\r\nusing namespace std;\r\nint main()\r\n{\r\n    char type;\r\n    cin>>type;\r\n    double a[13][13],sum=0;\r\n    for(int i=0;i<12;i++)\r\n    {\r\n        for(int j=0;j<12;j++)\r\n        {\r\n            cin>>a[i][j];\r\n            if(i+j<11&&i<j)sum+=a[i][j];\r\n        }\r\n    }\r\n\r\n    if(type=='S')cout<<fixed<<setprecision(1)<<sum<<endl;\r\n    else if(type=='M')cout<<fixed<<setprecision(1)<<sum/30<<endl;\r\n}"
+          "code": "// 思路：利用行列下标关系筛选主对角线上方且副对角线上方的矩阵区域。\r\n#include<iostream>\r\n#include<iomanip>\r\nusing namespace std;\r\nint main()\r\n{\r\n    char type;\r\n    cin>>type;\r\n    double a[13][13],sum=0;\r\n    for(int i=0;i<12;i++)\r\n    {\r\n        for(int j=0;j<12;j++)\r\n        {\r\n            cin>>a[i][j];\r\n            if(i+j<11&&i<j)sum+=a[i][j]; // 两个条件共同限定矩阵上方的中央三角区域。\r\n        }\r\n    }\r\n\r\n    if(type=='S')cout<<fixed<<setprecision(1)<<sum<<endl;\r\n    else if(type=='M')cout<<fixed<<setprecision(1)<<sum/30<<endl;\r\n}\r\n// 总结：矩阵区域题应把几何位置转换为 i、j 以及 i+j 的不等式。"
         }
       ],
       "056": [
@@ -1049,7 +1049,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/056.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\n#include<iomanip>\r\nusing namespace std;\r\nint main()\r\n{\r\n    char type;\r\n    cin>>type;\r\n    double a[13][13],sum=0;\r\n    for(int i=0;i<12;i++)\r\n    {\r\n        for(int j=0;j<12;j++)\r\n        {\r\n            cin>>a[i][j];\r\n            if(i+j>11&&i>j)sum+=a[i][j];\r\n        }\r\n    }\r\n\r\n    if(type=='S')cout<<fixed<<setprecision(1)<<sum<<endl;\r\n    else if(type=='M')cout<<fixed<<setprecision(1)<<sum/30<<endl;\r\n}"
+          "code": "// 思路：利用行列下标关系筛选主对角线下方且副对角线下方的矩阵区域。\r\n#include<iostream>\r\n#include<iomanip>\r\nusing namespace std;\r\nint main()\r\n{\r\n    char type;\r\n    cin>>type;\r\n    double a[13][13],sum=0;\r\n    for(int i=0;i<12;i++)\r\n    {\r\n        for(int j=0;j<12;j++)\r\n        {\r\n            cin>>a[i][j];\r\n            if(i+j>11&&i>j)sum+=a[i][j]; // 两个条件共同限定矩阵下方的中央三角区域。\r\n        }\r\n    }\r\n\r\n    if(type=='S')cout<<fixed<<setprecision(1)<<sum<<endl;\r\n    else if(type=='M')cout<<fixed<<setprecision(1)<<sum/30<<endl;\r\n}\r\n// 总结：对角线区域的边界不参与统计，条件必须使用严格不等号。"
         }
       ],
       "057": [
@@ -1057,7 +1057,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/057.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\n#include<iomanip>\r\nusing namespace std;\r\nint main()\r\n{\r\n    char type;\r\n    cin>>type;\r\n    double a[13][13],sum=0;\r\n    for(int i=0;i<12;i++)\r\n    {\r\n        for(int j=0;j<12;j++)\r\n        {\r\n            cin>>a[i][j];\r\n            if(i+j<11&&i>j)sum+=a[i][j];\r\n        }\r\n    }\r\n\r\n    if(type=='S')cout<<fixed<<setprecision(1)<<sum<<endl;\r\n    else if(type=='M')cout<<fixed<<setprecision(1)<<sum/30<<endl;\r\n}"
+          "code": "// 思路：筛选主对角线下方且副对角线上方的元素，得到矩阵左侧区域。\r\n#include<iostream>\r\n#include<iomanip>\r\nusing namespace std;\r\nint main()\r\n{\r\n    char type;\r\n    cin>>type;\r\n    double a[13][13],sum=0;\r\n    for(int i=0;i<12;i++)\r\n    {\r\n        for(int j=0;j<12;j++)\r\n        {\r\n            cin>>a[i][j];\r\n            if(i+j<11&&i>j)sum+=a[i][j]; // i 大于 j 且下标和小于十一时元素位于左侧三角区。\r\n        }\r\n    }\r\n\r\n    if(type=='S')cout<<fixed<<setprecision(1)<<sum<<endl;\r\n    else if(type=='M')cout<<fixed<<setprecision(1)<<sum/30<<endl;\r\n}\r\n// 总结：组合两条对角线条件可以准确描述矩阵的四个侧向区域。"
         }
       ],
       "058": [
@@ -1065,7 +1065,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/058.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\n#include<iomanip>\r\nusing namespace std;\r\nint main()\r\n{\r\n    char type;\r\n    cin>>type;\r\n    double a[13][13],sum=0;\r\n    for(int i=0;i<12;i++)\r\n    {\r\n        for(int j=0;j<12;j++)\r\n        {\r\n            cin>>a[i][j];\r\n            if(i+j>11&&i<j)sum+=a[i][j];\r\n        }\r\n    }\r\n\r\n    if(type=='S')cout<<fixed<<setprecision(1)<<sum<<endl;\r\n    else if(type=='M')cout<<fixed<<setprecision(1)<<sum/30<<endl;\r\n}"
+          "code": "// 思路：筛选主对角线上方且副对角线下方的元素，得到矩阵右侧区域。\r\n#include<iostream>\r\n#include<iomanip>\r\nusing namespace std;\r\nint main()\r\n{\r\n    char type;\r\n    cin>>type;\r\n    double a[13][13],sum=0;\r\n    for(int i=0;i<12;i++)\r\n    {\r\n        for(int j=0;j<12;j++)\r\n        {\r\n            cin>>a[i][j];\r\n            if(i+j>11&&i<j)sum+=a[i][j]; // i 小于 j 且下标和大于十一时元素位于右侧三角区。\r\n        }\r\n    }\r\n\r\n    if(type=='S')cout<<fixed<<setprecision(1)<<sum<<endl;\r\n    else if(type=='M')cout<<fixed<<setprecision(1)<<sum/30<<endl;\r\n}\r\n// 总结：矩阵区域平均值的除数应对应实际包含的三十个元素。"
         }
       ],
       "059": [
@@ -1073,7 +1073,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/059.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\n#include<iomanip>\r\nusing namespace std;\r\nint main()\r\n{\r\n    char type;\r\n    cin>>type;\r\n    double a[13][13],sum=0;\r\n    for(int i=0;i<12;i++)\r\n    {\r\n        for(int j=0;j<12;j++)\r\n        {\r\n            cin>>a[i][j];\r\n            if(i<j)sum+=a[i][j];\r\n        }\r\n    }\r\n\r\n    if(type=='S')cout<<fixed<<setprecision(1)<<sum<<endl;\r\n    else if(type=='M')cout<<fixed<<setprecision(1)<<sum/66<<endl;\r\n}"
+          "code": "// 思路：读取矩阵时累计主对角线上方的全部元素，再按模式求和或平均。\r\n#include<iostream>\r\n#include<iomanip>\r\nusing namespace std;\r\nint main()\r\n{\r\n    char type;\r\n    cin>>type;\r\n    double a[13][13],sum=0;\r\n    for(int i=0;i<12;i++)\r\n    {\r\n        for(int j=0;j<12;j++)\r\n        {\r\n            cin>>a[i][j];\r\n            if(i<j)sum+=a[i][j]; // 列下标大于行下标表示元素位于主对角线上方。\r\n        }\r\n    }\r\n\r\n    if(type=='S')cout<<fixed<<setprecision(1)<<sum<<endl;\r\n    else if(type=='M')cout<<fixed<<setprecision(1)<<sum/66<<endl;\r\n}\r\n// 总结：十二阶矩阵主对角线上方共有六十六个元素。"
         }
       ],
       "060": [
@@ -1081,7 +1081,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/060.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\n#include<iomanip>\r\nusing namespace std;\r\nint main()\r\n{\r\n    char type;\r\n    cin>>type;\r\n    double a[13][13],sum=0;\r\n    for(int i=0;i<12;i++)\r\n    {\r\n        for(int j=0;j<12;j++)\r\n        {\r\n            cin>>a[i][j];\r\n            if(i+j<11)sum+=a[i][j];\r\n        }\r\n    }\r\n\r\n    if(type=='S')cout<<fixed<<setprecision(1)<<sum<<endl;\r\n    else if(type=='M')cout<<fixed<<setprecision(1)<<sum/66<<endl;\r\n}"
+          "code": "// 思路：读取矩阵时累计副对角线上方的全部元素，再按模式输出结果。\r\n#include<iostream>\r\n#include<iomanip>\r\nusing namespace std;\r\nint main()\r\n{\r\n    char type;\r\n    cin>>type;\r\n    double a[13][13],sum=0;\r\n    for(int i=0;i<12;i++)\r\n    {\r\n        for(int j=0;j<12;j++)\r\n        {\r\n            cin>>a[i][j];\r\n            if(i+j<11)sum+=a[i][j]; // 行列下标和小于十一表示位于副对角线上方。\r\n        }\r\n    }\r\n\r\n    if(type=='S')cout<<fixed<<setprecision(1)<<sum<<endl;\r\n    else if(type=='M')cout<<fixed<<setprecision(1)<<sum/66<<endl;\r\n}\r\n// 总结：副对角线区域判断取决于行列下标之和，而不是单独比较行列。"
         }
       ],
       "061": [
@@ -1089,7 +1089,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/061.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\n#include<iomanip>\r\nusing namespace std;\r\nint main()\r\n{\r\n    char type;\r\n    cin>>type;\r\n    double a[13][13],sum=0;\r\n    for(int i=0;i<12;i++)\r\n    {\r\n        for(int j=0;j<12;j++)\r\n        {\r\n            cin>>a[i][j];\r\n            if(i+j>11)sum+=a[i][j];\r\n        }\r\n    }\r\n\r\n    if(type=='S')cout<<fixed<<setprecision(1)<<sum<<endl;\r\n    else if(type=='M')cout<<fixed<<setprecision(1)<<sum/66<<endl;\r\n}"
+          "code": "// 思路：读取矩阵时累计副对角线下方的全部元素，再计算和或平均值。\r\n#include<iostream>\r\n#include<iomanip>\r\nusing namespace std;\r\nint main()\r\n{\r\n    char type;\r\n    cin>>type;\r\n    double a[13][13],sum=0;\r\n    for(int i=0;i<12;i++)\r\n    {\r\n        for(int j=0;j<12;j++)\r\n        {\r\n            cin>>a[i][j];\r\n            if(i+j>11)sum+=a[i][j]; // 行列下标和大于十一表示位于副对角线下方。\r\n        }\r\n    }\r\n\r\n    if(type=='S')cout<<fixed<<setprecision(1)<<sum<<endl;\r\n    else if(type=='M')cout<<fixed<<setprecision(1)<<sum/66<<endl;\r\n}\r\n// 总结：严格大于可以排除副对角线自身的十二个元素。"
         }
       ],
       "062": [
@@ -1097,7 +1097,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/062.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\n#include<iomanip>\r\nusing namespace std;\r\nint main()\r\n{\r\n    char type;\r\n    cin>>type;\r\n    double a[13][13],sum=0;\r\n    for(int i=0;i<12;i++)\r\n    {\r\n        for(int j=0;j<12;j++)\r\n        {\r\n            cin>>a[i][j];\r\n            if(i>j)sum+=a[i][j];\r\n        }\r\n    }\r\n\r\n    if(type=='S')cout<<fixed<<setprecision(1)<<sum<<endl;\r\n    else if(type=='M')cout<<fixed<<setprecision(1)<<sum/66<<endl;\r\n}"
+          "code": "// 思路：读取矩阵时累计主对角线下方的全部元素，并按指定模式输出。\r\n#include<iostream>\r\n#include<iomanip>\r\nusing namespace std;\r\nint main()\r\n{\r\n    char type;\r\n    cin>>type;\r\n    double a[13][13],sum=0;\r\n    for(int i=0;i<12;i++)\r\n    {\r\n        for(int j=0;j<12;j++)\r\n        {\r\n            cin>>a[i][j];\r\n            if(i>j)sum+=a[i][j]; // 行下标大于列下标表示元素位于主对角线下方。\r\n        }\r\n    }\r\n\r\n    if(type=='S')cout<<fixed<<setprecision(1)<<sum<<endl;\r\n    else if(type=='M')cout<<fixed<<setprecision(1)<<sum/66<<endl;\r\n}\r\n// 总结：主对角线两侧元素数量相同，十二阶矩阵每侧都是六十六个。"
         }
       ],
       "063": [
@@ -1105,7 +1105,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/063.cpp",
           "language": "cpp",
-          "code": "#include <iostream>\r\n#include<iomanip>\r\nusing namespace std;\r\nint a[1001][1001];\r\nint N;\r\n\r\nint min(int a,int b,int c,int d)\r\n{\r\n    int m1=a>b?b:a;\r\n    int m2=c>d?d:c;\r\n    return m1>m2?m2:m1;\r\n}\r\n\r\nvoid handle(int N)\r\n{\r\n    for(int i=0;i<N;i++)\r\n    {\r\n        for(int j=0;j<N;j++)\r\n        {\r\n            a[i][j]=min(i+1,j+1,N-i,N-j);\r\n        }\r\n    }\r\n}\r\n\r\nint main() {\r\n    cin>>N;\r\n    while(N!=0)\r\n    {\r\n        handle(N);\r\n        for(int i=0;i<N;i++)\r\n        {\r\n            {\r\n                for(int j=0;j<N;j++)\r\n                cout<<setw(3)<<a[i][j];\r\n            }\r\n            cout<<endl;\r\n        }\r\n        cout<<endl;\r\n        cin>>N;\r\n    }\r\n    return 0;\r\n}\r\n"
+          "code": "// 思路：每个位置取到四条边距离的最小值，从而生成由外向内递增的同心方阵。\r\n#include <iostream>\r\n#include<iomanip>\r\nusing namespace std;\r\nint a[1001][1001];\r\nint N;\r\n\r\nint min(int a,int b,int c,int d)\r\n{\r\n    int m1=a>b?b:a;\r\n    int m2=c>d?d:c;\r\n    return m1>m2?m2:m1;\r\n}\r\n\r\nvoid handle(int N)\r\n{\r\n    for(int i=0;i<N;i++)\r\n    {\r\n        for(int j=0;j<N;j++)\r\n        {\r\n            a[i][j]=min(i+1,j+1,N-i,N-j); // 四个方向边界距离的最小值决定当前位置所在的层数。\r\n        }\r\n    }\r\n}\r\n\r\nint main() {\r\n    cin>>N;\r\n    while(N!=0)\r\n    {\r\n        handle(N);\r\n        for(int i=0;i<N;i++)\r\n        {\r\n            {\r\n                for(int j=0;j<N;j++)\r\n                cout<<setw(3)<<a[i][j];\r\n            }\r\n            cout<<endl;\r\n        }\r\n        cout<<endl;\r\n        cin>>N;\r\n    }\r\n    return 0;\r\n}\r\n// 总结：同心矩阵可以转化为点到四条边的最短距离问题。\r\n"
         }
       ],
       "064": [
@@ -1113,7 +1113,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/064.cpp",
           "language": "cpp",
-          "code": "#include <iostream>\r\n#include<cmath>\r\n#include<iomanip>\r\nusing namespace std;\r\nint a[1001][1001];\r\nint N;\r\nint main() {\r\n    cin>>N;\r\n    while(N!=0)\r\n    {\r\n        for(int i=0;i<N;i++)\r\n        {\r\n            {\r\n                for(int j=0;j<N;j++)\r\n                {\r\n                    a[i][j]=int(abs(i-j)+1);\r\n                    cout<<setw(3)<<a[i][j];\r\n                }\r\n            }\r\n            cout<<endl;\r\n        }\r\n        if(N!=0)cout<<endl;\r\n        cin>>N;\r\n        \r\n    }\r\n    return 0;\r\n}\r\n"
+          "code": "// 思路：根据行列下标差的绝对值生成主对角线为一、向两侧递增的矩阵。\r\n#include <iostream>\r\n#include<cmath>\r\n#include<iomanip>\r\nusing namespace std;\r\nint a[1001][1001];\r\nint N;\r\nint main() {\r\n    cin>>N;\r\n    while(N!=0)\r\n    {\r\n        for(int i=0;i<N;i++)\r\n        {\r\n            {\r\n                for(int j=0;j<N;j++)\r\n                {\r\n                    a[i][j]=int(abs(i-j)+1); // 行列距离为零时值为一，距离每增加一数值也增加一。\r\n                    cout<<setw(3)<<a[i][j];\r\n                }\r\n            }\r\n            cout<<endl;\r\n        }\r\n        if(N!=0)cout<<endl;\r\n        cin>>N;\r\n        \r\n    }\r\n    return 0;\r\n}\r\n// 总结：只依赖下标的矩阵无需预处理，可以在输出时直接计算。\r\n"
         }
       ],
       "065": [
@@ -1137,7 +1137,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/067.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\n#include<string>\r\nusing namespace std;\r\n\r\nint main()\r\n{\r\n    string a;\r\n    int i;\r\n    getline(cin,a);\r\n    for(i=0;a[i]!='\\0';i++)\r\n    {\r\n    \r\n    }\r\n    cout<<i<<endl;\r\n}"
+          "code": "// 思路：读取整行字符串并逐字符计数，直到遇到字符串结尾。\r\n#include<iostream>\r\n#include<string>\r\nusing namespace std;\r\n\r\nint main()\r\n{\r\n    string a;\r\n    int i;\r\n    getline(cin,a);\r\n    for(i=0;a[i]!='\\0';i++) // 循环次数正好等于字符串中的字符数量。\r\n    {\r\n    \r\n    }\r\n    cout<<i<<endl;\r\n}\r\n// 总结：使用 getline 可以把空格一并读入，因此统计的是整行长度。"
         }
       ],
       "068": [
@@ -1145,7 +1145,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/068.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\nusing namespace std;\r\n#include<string>\r\nint main()\r\n{\r\n    string a;\r\n    getline(cin,a);\r\n    for(int i=0;a[i]!='\\0';i++)\r\n    {\r\n        cout<<a[i]<<\" \";\r\n    }\r\n}"
+          "code": "// 思路：读取整行字符串，按原顺序输出每个字符并在字符后添加空格。\r\n#include<iostream>\r\nusing namespace std;\r\n#include<string>\r\nint main()\r\n{\r\n    string a;\r\n    getline(cin,a);\r\n    for(int i=0;a[i]!='\\0';i++)\r\n    {\r\n        cout<<a[i]<<\" \"; // 逐个访问字符可以保留原字符串中的顺序。\r\n    }\r\n}\r\n// 总结：逐字符处理整行文本时应使用 getline，避免输入在空格处提前结束。"
         }
       ],
       "069": [
@@ -1161,7 +1161,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/070.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\nusing namespace std;\r\n#include<string>\r\n\r\n\r\nint main()\r\n{\r\n    string a;\r\n    char b[200];\r\n    getline(cin,a);  \r\n    int i;\r\n    for(i=0;a[i+1]!='\\0';i++)\r\n    {\r\n        b[i]=a[i]+a[i+1];\r\n    }\r\n    b[i]=a[0]+a[i];\r\n    b[i+1]='\\0';\r\n    cout<<b;\r\n}"
+          "code": "// 思路：把每个字符与后一个字符的编码相加，最后一个字符与首字符相加形成环。\r\n#include<iostream>\r\nusing namespace std;\r\n#include<string>\r\n\r\n\r\nint main()\r\n{\r\n    string a;\r\n    char b[200];\r\n    getline(cin,a);  \r\n    int i;\r\n    for(i=0;a[i+1]!='\\0';i++)\r\n    {\r\n        b[i]=a[i]+a[i+1]; // 相邻两个字符相加得到结果字符串当前位置。\r\n    }\r\n    b[i]=a[0]+a[i];\r\n    b[i+1]='\\0';\r\n    cout<<b;\r\n}\r\n// 总结：环形相邻处理要单独连接最后一个元素和第一个元素。"
         }
       ],
       "071": [
@@ -1169,7 +1169,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/071.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\nusing namespace std;\r\n#include<string>\r\n\r\n\r\nint main()\r\n{\r\n    string a;\r\n    getline(cin,a);  \r\n    int count=0;\r\n    for(int i=0;a[i]!='\\0';i++)\r\n    {\r\n        if(a[i]>='0'&&a[i]<='9')\r\n            count++;\r\n    }\r\n    cout<<count<<endl;\r\n}"
+          "code": "// 思路：遍历整行字符串，统计字符编码位于零到九之间的数字字符。\r\n#include<iostream>\r\nusing namespace std;\r\n#include<string>\r\n\r\n\r\nint main()\r\n{\r\n    string a;\r\n    getline(cin,a);  \r\n    int count=0;\r\n    for(int i=0;a[i]!='\\0';i++)\r\n    {\r\n        if(a[i]>='0'&&a[i]<='9') // 只有处于数字字符范围内的字符才增加计数。\r\n            count++;\r\n    }\r\n    cout<<count<<endl;\r\n}\r\n// 总结：判断字符是否为数字应比较字符范围，而不是直接使用数值零到九。"
         }
       ],
       "072": [
@@ -1177,7 +1177,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/072.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\n#include<string>\r\nusing namespace std;\r\n\r\nint main()\r\n{\r\n    string a, b;\r\n    cin >> a >> b;\r\n    \r\n    if(a == b)\r\n        cout << \"Tie\" << endl;\r\n    else if((a == \"Rock\" && b == \"Scissors\") ||\r\n            (a == \"Scissors\" && b == \"Paper\") ||\r\n            (a == \"Paper\" && b == \"Rock\"))\r\n        cout << \"Player1\" << endl;\r\n    else\r\n        cout << \"Player2\" << endl;\r\n    \r\n    return 0;\r\n}"
+          "code": "// 思路：先处理平局，再列出玩家一获胜的三种循环关系，其余情况归玩家二。\r\n#include<iostream>\r\n#include<string>\r\nusing namespace std;\r\n\r\nint main()\r\n{\r\n    string a, b;\r\n    cin >> a >> b;\r\n    \r\n    if(a == b)\r\n        cout << \"Tie\" << endl;\r\n    else if((a == \"Rock\" && b == \"Scissors\") || // 石头、剪刀、布的胜负关系用三个或条件完整描述。\r\n            (a == \"Scissors\" && b == \"Paper\") ||\r\n            (a == \"Paper\" && b == \"Rock\"))\r\n        cout << \"Player1\" << endl;\r\n    else\r\n        cout << \"Player2\" << endl;\r\n    \r\n    return 0;\r\n}\r\n// 总结：循环胜负关系适合列出一方获胜组合，再用默认分支覆盖另一方。"
         }
       ],
       "073": [
@@ -1201,7 +1201,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/075.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\nusing namespace std;\r\n#include<string>\r\nint main()\r\n{\r\n    char a[501][20];\r\n    string str;\r\n    int count=0,b[501]={0};\r\n    getline(cin,str);\r\n    for(int i=0;str[i]!='\\0';i++)\r\n    {\r\n        for(int j=0;;j++,i++)\r\n        {\r\n            if(str[i]==' '||str[i]=='.'){\r\n                b[count++]=j;\r\n                str[i]='\\0';\r\n                break;\r\n            }\r\n            a[count][j]=str[i];\r\n        }\r\n    }\r\n    int max=-1,m=0;\r\n    for(int i=0;b[i]!=0;i++)\r\n    {\r\n        if(b[i]>max){\r\n            max=b[i];\r\n            m=i;\r\n        }\r\n    }\r\n    cout<<a[m]<<endl;\r\n}\r\n"
+          "code": "// 思路：手动按空格和句号切分单词，记录每个单词长度并输出最长单词。\r\n#include<iostream>\r\nusing namespace std;\r\n#include<string>\r\nint main()\r\n{\r\n    char a[501][20];\r\n    string str;\r\n    int count=0,b[501]={0};\r\n    getline(cin,str);\r\n    for(int i=0;str[i]!='\\0';i++)\r\n    {\r\n        for(int j=0;;j++,i++)\r\n        {\r\n            if(str[i]==' '||str[i]=='.'){\r\n                b[count++]=j;\r\n                str[i]='\\0';\r\n                break;\r\n            }\r\n            a[count][j]=str[i];\r\n        }\r\n    }\r\n    int max=-1,m=0;\r\n    for(int i=0;b[i]!=0;i++)\r\n    {\r\n        if(b[i]>max){ // 只在长度严格增大时更新，从而保留第一个最长单词。\r\n            max=b[i];\r\n            m=i;\r\n        }\r\n    }\r\n    cout<<a[m]<<endl;\r\n}\r\n// 总结：字符串切分时既要记录内容，也要正确处理最后的句号终止符。\r\n"
         }
       ],
       "076": [
@@ -1209,7 +1209,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/076.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\nusing namespace std;\r\n#include<string>\r\n#include<cstring>\r\nint main()\r\n{\r\n    string str,substr;\r\n    getline(cin,str);\r\n    getline(cin,substr);\r\n    char max='A' ;\r\n    int m=0,n=substr.length();\r\n    int len=str.length();\r\n    for(int i=0;str[i]!='\\0';i++)\r\n    {\r\n        if(str[i]>max)\r\n        {\r\n            max=str[i];\r\n            m=i;\r\n        }\r\n    } \\\r\n    str.resize(len+n); \r\n    for(int i=len;i>m;i--)\r\n    {\r\n        str[i+n]=str[i];\r\n    }\r\n    for(int i=m+1,j=0;substr[j]!='\\0';i++,j++)\r\n    {\r\n        str[i]=substr[j];\r\n    }\r\n    cout<<str;\r\n}"
+          "code": "// 思路：先找到原字符串中最大字符的位置，再扩容并把子串插入该字符之后。\r\n#include<iostream>\r\nusing namespace std;\r\n#include<string>\r\n#include<cstring>\r\nint main()\r\n{\r\n    string str,substr;\r\n    getline(cin,str);\r\n    getline(cin,substr);\r\n    char max='A' ;\r\n    int m=0,n=substr.length();\r\n    int len=str.length();\r\n    for(int i=0;str[i]!='\\0';i++)\r\n    {\r\n        if(str[i]>max) // 线性扫描记录字典序最大字符及其位置。\r\n        {\r\n            max=str[i];\r\n            m=i;\r\n        }\r\n    } \\\r\n    str.resize(len+n); \r\n    for(int i=len;i>m;i--)\r\n    {\r\n        str[i+n]=str[i];\r\n    }\r\n    for(int i=m+1,j=0;substr[j]!='\\0';i++,j++)\r\n    {\r\n        str[i]=substr[j];\r\n    }\r\n    cout<<str;\r\n}\r\n// 总结：原地插入前应先扩容，并从后向前移动尾部以避免覆盖数据。"
         }
       ],
       "077": [
@@ -1217,7 +1217,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/077.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\nusing namespace std;\r\n#include<string>\r\n#include<cstring>\r\nint main()\r\n{\r\n    string a;\r\n    int c[26]={0};\r\n    getline(cin,a);\r\n    char m;\r\n    for(int i=0;a[i]!='\\0';i++)\r\n    {\r\n        c[a[i]-'a']++;\r\n        \r\n    }\r\n    for(int i=0;a[i]!='\\0';i++)\r\n    {\r\n        if(c[a[i]-'a']==1)\r\n        {\r\n            cout<<a[i]<<endl;\r\n            break;\r\n        } \r\n        if(a[i+1]=='\\0')\r\n        {\r\n            cout<<\"no\"<<endl;\r\n        }\r\n    }\r\n}"
+          "code": "// 思路：先统计每个小写字母出现次数，再按原顺序寻找第一个只出现一次的字符。\r\n#include<iostream>\r\nusing namespace std;\r\n#include<string>\r\n#include<cstring>\r\nint main()\r\n{\r\n    string a;\r\n    int c[26]={0};\r\n    getline(cin,a);\r\n    char m;\r\n    for(int i=0;a[i]!='\\0';i++)\r\n    {\r\n        c[a[i]-'a']++;\r\n        \r\n    }\r\n    for(int i=0;a[i]!='\\0';i++)\r\n    {\r\n        if(c[a[i]-'a']==1) // 第二次遍历保证找到的是原字符串中最靠前的不重复字符。\r\n        {\r\n            cout<<a[i]<<endl;\r\n            break;\r\n        } \r\n        if(a[i+1]=='\\0')\r\n        {\r\n            cout<<\"no\"<<endl;\r\n        }\r\n    }\r\n}\r\n// 总结：频次数组负责判断唯一性，按原串扫描负责保证位置顺序。"
         }
       ],
       "078": [
@@ -1233,7 +1233,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/079.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\n#include<string>\r\nusing namespace std;\r\n\r\nint main()\r\n{\r\n    string s;\r\n    while(cin >> s && s != \".\")\r\n    {\r\n        int n = s.length();\r\n        for(int len = 1; len <= n; len++)\r\n        {\r\n            if(n % len == 0)\r\n            {\r\n                bool ok = true;\r\n                for(int i = len; i < n; i++)\r\n                {\r\n                    if(s[i] != s[i % len])\r\n                    {\r\n                        ok = false;\r\n                        break;\r\n                    }\r\n                }\r\n                if(ok)\r\n                {\r\n                    cout << n / len << endl;\r\n                    break;\r\n                }\r\n            }\r\n        }\r\n    }\r\n    return 0;\r\n}"
+          "code": "// 思路：从短到长枚举可能的周期长度，验证整个字符串能否由该前缀重复组成。\r\n#include<iostream>\r\n#include<string>\r\nusing namespace std;\r\n\r\nint main()\r\n{\r\n    string s;\r\n    while(cin >> s && s != \".\")\r\n    {\r\n        int n = s.length();\r\n        for(int len = 1; len <= n; len++)\r\n        {\r\n            if(n % len == 0)\r\n            {\r\n                bool ok = true;\r\n                for(int i = len; i < n; i++)\r\n                {\r\n                    if(s[i] != s[i % len]) // 用下标对周期长度取模，比较当前位置与对应周期字符。\r\n                    {\r\n                        ok = false;\r\n                        break;\r\n                    }\r\n                }\r\n                if(ok)\r\n                {\r\n                    cout << n / len << endl;\r\n                    break;\r\n                }\r\n            }\r\n        }\r\n    }\r\n    return 0;\r\n}\r\n// 总结：第一个通过验证的长度就是最小周期，字符串长度除以它即重复次数。"
         }
       ],
       "080": [
@@ -1241,7 +1241,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/080.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\n#include<string>\r\n#include<cstring>\r\nusing namespace std;\r\nint main()\r\n{\r\n    char a[1000]={0},b[100]={0},c[100]={0};\r\n    char s;\r\n    cin>>s;\r\n    for(int i=0;s!=',';i++)\r\n    {\r\n        a[i]=s;\r\n        cin>>s;\r\n    }\r\n\r\n    cin>>s;\r\n    for(int i=0;s!=',';i++)\r\n    {\r\n        b[i]=s;\r\n        cin>>s;\r\n    }\r\n    cin>>s;\r\n    for(int i=0;s!=','&&s!='\\n'&&cin;i++)\r\n    {\r\n        c[i]=s;\r\n        cin>>s;\r\n    }\r\n\r\n    int m=-1,n=-1;\r\n    for(int i=0;a[i]!='\\0';i++)\r\n    {\r\n        bool flag=false;\r\n        int found=1;\r\n        for(int j=i,k=0;b[k]!='\\0';k++,j++)\r\n        {\r\n            if(a[j]!=b[k])\r\n            {\r\n                found=0;break;\r\n            }\r\n        }\r\n        if(found)\r\n        {\r\n            flag=true;\r\n            m=i+strlen(b);\r\n            break;\r\n        }\r\n    }\r\n    for(int i=strlen(a);i>=m;i--)\r\n    {\r\n        bool flag=false;\r\n        int found=1;\r\n        for(int j=i,k=0;c[k]!='\\0';k++,j++)\r\n        {\r\n            if(a[j]!=c[k])\r\n            {\r\n                found=0;break;\r\n            }\r\n        }\r\n        if(found)\r\n        {\r\n            flag=true;\r\n            n=i;\r\n            break;\r\n        }\r\n    }\r\n    if(m==-1||n==-1){\r\n        cout<<-1;\r\n        return 0;\r\n    }\r\n    else {\r\n        cout<<n-m;\r\n    }\r\n\r\n}"
+          "code": "// 思路：在主串中寻找子串 b 的首次结束位置和子串 c 的最后开始位置，计算两者间距。\r\n#include<iostream>\r\n#include<string>\r\n#include<cstring>\r\nusing namespace std;\r\nint main()\r\n{\r\n    char a[1000]={0},b[100]={0},c[100]={0};\r\n    char s;\r\n    cin>>s;\r\n    for(int i=0;s!=',';i++)\r\n    {\r\n        a[i]=s;\r\n        cin>>s;\r\n    }\r\n\r\n    cin>>s;\r\n    for(int i=0;s!=',';i++)\r\n    {\r\n        b[i]=s;\r\n        cin>>s;\r\n    }\r\n    cin>>s;\r\n    for(int i=0;s!=','&&s!='\\n'&&cin;i++)\r\n    {\r\n        c[i]=s;\r\n        cin>>s;\r\n    }\r\n\r\n    int m=-1,n=-1;\r\n    for(int i=0;a[i]!='\\0';i++)\r\n    {\r\n        bool flag=false;\r\n        int found=1;\r\n        for(int j=i,k=0;b[k]!='\\0';k++,j++)\r\n        {\r\n            if(a[j]!=b[k])\r\n            {\r\n                found=0;break;\r\n            }\r\n        }\r\n        if(found)\r\n        {\r\n            flag=true;\r\n            m=i+strlen(b); // 找到第一个 b 后记录它末尾后一位，作为中间区间起点。\r\n            break;\r\n        }\r\n    }\r\n    for(int i=strlen(a);i>=m;i--)\r\n    {\r\n        bool flag=false;\r\n        int found=1;\r\n        for(int j=i,k=0;c[k]!='\\0';k++,j++)\r\n        {\r\n            if(a[j]!=c[k])\r\n            {\r\n                found=0;break;\r\n            }\r\n        }\r\n        if(found)\r\n        {\r\n            flag=true;\r\n            n=i;\r\n            break;\r\n        }\r\n    }\r\n    if(m==-1||n==-1){\r\n        cout<<-1;\r\n        return 0;\r\n    }\r\n    else {\r\n        cout<<n-m;\r\n    }\r\n\r\n}\r\n// 总结：双子串定位要明确使用首次还是末次出现，任一不存在都应输出负一。"
         }
       ],
       "081": [
@@ -1249,7 +1249,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/081.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\nusing namespace std;\r\n\r\nint jiecheng(int n)\r\n{\r\n    int res=1;\r\n    if(n==1)return 1;\r\n    else res*=n*jiecheng(n-1);\r\n    return res;\r\n}\r\nint main()\r\n{\r\n    int n;\r\n    cin>>n;\r\n    cout<<jiecheng(n);\r\n}"
+          "code": "// 思路：使用递归关系 n! 等于 n 乘以 (n-1)! 计算阶乘。\r\n#include<iostream>\r\nusing namespace std;\r\n\r\nint jiecheng(int n)\r\n{\r\n    int res=1;\r\n    if(n==1)return 1;\r\n    else res*=n*jiecheng(n-1); // 当前 n 与前一阶阶乘相乘形成递归结果。\r\n    return res;\r\n}\r\nint main()\r\n{\r\n    int n;\r\n    cin>>n;\r\n    cout<<jiecheng(n);\r\n}\r\n// 总结：递归函数必须设置明确的终止条件，避免无限调用。"
         }
       ],
       "082": [
@@ -1257,7 +1257,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/082.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\nusing namespace std;\r\n\r\nint max(int m,int n)\r\n{\r\n    if(m>n)return m;\r\n    else return n;\r\n}\r\nint main()\r\n{\r\n    int m,n;\r\n    cin>>m>>n;\r\n    cout<<max(m,n);\r\n}"
+          "code": "// 思路：封装一个比较函数，返回两个整数中较大的一个。\r\n#include<iostream>\r\nusing namespace std;\r\n\r\nint max(int m,int n)\r\n{\r\n    if(m>n)return m; // m 更大时直接返回 m，否则返回 n。\r\n    else return n;\r\n}\r\nint main()\r\n{\r\n    int m,n;\r\n    cin>>m>>n;\r\n    cout<<max(m,n);\r\n}\r\n// 总结：简单函数题要保证所有条件分支都有返回值。"
         }
       ],
       "083": [
@@ -1265,7 +1265,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/083.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\nusing namespace std;\r\n\r\nint abs(int n)\r\n{\r\n    if(n>=0)return n;\r\n    else return -n;\r\n}\r\nint main()\r\n{\r\n    int m;\r\n    cin>>m;\r\n    cout<<abs(m);\r\n}"
+          "code": "// 思路：根据整数符号决定直接返回原值还是返回相反数。\r\n#include<iostream>\r\nusing namespace std;\r\n\r\nint abs(int n)\r\n{\r\n    if(n>=0)return n; // 非负数的绝对值就是它本身。\r\n    else return -n;\r\n}\r\nint main()\r\n{\r\n    int m;\r\n    cin>>m;\r\n    cout<<abs(m);\r\n}\r\n// 总结：实现绝对值时零应归入非负分支。"
         }
       ],
       "084": [
@@ -1273,7 +1273,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/084.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\nusing namespace std;\r\n\r\nint main()\r\n{\r\n    int m,n;\r\n    cin>>m>>n;\r\n    swap(m,n);\r\n    cout<<m<<\" \"<<n;\r\n}"
+          "code": "// 思路：使用标准交换函数互换两个整数，再按交换后的顺序输出。\r\n#include<iostream>\r\nusing namespace std;\r\n\r\nint main()\r\n{\r\n    int m,n;\r\n    cin>>m>>n;\r\n    swap(m,n); // swap 同时完成两个变量值的互换。\r\n    cout<<m<<\" \"<<n;\r\n}\r\n// 总结：交换变量无需手写临时变量时可以直接使用标准库函数。"
         }
       ],
       "085": [
@@ -1281,7 +1281,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/085.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\nusing namespace std;\r\n\r\nint main()\r\n{\r\n    int a,b,n;\r\n    cin>>a>>b;\r\n    if(b>a)swap(a,b);\r\n    n=a%b;\r\n    while(n!=0)\r\n    {\r\n        a=n;\r\n        swap(a,b);\r\n        n=a%b;\r\n    }\r\n    cout<<b;\r\n}"
+          "code": "// 思路：反复用较大数除以较小数取余，直到余数为零，得到最大公约数。\r\n#include<iostream>\r\nusing namespace std;\r\n\r\nint main()\r\n{\r\n    int a,b,n;\r\n    cin>>a>>b;\r\n    if(b>a)swap(a,b);\r\n    n=a%b;\r\n    while(n!=0) // 余数不为零时继续把问题转换为规模更小的一组数。\r\n    {\r\n        a=n;\r\n        swap(a,b);\r\n        n=a%b;\r\n    }\r\n    cout<<b;\r\n}\r\n// 总结：欧几里得算法利用 gcd(a,b)=gcd(b,a%b) 快速缩小数据。"
         }
       ],
       "086": [
@@ -1289,7 +1289,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/086.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\nusing namespace std;\r\n#include<cstring>\r\nint main()\r\n{\r\n    int n1,n2,m;\r\n    cin>>n1>>n2>>m;\r\n    int a[200]={0},b[200]={0};\r\n    for(int i=0;i<n1;i++)\r\n    {\r\n        cin>>a[i];\r\n    }\r\n    for(int i=0;i<n2;i++)\r\n    {\r\n        cin>>b[i];\r\n    }\r\n    for(int i=0;i<m;i++)\r\n    {\r\n        b[i]=a[i];\r\n    }\r\n    for(int i=0;i<n2;i++)\r\n    {\r\n        cout<<b[i]<<\" \";\r\n    }\r\n}"
+          "code": "// 思路：读取两个数组后，用第一个数组的前 m 项覆盖第二个数组对应位置。\r\n#include<iostream>\r\nusing namespace std;\r\n#include<cstring>\r\nint main()\r\n{\r\n    int n1,n2,m;\r\n    cin>>n1>>n2>>m;\r\n    int a[200]={0},b[200]={0};\r\n    for(int i=0;i<n1;i++)\r\n    {\r\n        cin>>a[i];\r\n    }\r\n    for(int i=0;i<n2;i++)\r\n    {\r\n        cin>>b[i];\r\n    }\r\n    for(int i=0;i<m;i++)\r\n    {\r\n        b[i]=a[i]; // 逐项复制前 m 个元素完成目标数组前缀替换。\r\n    }\r\n    for(int i=0;i<n2;i++)\r\n    {\r\n        cout<<b[i]<<\" \";\r\n    }\r\n}\r\n// 总结：数组复制要确保复制长度不超过源数组和目标数组的有效范围。"
         }
       ],
       "087": [
@@ -1297,7 +1297,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/087.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\nusing namespace std;\r\nint main()\r\n{\r\n    int n,size,a[2000];\r\n    cin>>n>>size;\r\n    for(int i=0;i<n;i++)\r\n    {\r\n        cin>>a[i];\r\n    }\r\n    for(int i=size-1;i>=0;i--)\r\n    {\r\n        cout<<a[i]<<\" \";\r\n    }\r\n    for(int i=size;i<n;i++)\r\n    {\r\n        cout<<a[i]<<\" \";\r\n    }\r\n}"
+          "code": "// 思路：先逆序输出数组前 size 个元素，再顺序输出剩余元素。\r\n#include<iostream>\r\nusing namespace std;\r\nint main()\r\n{\r\n    int n,size,a[2000];\r\n    cin>>n>>size;\r\n    for(int i=0;i<n;i++)\r\n    {\r\n        cin>>a[i];\r\n    }\r\n    for(int i=size-1;i>=0;i--) // 从 size-1 递减到零即可翻转指定前缀。\r\n    {\r\n        cout<<a[i]<<\" \";\r\n    }\r\n    for(int i=size;i<n;i++)\r\n    {\r\n        cout<<a[i]<<\" \";\r\n    }\r\n}\r\n// 总结：局部逆序只改变指定区间，区间之外的数据仍按原顺序处理。"
         }
       ],
       "088": [
@@ -1305,7 +1305,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/088.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\nusing namespace std;\r\nint main()\r\n{\r\n    int n,size,a[2000];\r\n    cin>>n>>size;\r\n    for(int i=0;i<n;i++)\r\n    {\r\n        cin>>a[i];\r\n    }\r\n    \r\n    for(int i=0;i<size;i++)\r\n    {\r\n        cout<<a[i]<<\" \";\r\n    }\r\n}"
+          "code": "// 思路：读取完整数组后，只输出从开头起的 size 个元素。\r\n#include<iostream>\r\nusing namespace std;\r\nint main()\r\n{\r\n    int n,size,a[2000];\r\n    cin>>n>>size;\r\n    for(int i=0;i<n;i++)\r\n    {\r\n        cin>>a[i];\r\n    }\r\n    \r\n    for(int i=0;i<size;i++) // 循环上界限制了输出的数组前缀长度。\r\n    {\r\n        cout<<a[i]<<\" \";\r\n    }\r\n}\r\n// 总结：输出数组子区间时要把 size 理解为数量而不是最后一个下标。"
         }
       ],
       "089": [
@@ -1313,7 +1313,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/089.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\nusing namespace std;\r\nint main()\r\n{\r\n    int a[200][200],row,col;\r\n    cin>>row>>col;\r\n    for(int i=0;i<row;i++)\r\n    {\r\n        for(int j=0;j<col;j++)\r\n        {\r\n            cin>>a[i][j];\r\n        }\r\n    }\r\n    for(int i=0;i<row;i++)\r\n    {\r\n        for(int j=0;j<col;j++)\r\n        {\r\n            if(j!=0)cout<<\" \";\r\n            cout<<a[i][j];\r\n        }\r\n        cout<<endl;\r\n    }\r\n    \r\n \r\n \r\n}"
+          "code": "// 思路：按行列顺序读入二维数组，再保持相同布局逐行输出。\r\n#include<iostream>\r\nusing namespace std;\r\nint main()\r\n{\r\n    int a[200][200],row,col;\r\n    cin>>row>>col;\r\n    for(int i=0;i<row;i++)\r\n    {\r\n        for(int j=0;j<col;j++)\r\n        {\r\n            cin>>a[i][j];\r\n        }\r\n    }\r\n    for(int i=0;i<row;i++)\r\n    {\r\n        for(int j=0;j<col;j++)\r\n        {\r\n            if(j!=0)cout<<\" \";\r\n            cout<<a[i][j]; // 双层循环按照行优先顺序访问每个矩阵元素。\r\n        }\r\n        cout<<endl;\r\n    }\r\n    \r\n \r\n \r\n}\r\n// 总结：矩阵格式输出应控制行内空格，并在每一行结束后换行。"
         }
       ],
       "090": [
@@ -1329,7 +1329,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/091.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\nusing namespace std;\r\n\r\nint jiecheng(int n)\r\n{\r\n    int res=1;\r\n    if(n==1)return 1;\r\n    else res*=n*jiecheng(n-1);\r\n    return res;\r\n}\r\nint main()\r\n{\r\n    int n;\r\n    cin>>n;\r\n    cout<<jiecheng(n);\r\n}"
+          "code": "// 思路：利用 n! = n×(n-1)! 的递归定义计算输入整数的阶乘。\r\n#include<iostream>\r\nusing namespace std;\r\n\r\nint jiecheng(int n)\r\n{\r\n    int res=1;\r\n    if(n==1)return 1;\r\n    else res*=n*jiecheng(n-1); // 递归调用先求较小阶乘，再乘以当前 n。\r\n    return res;\r\n}\r\nint main()\r\n{\r\n    int n;\r\n    cin>>n;\r\n    cout<<jiecheng(n);\r\n}\r\n// 总结：阶乘递归的边界是 n 等于一，输入范围还需避免整数溢出。"
         }
       ],
       "092": [
@@ -1337,7 +1337,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/092.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\nusing namespace std;\r\n\r\nint feibo(int n)\r\n{\r\n    int a=1,b=1,res=0;\r\n    if(n==1||n==2)return 1;\r\n    res+=feibo(n-1)+feibo(n-2);\r\n    return res;\r\n}\r\nint main()\r\n{\r\n    int n;\r\n    cin>>n;\r\n    cout<<feibo(n);\r\n}"
+          "code": "// 思路：按斐波那契递推定义递归求解第 n 项，并把前两项设为一。\r\n#include<iostream>\r\nusing namespace std;\r\n\r\nint feibo(int n)\r\n{\r\n    int a=1,b=1,res=0;\r\n    if(n==1||n==2)return 1;\r\n    res+=feibo(n-1)+feibo(n-2); // 第 n 项由前两项递归结果相加得到。\r\n    return res;\r\n}\r\nint main()\r\n{\r\n    int n;\r\n    cin>>n;\r\n    cout<<feibo(n);\r\n}\r\n// 总结：朴素递归表达直观但会重复计算，只适合较小的 n。"
         }
       ],
       "093": [
@@ -1353,7 +1353,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/094.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\nusing namespace std;\r\nint dx[]={0,1},dy[]={1,0};\r\n\r\nint n,m;\r\nint xunlu(int i,int j)\r\n{\r\n    if(i==n&&j==m)return 1;\r\n    if(i>n||j>m)return 0;\r\n    int res=0;\r\n    for(int k=0;k<2;k++)\r\n    {\r\n        i+=dx[k],j+=dy[k];\r\n        res+=xunlu(i,j);\r\n        i-=dx[k],j-=dy[k];\r\n    }\r\n    return res;\r\n}\r\nint main()\r\n{\r\n\r\n    cin>>n>>m;\r\n    cout<<xunlu(0,0);\r\n\r\n\r\n}"
+          "code": "// 思路：从左上角递归尝试向右和向下两种移动，统计到达目标点的路径数。\r\n#include<iostream>\r\nusing namespace std;\r\nint dx[]={0,1},dy[]={1,0};\r\n\r\nint n,m;\r\nint xunlu(int i,int j)\r\n{\r\n    if(i==n&&j==m)return 1;\r\n    if(i>n||j>m)return 0;\r\n    int res=0;\r\n    for(int k=0;k<2;k++)\r\n    {\r\n        i+=dx[k],j+=dy[k];\r\n        res+=xunlu(i,j); // 每个合法方向的递归路径数量都累加到当前状态。\r\n        i-=dx[k],j-=dy[k];\r\n    }\r\n    return res;\r\n}\r\nint main()\r\n{\r\n\r\n    cin>>n>>m;\r\n    cout<<xunlu(0,0);\r\n\r\n\r\n}\r\n// 总结：搜索后恢复坐标可以避免一次分支的移动影响下一分支。"
         }
       ],
       "095": [
@@ -1361,7 +1361,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/095.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\nusing namespace std;\r\nint n;\r\nint used[10];\r\nbool path[10];\r\nvoid dfs(int u)\r\n{\r\n\r\n    if(u==n){\r\n        for(int i=0;i<n;i++)\r\n        {\r\n            if(i!=0)cout<<\" \";\r\n            cout<<used[i];\r\n        }\r\n        cout<<endl;\r\n        return ;\r\n    }\r\n    else{\r\n        for(int i=1;i<=n;i++)\r\n        {\r\n            if(!path[i]){\r\n                used[u]=i;\r\n                path[i]=true;\r\n                dfs(u+1);\r\n                path[i]=false;\r\n                used[u]=0;\r\n            }\r\n        }\r\n    }\r\n\r\n}\r\n\r\n\r\nint main()\r\n{\r\n    cin>>n;\r\n    dfs(0);\r\n}"
+          "code": "// 思路：使用深度优先搜索逐位选择未使用的数字，枚举一到 n 的所有排列。\r\n#include<iostream>\r\nusing namespace std;\r\nint n;\r\nint used[10];\r\nbool path[10];\r\nvoid dfs(int u)\r\n{\r\n\r\n    if(u==n){\r\n        for(int i=0;i<n;i++)\r\n        {\r\n            if(i!=0)cout<<\" \";\r\n            cout<<used[i];\r\n        }\r\n        cout<<endl;\r\n        return ;\r\n    }\r\n    else{\r\n        for(int i=1;i<=n;i++)\r\n        {\r\n            if(!path[i]){\r\n                used[u]=i;\r\n                path[i]=true; // 选择数字后标记已使用，防止同一排列中重复选取。\r\n                dfs(u+1);\r\n                path[i]=false;\r\n                used[u]=0;\r\n            }\r\n        }\r\n    }\r\n\r\n}\r\n\r\n\r\nint main()\r\n{\r\n    cin>>n;\r\n    dfs(0);\r\n}\r\n// 总结：回溯必须在递归返回后撤销标记，才能继续尝试其他排列。"
         }
       ],
       "096": [
@@ -1369,7 +1369,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/096.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\nusing namespace std;\r\n#include<string>\r\n\r\nint main()\r\n{\r\n    string a;\r\n    getline(cin,a);\r\n    for(int i=0;a[i]!='\\0';i++)\r\n    {\r\n        if(a[i]==' ')\r\n            cout<<\"%20\";\r\n        else cout<<a[i];\r\n    }\r\n}"
+          "code": "// 思路：逐字符扫描输入字符串，把空格替换为百分号二零，其余字符原样输出。\r\n#include<iostream>\r\nusing namespace std;\r\n#include<string>\r\n\r\nint main()\r\n{\r\n    string a;\r\n    getline(cin,a);\r\n    for(int i=0;a[i]!='\\0';i++)\r\n    {\r\n        if(a[i]==' ')\r\n            cout<<\"%20\"; // 遇到空格时输出编码后的三字符替代文本。\r\n        else cout<<a[i];\r\n    }\r\n}\r\n// 总结：边扫描边输出可以避免额外构造新字符串。"
         }
       ],
       "097": [
@@ -1377,7 +1377,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/097.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\n#include<vector>\r\nusing namespace std;\r\nint main()\r\n{\r\n    vector<int>a;\r\n    a.push_back(1);\r\n    a.push_back(1);\r\n    int n;\r\n    cin>>n;\r\n    for(int i=0,j=1;i<n;i++,j++)\r\n    {\r\n        a.push_back(a[i]+a[j]);\r\n    }\r\n    cout<<a[n-1];\r\n\r\n}"
+          "code": "// 思路：用动态数组保存斐波那契数列，从两个一开始递推到所需项。\r\n#include<iostream>\r\n#include<vector>\r\nusing namespace std;\r\nint main()\r\n{\r\n    vector<int>a;\r\n    a.push_back(1);\r\n    a.push_back(1);\r\n    int n;\r\n    cin>>n;\r\n    for(int i=0,j=1;i<n;i++,j++)\r\n    {\r\n        a.push_back(a[i]+a[j]); // 每次把相邻前两项之和追加为下一项。\r\n    }\r\n    cout<<a[n-1];\r\n\r\n}\r\n// 总结：递推数列要正确对应题目采用的一基项号和数组零基下标。"
         }
       ],
       "098": [
@@ -1385,7 +1385,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/098.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\n#include<vector>\r\nusing namespace std;\r\nint main()\r\n{\r\n    int n;\r\n    vector<int>a;\r\n    cin>>n;\r\n    while(n!=-1)\r\n    {\r\n        a.push_back(n);\r\n        cin>>n;\r\n    }\r\n    for(int i=a.size()-1;i>=0;i--)\r\n    {\r\n        cout<<a[i]<<endl;\r\n    }\r\n\r\n}"
+          "code": "// 思路：把终止标记前输入的整数依次存入数组，再从后向前输出。\r\n#include<iostream>\r\n#include<vector>\r\nusing namespace std;\r\nint main()\r\n{\r\n    int n;\r\n    vector<int>a;\r\n    cin>>n;\r\n    while(n!=-1)\r\n    {\r\n        a.push_back(n);\r\n        cin>>n;\r\n    }\r\n    for(int i=a.size()-1;i>=0;i--) // 倒序遍历容器即可反向输出已保存的数据。\r\n    {\r\n        cout<<a[i]<<endl;\r\n    }\r\n\r\n}\r\n// 总结：哨兵值只负责结束输入，不应加入需要输出的序列。"
         }
       ],
       "099": [
@@ -1393,7 +1393,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/099.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\n#include<stack>\r\n#include<string>\r\nusing namespace std;\r\nint main()\r\n{\r\n    stack<int>in,out;\r\n    int n;\r\n    string a;\r\n    while(cin>>a)\r\n    {\r\n        if(a==\"push\")\r\n        {\r\n            cin>>n;\r\n            in.push(n);\r\n        }\r\n        else if(a==\"pop\")\r\n        {\r\n            if(out.empty())\r\n            {\r\n                while(!in.empty())\r\n                {\r\n                    out.push(in.top());\r\n                    in.pop();\r\n                }\r\n                \r\n            }\r\n            if(!out.empty())\r\n            {\r\n                cout<<out.top()<<endl;\r\n                out.pop();\r\n            }\r\n        }\r\n        else if(a==\"empty\")\r\n        {\r\n            if(out.empty()&&in.empty())\r\n            {\r\n                cout<<\"yes\"<<endl;\r\n            }\r\n            else cout<<\"no\"<<endl;\r\n        }\r\n    }\r\n}"
+          "code": "// 思路：用输入栈保存新元素、输出栈提供队首元素，从而模拟先进先出的队列。\r\n#include<iostream>\r\n#include<stack>\r\n#include<string>\r\nusing namespace std;\r\nint main()\r\n{\r\n    stack<int>in,out;\r\n    int n;\r\n    string a;\r\n    while(cin>>a)\r\n    {\r\n        if(a==\"push\")\r\n        {\r\n            cin>>n;\r\n            in.push(n);\r\n        }\r\n        else if(a==\"pop\")\r\n        {\r\n            if(out.empty())\r\n            {\r\n                while(!in.empty()) // 输出栈为空时把输入栈全部倒入，使最早元素移动到栈顶。\r\n                {\r\n                    out.push(in.top());\r\n                    in.pop();\r\n                }\r\n                \r\n            }\r\n            if(!out.empty())\r\n            {\r\n                cout<<out.top()<<endl;\r\n                out.pop();\r\n            }\r\n        }\r\n        else if(a==\"empty\")\r\n        {\r\n            if(out.empty()&&in.empty())\r\n            {\r\n                cout<<\"yes\"<<endl;\r\n            }\r\n            else cout<<\"no\"<<endl;\r\n        }\r\n    }\r\n}\r\n// 总结：双栈队列只在输出栈为空时搬运，每个元素最多搬运一次。"
         }
       ]
     },

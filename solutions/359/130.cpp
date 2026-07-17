@@ -1,3 +1,4 @@
+// 思路：用数组保存节点值和下一节点下标，模拟单链表的头插、指定位置插入和删除。
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -21,7 +22,7 @@ int main()
     auto add = [&](int k, int x) {
         e[idx] = x;
         ne[idx] = ne[k];
-        ne[k] = idx++;
+        ne[k] = idx++; // 新节点接到第 k 个节点之后，再更新该节点的后继下标。
     };
 
     auto del = [&](int k) {
@@ -57,3 +58,4 @@ int main()
     for (int i = head; i != -1; i = ne[i]) cout << e[i] << ' ';
     cout << "\n";
 }
+// 总结：数组模拟链表时输入编号通常与数组下标相差一，需要统一转换。

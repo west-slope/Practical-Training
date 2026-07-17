@@ -1,3 +1,4 @@
+// 思路：把大整数反向存入 vector，按位相加并持续传递进位直到结束。
 #include<iostream>
 #include<string>
 #include<cstring>
@@ -13,7 +14,7 @@ vector<int>add(vector<int> &A,vector<int>&B)
     {
         if(i<A.size())t+=A[i];
         if(i<B.size())t+=B[i];
-        C.push_back(t%10);
+        C.push_back(t%10); // 当前总和的个位写入结果，剩余部分作为下一位进位。
         t/=10;
     }
     return C;
@@ -44,3 +45,4 @@ int main()
     print(add(A,B));
 
 }
+// 总结：循环条件要包含最终进位，避免最高位进位被遗漏。

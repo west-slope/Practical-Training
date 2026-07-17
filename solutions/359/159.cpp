@@ -1,3 +1,4 @@
+// 思路：用二维动态规划比较两个字符串前缀，求最长公共子序列长度。
 #include <iostream>
 #include <cstring>
 using namespace std;
@@ -15,7 +16,7 @@ int main() {
     for (int i = 1; i <= n; i++) {
         for (int j = 1; j <= m; j++) {
             if (a[i] == b[j]) {
-                f[i][j] = f[i - 1][j - 1] + 1;
+                f[i][j] = f[i - 1][j - 1] + 1; // 当前字符相同时，答案由两个前缀都去掉末字符后再加一。
             } else {
                 f[i][j] = max(f[i - 1][j], f[i][j - 1]);
             }
@@ -26,3 +27,4 @@ int main() {
     
     return 0;
 }
+// 总结：字符不同时需要比较舍弃任一字符串末字符的两种状态。

@@ -1,3 +1,4 @@
+// 思路：对每个连通块进行双色 DFS，相邻节点染相反颜色并检查冲突。
 #include <iostream>
 #include <vector>
 #include <cstring>
@@ -14,7 +15,7 @@ bool dfs(int u, int c) {
     for (int i = 0; i < g[u].size(); i++) {
         int v = g[u][i];
         if (!color[v]) {
-            if (!dfs(v, 3 - c)) return false;
+            if (!dfs(v, 3 - c)) return false; // 未染色邻点递归使用另一种颜色，出现冲突则立即失败。
         } else if (color[v] == c) {
             return false;
         }
@@ -48,3 +49,4 @@ int main() {
     
     return 0;
 }
+// 总结：图是二分图当且仅当每条边连接的两个节点颜色不同。

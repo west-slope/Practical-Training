@@ -1,3 +1,4 @@
+// 思路：建立单链表后用三个指针逐步反转每条指针方向，再从新头节点输出。
 #include<iostream>
 using namespace std;
 
@@ -30,7 +31,7 @@ int main()
     while(next->Next!=NULL)
     {
         next=next->Next;
-        cur->Next=pre;
+        cur->Next=pre; // 让当前节点指向前驱节点，完成一条链的反转。
         pre=cur;
         cur=next;
     }
@@ -43,3 +44,4 @@ int main()
     }
 
 }
+// 总结：链表反转前必须保存后继节点，否则修改指针后会丢失剩余链表。

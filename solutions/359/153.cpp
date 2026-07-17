@@ -1,3 +1,4 @@
+// 思路：Kruskal 算法按边权升序扫描，用并查集选择不会形成环的边。
 #include <iostream>
 #include <algorithm>
 using namespace std;
@@ -38,7 +39,7 @@ int main() {
         int a = edges[i].a, b = edges[i].b, w = edges[i].w;
         int pa = find(a), pb = find(b);
         
-        if (pa != pb) {
+        if (pa != pb) { // 两个端点属于不同集合时才能安全加入当前生成树。
             p[pa] = pb;
             res += w;
             cnt++;
@@ -50,3 +51,4 @@ int main() {
     
     return 0;
 }
+// 总结：最小生成树最终应恰好选中 n-1 条边，否则原图不连通。

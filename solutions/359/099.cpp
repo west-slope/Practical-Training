@@ -1,3 +1,4 @@
+// 思路：用输入栈保存新元素、输出栈提供队首元素，从而模拟先进先出的队列。
 #include<iostream>
 #include<stack>
 #include<string>
@@ -18,7 +19,7 @@ int main()
         {
             if(out.empty())
             {
-                while(!in.empty())
+                while(!in.empty()) // 输出栈为空时把输入栈全部倒入，使最早元素移动到栈顶。
                 {
                     out.push(in.top());
                     in.pop();
@@ -41,3 +42,4 @@ int main()
         }
     }
 }
+// 总结：双栈队列只在输出栈为空时搬运，每个元素最多搬运一次。

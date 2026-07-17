@@ -1,3 +1,4 @@
+// 思路：Prim 算法每轮选择距当前生成树最近的未选节点，并用它更新其他节点距离。
 #include <iostream>
 #include <cstring>
 using namespace std;
@@ -23,7 +24,7 @@ int prim() {
         
         if (i && dist[t] == INF) return -1;
         
-        if (i) res += dist[t];
+        if (i) res += dist[t]; // 除起点外，每次选中节点时把连接它的最小边权加入答案。
         st[t] = true;
         
         for (int j = 1; j <= n; j++) {
@@ -54,3 +55,4 @@ int main() {
     
     return 0;
 }
+// 总结：若某轮最小距离仍为无穷大，说明图不连通，无法形成生成树。

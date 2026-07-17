@@ -1,3 +1,4 @@
+// 思路：先保证被减数不小于减数，再按低位到高位逐位完成高精度减法。
 #include<iostream>
 #include<cstring>
 #include<string>
@@ -26,7 +27,7 @@ vector<int> sub(vector<int>&A,vector<int>&B)
     {
         t+=A[i];
         if(i<B.size())t-=B[i];
-        C.push_back((t+10)%10);
+        C.push_back((t+10)%10); // 加十后取个位可同时处理当前位借位的情况。
         if(t<0)t=-1;
         else t=0;
     }
@@ -60,3 +61,4 @@ int main()
     cout<<endl;
     return 0;
 }
+// 总结：高精度减法要正确传递借位，并删除结果最高位多余的零。

@@ -1,3 +1,4 @@
+// 思路：在上下级关系树上做动态规划，分别计算每个职员参加和不参加时的最大快乐值。
 #include <iostream>
 #include <vector>
 #include <cstring>
@@ -18,7 +19,7 @@ void dfs(int u) {
         int v = g[u][i];
         dfs(v);
         dp[u][0] += max(dp[v][0], dp[v][1]);
-        dp[u][1] += dp[v][0];
+        dp[u][1] += dp[v][0]; // 上司参加时直属下属不能参加，只能累加下属不参加的状态。
     }
 }
 
@@ -45,3 +46,4 @@ int main() {
     
     return 0;
 }
+// 总结：树形 DP 要先找到没有上司的根节点，再自底向上合并子树状态。

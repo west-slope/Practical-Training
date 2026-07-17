@@ -1,3 +1,4 @@
+// 思路：从每个格子记忆化搜索所有更低的相邻格，求最长下降路径。
 #include <iostream>
 #include <cstring>
 using namespace std;
@@ -17,7 +18,7 @@ int dfs(int x, int y) {
         int nx = x + dx[i];
         int ny = y + dy[i];
         if (nx >= 1 && nx <= r && ny >= 1 && ny <= c && g[nx][ny] < g[x][y]) {
-            f[x][y] = max(f[x][y], dfs(nx, ny) + 1);
+            f[x][y] = max(f[x][y], dfs(nx, ny) + 1); // 移动到更低位置后，把后续最长路径加一更新当前答案。
         }
     }
     
@@ -46,3 +47,4 @@ int main() {
     
     return 0;
 }
+// 总结：记忆化搜索可避免同一格子的最长路径被重复计算。

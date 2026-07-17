@@ -1,3 +1,4 @@
+// 思路：把大整数按低位在前存储，先累加所有数位乘积，再统一处理进位。
 #include<iostream>
 #include<algorithm>
 #include<string>
@@ -14,7 +15,7 @@ vector<int> mul(vector<int>&A,vector<int>&B)
     {
         for(int j=0;j<B.size();j++)
         {
-            C[i+j]+=A[i]*B[j];
+            C[i+j]+=A[i]*B[j]; // 两个数位的乘积应累加到下标 i+j 对应的结果位。
         }
     }
     for(int i=0,t=0;i<C.size();i++)
@@ -50,3 +51,4 @@ int main()
 
     return 0;
 }
+// 总结：高精度乘法需要先累计卷积结果，再从低位到高位归一化进位。

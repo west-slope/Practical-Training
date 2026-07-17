@@ -1,3 +1,4 @@
+// 思路：先用动态规划计算两个字符串的编辑距离，再统计距离不超过限制的字典字符串。
 #include <iostream>
 #include <cstring>
 #include <string>
@@ -19,7 +20,7 @@ int edit_distance(string a, string b) {
             if (a[i - 1] == b[j - 1]) {
                 dp[i][j] = dp[i - 1][j - 1];
             } else {
-                dp[i][j] = min(dp[i - 1][j], min(dp[i][j - 1], dp[i - 1][j - 1])) + 1;
+                dp[i][j] = min(dp[i - 1][j], min(dp[i][j - 1], dp[i - 1][j - 1])) + 1; // 字符不同时在删除、插入和替换三种操作中选择代价最小者。
             }
         }
     }
@@ -51,3 +52,4 @@ int main() {
     
     return 0;
 }
+// 总结：编辑距离边界应初始化为空串到前缀所需的插入或删除次数。
