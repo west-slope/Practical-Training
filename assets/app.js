@@ -1,6 +1,9 @@
 (function () {
   const data = window.XMUOJ_SOLUTIONS_DATA || { contests: [] };
   const bundledSolutions = window.XMUOJ_SOLUTIONS_CODE || { solutions: {} };
+  const problemItems = (data.contests || []).flatMap((contest) =>
+    (contest.problems || []).map((problem) => ({ contest, problem, key: contest.id + "/" + problem.id }))
+  );
   const state = {
     query: "",
     filter: "all",
@@ -55,9 +58,7 @@
   };
 
   function flattenProblems() {
-    return (data.contests || []).flatMap((contest) =>
-      (contest.problems || []).map((problem) => ({ contest, problem, key: contest.id + "/" + problem.id }))
-    );
+    return problemItems;
   }
 
   function getContest(contestId) {
@@ -512,8 +513,6 @@
   }
 
   function init() {
-    renderHomeStats();
-    renderHomeCards();
     if (!getContest(state.activeContestId) && (data.contests || [])[0]) {
       state.activeContestId = String(data.contests[0].id);
     }
@@ -554,6 +553,8 @@
     });
 
     if (flattenProblems().length === 0) {
+      renderHomeStats();
+      renderHomeCards();
       els.emptyState.hidden = false;
       els.problemView.hidden = true;
       return;
@@ -561,7 +562,6 @@
     hydrateBundledSolutions();
     renderHomeStats();
     renderHomeCards();
-    renderNav();
 
     // --- Announcement panel ---
     initAnnouncement();

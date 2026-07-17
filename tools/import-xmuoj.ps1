@@ -155,7 +155,6 @@ function Find-Solution {
         return [pscustomobject]@{
           path = (Resolve-Path -LiteralPath $path).Path.Replace($SiteRoot.Path + "\", "")
           language = $ext.TrimStart(".")
-          code = Get-Content -Raw -LiteralPath $path
         }
       }
     }
