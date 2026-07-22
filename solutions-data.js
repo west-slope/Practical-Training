@@ -1,5 +1,5 @@
 window.XMUOJ_SOLUTIONS_CODE = {
-  "generatedAt": "2026/7/17 16:03:06",
+  "generatedAt": "2026/7/22 11:34:30",
   "solutions": {
     "359": {
       "100": [
@@ -157,7 +157,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/359/118.cpp",
           "language": "cpp",
-          "code": "// 思路：用二进制掩码表示元素是否被选中，枚举一到 2^n-1 的所有非空子集。\r\n#include <bits/stdc++.h>\nusing namespace std;\n\nint main()\n{\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    int n;\n    if (!(cin >> n)) return 0;\n\n    for (int mask = 1; mask < (1 << n); mask++)\n    {\n        bool first = true;\n        for (int i = 0; i < n; i++)\n        {\n            if (mask >> i & 1) // 掩码第 i 位为一时，把编号 i+1 加入当前子集。\n            {\n                if (!first) cout << ' ';\n                first = false;\n                cout << i + 1;\n            }\n        }\n        cout << \"\\n\";\n    }\n}\r\n// 总结：位运算枚举子集时，零掩码代表空集，可按题意决定是否跳过。\r\n"
+          "code": "#include <iostream>\n#include <vector>\nusing namespace std;\n\nint n;\nvector<int> path;\n\nvoid printPath() {\n    for (int i = 0; i < (int)path.size(); i++) {\n        if (i) cout << ' ';\n        cout << path[i];\n    }\n    cout << '\\n';\n}\n\n// 从 start 开始选择下一个数字，保证当前 path 中的数字递增\nvoid dfs(int start) {\n    for (int i = start; i <= n; i++) {\n        path.push_back(i);      // 选 i\n        printPath();            // 输出当前组合\n        dfs(i + 1);             // 继续选更大的数\n        path.pop_back();        // 回溯，不选 i\n    }\n}\n\nint main() {\n    ios::sync_with_stdio(false);\n    cin.tie(nullptr);\n\n    cin >> n;\n    dfs(1);\n\n    return 0;\n}"
         }
       ],
       "119": [
@@ -369,9 +369,9 @@ window.XMUOJ_SOLUTIONS_CODE = {
       "144": [
         {
           "variant": 1,
-          "path": "solutions/359/144.py",
-          "language": "py",
-          "code": "from collections import deque\nimport sys\nlines = sys.stdin.read().strip().split(chr(10))\nout = []\ni = 0\nwhile i < len(lines):\n    if not lines[i].strip(): i += 1; continue\n    s = ''.join(lines[i].split())\n    t = ''.join(lines[i+1].split()) if i+1 < len(lines) else '12345678x'\n    i += 2\n    if s == t: out.append('0'); continue\n    # Check solvability (inversion count parity)\n    inv_s = sum(1 for a in range(9) for b in range(a+1,9) if s[a]!='x' and s[b]!='x' and s[a]>s[b])\n    inv_t = sum(1 for a in range(9) for b in range(a+1,9) if t[a]!='x' and t[b]!='x' and t[a]>t[b])\n    if (inv_s % 2) != (inv_t % 2):\n        out.append('-1'); continue\n    d = {s: 0}\n    q = deque([s])\n    ans = -1\n    while q and ans == -1:\n        cur = q.popleft()\n        k = cur.index('x')\n        x, y = k // 3, k % 3\n        for dx, dy in [(-1,0),(0,1),(1,0),(0,-1)]:\n            nx, ny = x + dx, y + dy\n            if 0 <= nx < 3 and 0 <= ny < 3:\n                nk = nx * 3 + ny\n                ns = list(cur)\n                ns[k], ns[nk] = ns[nk], ns[k]\n                ns = ''.join(ns)\n                if ns == t: ans = d[cur] + 1; break\n                if ns not in d: d[ns] = d[cur] + 1; q.append(ns)\n    out.append(str(ans))\nprint(chr(10).join(out))"
+          "path": "solutions/359/144.cpp",
+          "language": "cpp",
+          "code": "#include <iostream>\r\n#include <algorithm>\r\n#include <queue>\r\n#include <unordered_map>\r\n\r\nusing namespace std;\r\n\r\nint bfs(string start)\r\n{\r\n    //定义目标状态\r\n    string end = \"12345678x\";\r\n    //定义队列和dist数组\r\n    queue<string> q;\r\n    unordered_map<string, int> d;\r\n    //初始化队列和dist数组\r\n    q.push(start);\r\n    d[start] = 0;\r\n    //转移方式\r\n    int dx[4] = {1, -1, 0, 0}, dy[4] = {0, 0, 1, -1};\r\n\r\n    while(q.size())\r\n    {\r\n        auto t = q.front();\r\n        q.pop();\r\n        //记录当前状态的距离，如果是最终状态则返回距离\r\n        int distance = d[t];\r\n        if(t == end) return distance;\r\n        //查询x在字符串中的下标，然后转换为在矩阵中的坐标\r\n        int k = t.find('x');\r\n        int x = k / 3, y = k % 3;\r\n\r\n        for(int i = 0; i < 4; i++)\r\n        {\r\n            //求转移后x的坐标\r\n            int a = x + dx[i], b = y + dy[i];\r\n            //当前坐标没有越界\r\n            if(a >= 0 && a < 3 && b >= 0 && b < 3)\r\n            {\r\n                //转移x\r\n                swap(t[k], t[a * 3 + b]);\r\n                //如果当前状态是第一次遍历，记录距离，入队\r\n                if(!d.count(t))\r\n                {\r\n                    d[t] = distance + 1;\r\n                    q.push(t);\r\n                }\r\n                //还原状态，为下一种转换情况做准备\r\n                swap(t[k], t[a * 3 + b]);\r\n            }\r\n        }\r\n    }\r\n    //无法转换到目标状态，返回-1\r\n    return -1;\r\n}\r\n\r\nint main()\r\n{\r\n    string c, start;\r\n    //输入起始状态\r\n    for(int i = 0; i < 9; i++)\r\n    {\r\n        cin >> c;\r\n        start += c;\r\n    }\r\n\r\n    cout << bfs(start) << endl;\r\n\r\n    return 0;\r\n}\r\n"
         }
       ],
       "145": [

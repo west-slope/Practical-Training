@@ -1,28 +1,34 @@
-// 思路：用二进制掩码表示元素是否被选中，枚举一到 2^n-1 的所有非空子集。
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
 using namespace std;
 
-int main()
-{
+int n;
+vector<int> path;
+
+void printPath() {
+    for (int i = 0; i < (int)path.size(); i++) {
+        if (i) cout << ' ';
+        cout << path[i];
+    }
+    cout << '\n';
+}
+
+// 从 start 开始选择下一个数字，保证当前 path 中的数字递增
+void dfs(int start) {
+    for (int i = start; i <= n; i++) {
+        path.push_back(i);      // 选 i
+        printPath();            // 输出当前组合
+        dfs(i + 1);             // 继续选更大的数
+        path.pop_back();        // 回溯，不选 i
+    }
+}
+
+int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
 
-    int n;
-    if (!(cin >> n)) return 0;
+    cin >> n;
+    dfs(1);
 
-    for (int mask = 1; mask < (1 << n); mask++)
-    {
-        bool first = true;
-        for (int i = 0; i < n; i++)
-        {
-            if (mask >> i & 1) // 掩码第 i 位为一时，把编号 i+1 加入当前子集。
-            {
-                if (!first) cout << ' ';
-                first = false;
-                cout << i + 1;
-            }
-        }
-        cout << "\n";
-    }
+    return 0;
 }
-// 总结：位运算枚举子集时，零掩码代表空集，可按题意决定是否跳过。
