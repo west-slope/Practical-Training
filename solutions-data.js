@@ -1,5 +1,5 @@
 window.XMUOJ_SOLUTIONS_CODE = {
-  "generatedAt": "2026/7/22 11:34:30",
+  "generatedAt": "2026/7/22 11:53:21",
   "solutions": {
     "359": {
       "100": [
@@ -1601,7 +1601,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/362/LinK23.cpp",
           "language": "cpp",
-          "code": "\r\n\r\n#include<iostream>\r\n\r\nusing namespace std;\r\n\r\nint main()\r\n{\r\n    \r\n}"
+          "code": "//枚举算法\r\n//使用bitset来进行二进制位的取反\r\n#include<iostream>\r\n#include<bitset>\r\n#include<cstring>\r\n#include<algorithm>\r\nusing namespace std;\r\n\r\n\r\nint main()\r\n{\r\n    string line;\r\n    bitset<32> lock;//设置32位的二进制位\r\n    int minTimes=1<<30;//初始化按钮次数为无穷大\r\n    cin>>line;\r\n    bitset<32>sourceLock(line);\r\n    cin>>line;\r\n    bitset<32>targetLock(line);\r\n\r\n    int n=line.size();\r\n\r\n    for(int p=0;p<2;p++)//p=0表示最左边按钮不按，p=1表示最左边按\r\n    {//初始化\r\n        lock=sourceLock;\r\n        int times=0;//按下的次数\r\n        int nextButton=p;//初始化下一个按钮的状态，是否按下\r\n\r\n        for(int i=0;i<n;i++)\r\n        {\r\n            if(nextButton==1)\r\n            {\r\n                times++;\r\n                if(i>0)\r\n                {\r\n                    lock.flip(i-1);//左边取反\r\n                }\r\n                lock.flip(i);//中间取反\r\n                if(i<n-1)lock.flip(i+1);\r\n            }\r\n            if(lock[i]!=targetLock[i])nextButton=1;\r\n            else nextButton=0;  \r\n        }\r\n        if(lock==targetLock)\r\n            minTimes=min(minTimes,times);   \r\n    }\r\n    \r\n    if(minTimes==1<<30)\r\n        cout<<\"impossible\"<<endl;\r\n    else\r\n        cout<<minTimes<<endl;\r\n        \r\n    return 0;\r\n}\r\n\r\n//总结：学习了bitset的用法"
         }
       ],
       "LinK24": [
@@ -1625,7 +1625,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/362/LinK26.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\r\nusing namespace std;\r\n\r\nint arr[4];\r\nbool dfs(int u)\r\n{\r\n    int res=0;\r\n    if(u==1)res+=arr[0];\r\n    if(u>=4)\r\n    {\r\n        if(res==24)return 1;\r\n        else return 0;\r\n    }\r\n    for(int i=1;i<=4;i++)\r\n    {\r\n        switch(i)\r\n        {\r\n            case 1:res+=arr[u];return dfs(u+1);break;\r\n            case 2:res-=arr[u];return dfs(u+1);break;\r\n            case 3:res*=arr[u];return dfs(u+1);break;\r\n            case 4:res/=arr[u];return dfs(u+1);break;\r\n        }\r\n    }\r\n\r\n\r\n\r\n}\r\n\r\nint main()\r\n{\r\n    while(cin>>arr[0]&&cin>>arr[1]&&cin>>arr[2]&&cin>>arr[3])\r\n    {\r\n        if(dfs(1))cout<<\"YES\"<<endl;\r\n        else cout<<\"NO\"<<endl;\r\n    }\r\n\r\n    return 0;\r\n}"
+          "code": "//先算两个数\r\n//剩下n-1个数继续先算两个数\r\n#include<iostream>\r\n#include<cmath>\r\nusing namespace std;\r\n\r\n#define EPS 1e-6\r\n#define spacesize 4\r\ndouble inputnumber[spacesize+1];\r\nint arr[4];\r\n\r\nbool isZero(double x)\r\n{\r\n    return fabs(x)<=EPS;\r\n}\r\n\r\nbool count24(double a[],int n)\r\n{\r\n    if(n==1)\r\n    {\r\n        if(isZero(a[0]-24))\r\n            return true;\r\n        else \r\n            return false;\r\n    }\r\n    for(int i=0;i<n-1;i++)\r\n        for(int j=i+1;j<n;j++)//选出两个\r\n        {\r\n            double temp[n-1]={0};\r\n            int iTemp=0;\r\n            for(int k=0;k<n;k++)\r\n                if((k!=i)&&(k!=j))temp[iTemp++]=a[k];// 把选出剩下的存储到iTemp中\r\n            //+\r\n            temp[iTemp]=a[i]+a[j];\r\n            if(count24(temp,n-1))return true;\r\n            //*\r\n            temp[iTemp]=a[i]*a[j];\r\n            if(count24(temp,n-1))return true;\r\n            //-\r\n            temp[iTemp]=a[i]-a[j];\r\n            if(count24(temp,n-1))return true;\r\n            //-\r\n            temp[iTemp]=a[j]-a[i];\r\n            if(count24(temp,n-1))return true;\r\n            //  /\r\n            if(!isZero(a[j]))\r\n            {\r\n                temp[iTemp]=a[i]/a[j];\r\n                if(count24(temp,n-1))return true;\r\n            }\r\n            //  /\r\n            if(!isZero(a[i]))\r\n            {\r\n                temp[iTemp]=a[j]/a[i];\r\n                if(count24(temp,n-1))return true;\r\n            }\r\n        }\r\n    return false;\r\n    \r\n}\r\n\r\n\r\nint main()\r\n{\r\n    while(true)\r\n    {\r\n        bool isEndInput=true;\r\n        for(int i=0;i<spacesize;i++)\r\n        {\r\n            cin>>inputnumber[i];\r\n            if(!isZero(inputnumber[i]))isEndInput=false;\r\n        }\r\n        if(isEndInput)break;\r\n        if(count24(inputnumber,spacesize))\r\n            cout<<\"YES\"<<endl;\r\n        else cout<<\"NO\"<<endl;\r\n    }\r\n    return 0;\r\n}"
         }
       ],
       "LinK27": [
@@ -1705,7 +1705,7 @@ window.XMUOJ_SOLUTIONS_CODE = {
           "variant": 1,
           "path": "solutions/362/LinK36.cpp",
           "language": "cpp",
-          "code": "#include<iostream>\n#include<cmath>\nusing namespace std;\nint a[100001],N,M;\n\nint main()\n{\n    cin>>N>>M;\n    for(int i=0;i<N;i++)\n    {\n        scanf(\"%d\",&a[i]);\n    }\n\n\n}"
+          "code": "//要求连续划分\n#include<iostream>\n#include<cmath>\nusing namespace std;\nint cost[1000001],N,M;\nint total=0,Mincoast=1<<30;\n\nbool isBudgetBigEnough(int m)//判断该预算是否合理\n{\n    int cnt=1,subtotal=0;\n    for(int i=0;i<N;i++)\n    {\n        if(cost[i]>m)return false;\n        if(cost[i]+subtotal>m)\n        {\n            subtotal=cost[i];\n            cnt++;\n            if(cnt>M)return false;\n        }\n        else subtotal+=cost[i];\n    }\n    return true;\n}\n\nint binarySearch(int nums[],int n)//采用二分求最小预算\n{\n    int l=Mincoast,r=total;\n    int lastValidbudget=0;\n    while(l<r)\n    {\n        int mid=l+(r-l)/2;\n        if(isBudgetBigEnough(mid))\n        {\n            r=mid;\n            lastValidbudget=mid;\n        }\n        else{\n            l=mid+1;\n        }\n    }\n    return lastValidbudget;\n}\n\nint main()\n{\n\n    //freopen(\"7.in\",\"r\",stdin);//用于调式代码使用输入输出重定向读入测试数据，并且输出\n    //freopen(\"7o.out\",\"w\",stdout);\n    cin>>N>>M;\n    for(int i=0;i<N;i++)\n    {\n        scanf(\"%d\",&cost[i]);\n        if(cost[i]<Mincoast)Mincoast=cost[i];\n        total+=cost[i];\n    }\n    cout<<binarySearch(cost,N)<<endl;\n\n    return 0;\n}\n\n//总结：最小预算应该在最小值与总和之间，采用二分方法来快速判断是否可行"
         }
       ],
       "LinK37": [
